@@ -1,0 +1,15 @@
+<li><a href="#"><div class="navsectiontitle">PROCESS MANAGEMENT</div></a>
+<ul>
+
+<li><a href="manuales/process_management/fundamentals.php" target="<?php echo $link_target;?>">Process Introduccion</a></li>
+<li><a href="manuales/process_management/process_states.php" target="<?php echo $link_target;?>">Process States</a></li>
+<li><a href="manuales/process_management/ps_command.php" target="<?php echo $link_target;?>">ps command</a></li>
+<li><a href="manuales/process_management/process_control.php" target="<?php echo $link_target;?>">kill & killall commands</a></li>
+<li><a href="manuales/process_management/pgrep_pkill.php" target="<?php echo $link_target;?>">pgrep & pkill commands</a></li>
+<li><a href="manuales/process_management/priorities.php" target="<?php echo $link_target;?>">Process Priorities</a></li>
+
+<br> 
+<li><a href="manuales/process_management/top_htop.php" target="<?php echo $link_target;?>">TOP HTOP</a></li>
+<li><a href="manuales/process_management/runlevels.php" target="<?php echo $link_target;?>">Run Levels</a></li>
+</ul></li>
+

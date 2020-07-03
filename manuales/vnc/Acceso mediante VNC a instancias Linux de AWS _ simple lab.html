@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://simple.uhu.es/blog/?p=438 -->
+<html lang="en-US"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>Acceso mediante VNC a instancias Linux de AWS | simple lab</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://simple.uhu.es/blog/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="http://simple.uhu.es/blog/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="simple lab » Feed" href="http://simple.uhu.es/blog/?feed=rss2">
+<link rel="alternate" type="application/rss+xml" title="simple lab » Comments Feed" href="http://simple.uhu.es/blog/?feed=comments-rss2">
+<link rel="alternate" type="application/rss+xml" title="simple lab » Acceso mediante VNC a instancias Linux de AWS Comments Feed" href="http://simple.uhu.es/blog/?feed=rss2&p=438">
+<link rel="stylesheet" id="twentytwelve-fonts-css" href="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="twentytwelve-style-css" href="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/style.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentytwelve-ie-css'  href='http://simple.uhu.es/blog/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+<![endif]-->
+<script type="text/javascript" src="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/comment-reply.min.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://simple.uhu.es/blog/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://simple.uhu.es/blog/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Instalación del servidor AI Challenge 2011 en una instancia de AWS" href="http://simple.uhu.es/blog/?p=407">
+<link rel="next" title="Importar una imagen de VM en una instancia AWS" href="http://simple.uhu.es/blog/?p=558">
+<meta name="generator" content="WordPress 3.8">
+<link rel="canonical" href="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/Acceso mediante VNC a instancias Linux de AWS _ simple lab.html">
+<link rel="shortlink" href="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/Acceso mediante VNC a instancias Linux de AWS _ simple lab.html">
+	<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+	<style type="text/css" id="twentytwelve-header-css">
+			.site-title,
+		.site-description {
+			position: absolute;
+			clip: rect(1px 1px 1px 1px); /* IE7 */
+			clip: rect(1px, 1px, 1px, 1px);
+		}
+		</style>
+	</head>
+
+<body class="single single-post postid-438 single-format-standard custom-font-enabled">
+<div id="page" class="hfeed site">
+	<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+			<h1 class="site-title"><a href="http://simple.uhu.es/blog/" title="simple lab" rel="home">simple lab</a></h1>
+			<h2 class="site-description">Soluciones simples a problemas reales</h2>
+		</hgroup>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<h3 class="menu-toggle">Menu</h3>
+			<a class="assistive-text" href="http://simple.uhu.es/blog/?p=438#content" title="Skip to content">Skip to content</a>
+			<div class="menu-menu-1-container"><ul id="menu-menu-1" class="nav-menu"><li id="menu-item-20" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20"><a href="http://simple.uhu.es/">Inicio</a></li>
+<li id="menu-item-22" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-22"><a href="http://simple.uhu.es/cursos.html">Cursos</a></li>
+<li id="menu-item-23" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-23"><a href="http://simple.uhu.es/tutoriales.html">Tutoriales</a></li>
+<li id="menu-item-24" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24"><a href="http://simple.uhu.es/proyectos.html">Proyectos</a></li>
+<li id="menu-item-26" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-26"><a href="http://simple.uhu.es/blog">Blog</a></li>
+<li id="menu-item-55" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-55"><a href="https://simple.uhu.es/foro.html">Foro</a></li>
+<li id="menu-item-25" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25"><a href="http://simple.uhu.es/quienes.html">Quienes somos</a></li>
+</ul></div>		</nav><!-- #site-navigation -->
+
+				<a href="http://simple.uhu.es/blog/"><img src="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/simple_small.png" class="header-image" width="418" height="130" alt=""></a>
+			</header><!-- #masthead -->
+
+	<div id="main" class="wrapper">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+			
+				
+	<article id="post-438" class="post-438 post type-post status-publish format-standard hentry category-uncategorized">
+				<header class="entry-header">
+									<h1 class="entry-title">Acceso mediante VNC a instancias Linux de AWS</h1>
+										<div class="comments-link">
+					<a href="http://simple.uhu.es/blog/?p=438#respond" title="Comment on Acceso mediante VNC a instancias Linux de AWS"><span class="leave-reply">Leave a reply</span></a>				</div><!-- .comments-link -->
+					</header><!-- .entry-header -->
+
+				<div class="entry-content">
+			<p>Poder acceder a un ordenador con sistema operativo linux de forma gráfica puede ser interesante en muchos casos. Nos planteamos, por ejemplo el análisis de una red de nodos con la herramienta <a title="Gephi" href="https://gephi.github.io/">Gephi</a>. &nbsp;Para poder ejecutar este software en una instancia de <a title="AWS" href="http://aws.amazon.com/">AWS</a>&nbsp;realizaremos los siguientes pasos. El grupo de seguridad debe permitir el acceso a los puertos 22 (SSH) y 5901 (VNC).</p>
+<p>1. Conectaremos con la instancia mediante SSH.</p>
+<p>2. Instalaremos los paquetes necesarios para el entorno gráfico, incluyendo el servidor VNC.</p>
+<pre>sudo apt-get update
+sudo apt-get install ubuntu-desktop
+sudo apt-get install vnc4server</pre>
+<p>3. Descargaremos el cliente VNC de la siguiente dirección</p>
+<pre>https://www.realvnc.com/download/</pre>
+<p>4. Lanzaremos el servidor SVNC</p>
+<p>Podemos cambiar la geometría y el número de colores con los parámetros “-gometry &nbsp;” y “-depth”. Tenga en cuenta que a mayor definición de color y a mayor tamaño de pantalla la comunicación será algo más lenta.</p>
+<pre>vncserver -depth 24 -geometry 1366x768 :1</pre>
+<p>Para parar el servidor ejecutaremos</p>
+<pre>vncserver -kill :1</pre>
+<p>5. Configuración del cliente VNC</p>
+<p>Para conseguir la misma calidad de color en el cliente debemos modificar una de las opciones de nivel experto. &nbsp;Ejecutaremos VNC Viewer y haremos clic en el botón “<em>Opciones</em>“, a continuación haremos clic en la opción “<em>Avanzadas…</em>“. En la pestaña “<em>Experto</em>“, modificaremos la opción “<em>ColorLevel</em>” que cambiaremos a “<em>full</em>“.</p>
+<p><a href="http://simple.uhu.es/blog/wp-content/uploads/2014/12/2.png"><img class="alignnone size-medium wp-image-440" alt="2" src="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/2-272x300.png" width="272" height="300"></a></p>
+<p>Aceptaremos los cambios y en la ventana principal indicaremos el nombre de nuestro servidor añadiendo al final “:1″ y en cifrado seleccionaremos la opción “<em>Dejar que VNC Server elija</em>“.</p>
+<p><a href="http://simple.uhu.es/blog/wp-content/uploads/2014/12/1.png"><img class="alignnone size-medium wp-image-439" alt="1" src="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/1-300x153.png" width="300" height="153"></a></p>
+<p>Al intentar conectar utilizaremos el usuario por defecto de la instancia de AWS. Es importante que lancemos el servidor con este mismo usuario (en nuestro caso el usuario “<em>Ubuntu</em>“). &nbsp;Es importante revisar los logs del servidor VNC para detectar posibles errores. Al conectar con el cliente VNC utilizaremos el password que introducimos durante la instalación de VNC. Si todo funcionó correctamente deberíamos ver una ventana “<em>xterm</em>” como esta.</p>
+<p><a href="http://simple.uhu.es/blog/wp-content/uploads/2015/01/2_1.png"><img class="alignnone size-medium wp-image-447" alt="2_1" src="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/2_1-300x175.png" width="300" height="175"></a></p>
+<p>6. Instalación del entorno gráfico xfce4<br>
+Si queremos además de esta ventana simple, poder acceder a un escritorio completo, utilizaremos en gestor de ventanas&nbsp;<a href="http://www.xfce.org/">xfce4</a>.&nbsp;Debido a un <a href="https://bugs.launchpad.net/ubuntu/+source/gnome-session/+bug/1251281">bug en gnome-session</a> utilizando VNC hemos optado por instalar este gestor de ventanas algo más ligero. Puede consultar una guía completa de instalación de Xfce en <a href="http://c-nergy.be/blog/?p=4448">esta dirección</a>. Para instalar Xfce seguiremos los siguientes pasos.</p>
+<pre>sudo apt-get install xrdp
+sudo apt-get install xfce4</pre>
+<p>A continuación, editaremos el fichero .vnc/xstartup y comentaremos la última linea y para añadir esta</p>
+<pre># x-window-manager &amp;</pre>
+<pre>xfce4-session &amp;</pre>
+<p>7. Instalación de Gephi</p>
+<p>Para instalar Gephi, podemos utilizar la conexión ssh. Necesitaremos <a title="instalar java." href="https://www.digitalocean.com/community/tutorials/instalar-java-en-ubuntu-con-apt-get-es">instalar java</a>&nbsp;para lo que seguiremos los siguientes pasos:</p>
+<pre>java -version
+sudo apt-get update
+sudo apt-get install default-jre
+sudo apt-get install default-jdk</pre>
+<p>Ahora podemos reiniciar el servidor VNC y volver a conectar con nuestro cliente. Si no hemos encontrado en el camino algún error, deberíamos poder acceder al gestor de ventanas de Xfce4 y descargar Gephi desde su página oficial y descomprimirlo utilizando una ventana “Xterm”. A continuación ejecutaremos “gephi” desde la carpeta “bin”.</p>
+<p><a href="http://simple.uhu.es/blog/wp-content/uploads/2015/01/3.png"><img class="alignnone size-medium wp-image-445" alt="3" src="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/3-300x176.png" width="300" height="176"></a></p>
+<p>Ahora que ya tenemos nuestro cliente y servidor configurados correctamente, podemos crear una imagen AMI que podremos utilizar cada vez que queramos trabajar con Gephi o cualquier otro software gráfico en Linux.</p>
+<p>Referencias:</p>
+<p>1. Ubuntu 13.10 – How to install xrdp in Ubuntu 13.10<br>
+<a title="http://c-nergy.be/blog/?p=4448" href="http://c-nergy.be/blog/?p=4448">http://c-nergy.be/blog/?p=4448</a></p>
+<p>2. Wrong colours with a 16 depth<br>
+<a title="https://www.realvnc.com/pipermail/vnc-list/2000-March/012794.html" href="https://www.realvnc.com/pipermail/vnc-list/2000-March/012794.html">https://www.realvnc.com/pipermail/vnc-list/2000-March/012794.html</a></p>
+<p>3.&nbsp;[SOLVED] Ubuntu Server VNC Server – Gray Screen<br>
+<a title="http://ubuntuforums.org/archive/index.php/t-1707906.html" href="http://ubuntuforums.org/archive/index.php/t-1707906.html">http://ubuntuforums.org/archive/index.php/t-1707906.html</a></p>
+<p>4. Using VNC to Operate a Desktop on Ubuntu 12.04<br>
+<a style="line-height: 1.714285714; font-size: 1rem;" title="https://www.linode.com/docs/applications/remote-desktop/using-vnc-to-operate-a-desktop-on-ubuntu-12-04" href="https://www.linode.com/docs/applications/remote-desktop/using-vnc-to-operate-a-desktop-on-ubuntu-12-04">https://www.linode.com/docs/applications/remote-desktop/using-vnc-to-operate-a-desktop-on-ubuntu-12-04</a></p>
+<p>5.&nbsp;Setting Up VNC on Ubuntu in Amazon EC2 – Page 3 Page 3<br>
+<a title="http://www.serverwatch.com/server-tutorials/setting-up-vnc-on-ubuntu-in-the-amazon-ec2-Page-3.html" href="http://www.serverwatch.com/server-tutorials/setting-up-vnc-on-ubuntu-in-the-amazon-ec2-Page-3.html">http://www.serverwatch.com/server-tutorials/setting-up-vnc-on-ubuntu-in-the-amazon-ec2-Page-3.html</a></p>
+<p>&nbsp;</p>
+					</div><!-- .entry-content -->
+		
+		<footer class="entry-meta">
+			This entry was posted in <a href="http://simple.uhu.es/blog/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a> on <a href="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/Acceso mediante VNC a instancias Linux de AWS _ simple lab.html" title="6:46 pm" rel="bookmark"><time class="entry-date" datetime="2015-01-02T18:46:35+00:00">02/01/2015</time></a><span class="by-author"> by <span class="author vcard"><a class="url fn n" href="http://simple.uhu.es/blog/?author=1" title="View all posts by simple" rel="author">simple</a></span></span>.								</footer><!-- .entry-meta -->
+	</article><!-- #post -->
+
+				<nav class="nav-single">
+					<h3 class="assistive-text">Post navigation</h3>
+					<span class="nav-previous"><a href="http://simple.uhu.es/blog/?p=407" rel="prev"><span class="meta-nav">←</span> Instalación del servidor AI Challenge 2011 en una instancia de AWS</a></span>
+					<span class="nav-next"><a href="http://simple.uhu.es/blog/?p=558" rel="next">Importar una imagen de VM en una instancia AWS <span class="meta-nav">→</span></a></span>
+				</nav><!-- .nav-single -->
+
+				
+<div id="comments" class="comments-area">
+
+	
+	
+									<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://simple.uhu.es/blog/?p=438#respond" style="display:none;">Cancel reply</a></small></h3>
+									<p class="must-log-in">You must be <a href="https://simple.uhu.es/blog/wp-login.php?redirect_to=http%3A%2F%2Fsimple.uhu.es%2Fblog%2F%3Fp%3D438">logged in</a> to post a comment.</p>												</div><!-- #respond -->
+			
+</div><!-- #comments .comments-area -->
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+
+			<div id="secondary" class="widget-area" role="complementary">
+			<aside id="search-2" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="http://simple.uhu.es/blog/">
+				<div>
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="text" value="" name="s" id="s">
+					<input type="submit" id="searchsubmit" value="Search">
+				</div>
+			</form></aside>		<aside id="recent-posts-2" class="widget widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://simple.uhu.es/blog/?p=571">Como montar un servidor web en nuestro PC para realizar pruebas de estrés</a>
+						</li>
+					<li>
+				<a href="http://simple.uhu.es/blog/?p=558">Importar una imagen de VM en una instancia AWS</a>
+						</li>
+					<li>
+				<a href="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/Acceso mediante VNC a instancias Linux de AWS _ simple lab.html">Acceso mediante VNC a instancias Linux de AWS</a>
+						</li>
+					<li>
+				<a href="http://simple.uhu.es/blog/?p=407">Instalación del servidor AI Challenge 2011 en una instancia de AWS</a>
+						</li>
+					<li>
+				<a href="http://simple.uhu.es/blog/?p=332">Auto escalado y balanceo de carga con AWS</a>
+						</li>
+				</ul>
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"></ul></aside><aside id="archives-2" class="widget widget_archive"><h3 class="widget-title">Archives</h3>		<ul>
+			<li><a href="http://simple.uhu.es/blog/?m=201503">March 2015</a></li>
+	<li><a href="http://simple.uhu.es/blog/?m=201501">January 2015</a></li>
+	<li><a href="http://simple.uhu.es/blog/?m=201412">December 2014</a></li>
+	<li><a href="http://simple.uhu.es/blog/?m=201409">September 2014</a></li>
+	<li><a href="http://simple.uhu.es/blog/?m=201408">August 2014</a></li>
+	<li><a href="http://simple.uhu.es/blog/?m=201407">July 2014</a></li>
+	<li><a href="http://simple.uhu.es/blog/?m=201406">June 2014</a></li>
+	<li><a href="http://simple.uhu.es/blog/?m=201312">December 2013</a></li>
+		</ul>
+</aside><aside id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-22"><a href="http://simple.uhu.es/blog/?cat=22" title="View all posts filed under ai games">ai games</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://simple.uhu.es/blog/?cat=6" title="View all posts filed under seguridad">seguridad</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://simple.uhu.es/blog/?cat=1" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+		</ul>
+</aside><aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">Meta</h3>			<ul>
+						<li><a href="https://simple.uhu.es/blog/wp-login.php">Log in</a></li>
+			<li><a href="http://simple.uhu.es/blog/?feed=rss2" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://simple.uhu.es/blog/?feed=comments-rss2" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.org/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.org</a></li>						</ul>
+</aside>		</div><!-- #secondary -->
+		</div><!-- #main .wrapper -->
+	<footer id="colophon" role="contentinfo">
+		<div class="site-info">
+						<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress</a>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type="text/javascript" src="./Acceso mediante VNC a instancias Linux de AWS _ simple lab_files/navigation.js"></script>
+
+</body></html>

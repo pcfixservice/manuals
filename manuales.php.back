@@ -1,0 +1,545 @@
+:/:<meta http-equiv="Content-Type" content="t/html; charset=UTF-8" />
+
+
+
+		 <html>
+
+	<head>
+	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+	<TITLE>Manuales</TITLE>
+	<link href="stylesheets/common.css" type="text/css" rel="stylesheet">
+	</head>
+
+	<body class='navbar'><div id="hdr"><div id="hdr_container">
+	<br>
+	<p id="hdr_home"><h1><FONT COLOR=blue>AdvTI-Solutions</FONT> <span>Manuales</span></h1></a></p>
+	<br><br>
+	</div>
+	</div>
+
+	<div class="navsection"><div class="navsectiontitle">Manuales</div><div class="navsectionlinks"><ul class="navsectionlinks">
+	<li><a href="manuales/apache2/apache2.html">Apache Servidor</a></li>
+	<li><a href="dns.html">DNS System</a></li>
+	<li><a href="manuales/postfix/postfix.html">Postfix</a></li>
+	<li><a href="manuales/squirremail/squirremail.html">SquirrelMail</a></li>
+	<li><a href="manuales/usb/usb.php">USB Bootable de Windows</a></li>
+	<li><a href="manuales/mdk3/mdk3.html">MDK3</a></li>
+
+	<script src="js/jquery-1.7.1.min.js" type="text/javascript" ></script>
+		<script type="text/javascript">
+		$(function(){
+			$('#menu li a').click(function(event){
+				var elem = $(this).next();
+				if(elem.is('ul')){
+					event.preventDefault();
+					$('#menu ul:visible').not(elem).slideUp();
+					elem.slideToggle();
+				}
+			});
+		});
+		</script>
+		
+	<style type="text/css" media="screen">
+			#menu{
+			}
+			a{
+				text-decoration:none;
+				font-family:'Helvetica', Arial, sans-serif;
+				font-size:13px;
+				padding: 10px 5px;
+			}
+			#menu a:hover{
+			}
+			#menu ul a{background-color:none;}
+			#menu ul a:hover{
+				background-color:#EFFBF2;
+				color:#2961A9;
+				text-shadow:none;
+			}
+			ul{
+				background-color:none;
+				margin:0;
+				padding:10;
+				width:400px;
+				list-style:none;
+			}
+			#menu ul{background-color:none;}
+			#menu li ul {display:none;}
+		</style>
+<ul id="menu"> 
+
+<li><a href="#"><div class="navsectiontitle">AWK_Language</div></a>
+ <ul>
+ <li><a href="manuales/awk/awk.php" target="<?php echo $link_target;?>">Introduction to awk programing</a></li>
+<li><a href="manuales/awk/awk.pdf" target="<?php echo $link_target;?>">AWK.pdf</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">Apache Tomcat</div></a>
+ <ul>
+ <li><a href="manuales/tomcat/tomcat.php" target="<?php echo $link_target;?>">Apache Tomcat 7 Administration Guide</a></li>
+ <li><a href="manuales/tomcat/maven.php" target="<?php echo $link_target;?>">Using Maven in Linux</a></li>
+</ul></li>
+
+
+
+
+<li><a href="#"><div class="navsectiontitle">ACCESS CONTROL (permissions)</div></a>
+ <ul>
+<i><a href="manuales/control_access/confussion.php" target="<?php echo $link_target;?>">Linux file permission confusion part 1 & 2</a></li>
+<br>
+
+
+<li><a href="manuales/control_access/introduction.php" target="<?php echo $link_target;?>">Introduction and Basic Concepts</a></li>
+<li><a href="manuales/control_access/umask.php" target="<?php echo $link_target;?>">umask</a></li>
+<li><a href="manuales/control_access/visudo.php" target="<?php echo $link_target;?>">Visudo CentOS Debian</a></li>
+<li><a href="manuales/control_access/setuid.php" target="<?php echo $link_target;?>">Setuid</a></li>
+<li><a href="manuales/control_access/setguid.php" target="<?php echo $link_target;?>">Setguid</a></li>
+<li><a href="manuales/control_access/stickybit.php" target="<?php echo $link_target;?>">Sticky Bit</a></li>
+<li><a href="manuales/control_access/file_attributes.php" target="<?php echo $link_target;?>">File Attributes</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">BOOT PROCESS, initramfs, init, SysVinit, Systemd, etc</div></a><ul>
+<li><a href="manuales/boot/boot_linux.php" target="<?php echo $link_target;?>">Boot Process Linux</a></li>
+<li><a href="manuales/boot/bootchart.pdf" target="<?php echo $link_target;?>">Monitoring Linux system startup Compare different Linux startup mechanisms</a></li>
+<li><a href="manuales/boot/uefi.php" target="<?php echo $link_target;?>">UEFI</a></li>
+<li><a href="manuales/boot/grub_legacy.php" target="<?php echo $link_target;?>">grub_legacy</a></li>
+<br>
+<br>
+<li><a href="manuales/boot/grub2_basics.pdf" target="<?php echo $link_target;?>">grub2_basics.pdf</a></li>
+<li><a href="manuales/boot/grub2.php" target="<?php echo $link_target;?>">GRUB 2 Configuration</a></li>
+<li><a href="manuales/boot/grub2_console.php" target="<?php echo $link_target;?>">GRUB 2 Console & Rescue Mode</a></li>
+<br>
+<br>
+<li><a href="manuales/boot/systemd.php" target="<?php echo $link_target;?>">Systemd Suse Documentation</a></li>
+<li><a href="manuales/boot/systemd_arch.php" target="<?php echo $link_target;?>">Systemd Arch Linux Documentation</a></li>
+<li><a href="manuales/boot/custom_targets.php" target="<?php echo $link_target;?>">How to create custom targets Red Hat Manual</a></li
+<li><a href="manuales/boot/systemd-vs-sysvinit-cheatsheet.pdf" target="<?php echo $link_target;?>">systemd-vs-sysvinit-cheatsheet.pdf</a></li>
+</ul></li>
+
+<LI><A HREF="#"><DIV CLASS="NAVSECTIONTITLE">COMANDOS GENERALES</DIV></A>
+<ul>
+<li><a href="manuales/comandos_generales/date.php" target="<?php echo $link_target;?>">DATE</a></li>
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">CRONTABs</div></a>
+<ul>
+<li><a href="manuales/cron/cron_linux.php" target="<?php echo $link_target;?>">CRONTABS LINUX</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">DOCKER CONTAINERS</div></a><ul>
+<li><a href="manuales/docker/volumes.php" target="<?php echo $link_target;?>">Volumen Administration</a></li>
+<br>
+<br>
+DB Docker Administration Tips & tricks
+<br>
+<li><a href="manuales/docker/dbs/mysql/mysql.pdf" target="<?php echo $link_target;?>">mysql installation</a></li>
+
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">DNS Server</div></a><ul>
+<li><a href="manuales/dns_bind/bind.php" target="<?php echo $link_target;?>">BIND DNS Basic Configuration IBM manual</a></li>
+</ul></li>
+
+
+
+<li><a href="#"><div class="navsectiontitle">DISK MANAGEMENT...Hard Disks (and Other Secondary Storage)</div></a>
+<ul>
+<li><a href="manuales/disk/mbr.php" target="<?php echo $link_target;?>">Master Boot Record..(using dd, sfdisk,parted..)</a></li>
+<li><a href="manuales/disk/gpt.php" target="<?php echo $link_target;?>">The Modern Method (GPT Partitions)</a></li>
+<li><a href="manuales/disk/mass_storage.php" target="<?php echo $link_target;?>">Mass Storage and Naming Conventions</a></li>
+<li><a href="manuales/disk/partitions.php" target="<?php echo $link_target;?>">Partitioning Disks..Fundamentals and Sugestions</a></li>
+<li><a href="manuales/disk/fdisk.php" target="<?php echo $link_target;?>">fdisk</a></li>
+<li><a href="manuales/disk/parted.php" target="<?php echo $link_target;?>">parted</a></li>
+<li><a href="manuales/disk/gdisk.php" target="<?php echo $link_target;?>">gdisk</a></li>
+<li><a href="manuales/disk/kpartx.php" target="<?php echo $link_target;?>">Loop Devices and kpartx</a></li>
+<li><a href="manuales/disk/format_disk.php" target="<?php echo $link_target;?>">Format disc, usb</a></li>
+<li><a href="manuales/disk/montardiscos.php" target="<?php echo $link_target;?>">Montar Discos</a></li>
+<li><a href="manuales/disk/quota.php" target="<?php echo $link_target;?>">Disk Quotas</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">Bash Shell, sed, awk  </div></a>
+<ul>
+
+<font color="red">BASH SHELL</font><br>
+<li><a href="manuales/editors/shell_bash.php" target="<?php echo $link_target;?>">Especial variables bash shell</a></li>
+<li><a href="manuales/editors/shell_programming.php" target="<?php echo $link_target;?>">Bash Shell Concepts Interskill Course</a></li>
+<li><a href="manuales/editors/shell_flow_control.php" target="<?php echo $link_target;?>">Bash shell flow control Interskill Course</a></li>
+<li><a href="manuales/editors/set_command.php" target="<?php echo $link_target;?>">Internal SET  Command</a></li>
+<li><a href="manuales/editors/shell_advanced_features.php" target="<?php echo $link_target;?>">Bash shell Advanced features Interskill Course</a></li>
+
+
+
+<br><br>
+
+
+<li><a href="manuales/editors/vi.php" target="<?php echo $link_target;?>">VI</a></li>
+<li><a href="manuales/editors/streams-pipes-redirects.php" target="<?php echo $link_target;?>">Streams Pipes Redirects</a></li>
+<li><a href="manuales/editors/l-lpic1-v3-103-4-pdf.pdf" target="<?php echo $link_target;?>">Streams Pipes Redirects.pdf</a></li>
+<li><a href="manuales/editors/quoting_and_globing.php" target="<?php echo $link_target;?>">File globbing and Quoting</a></li>
+<li><a href="manuales/file_management/gzip_tar.php" target="<?php echo $link_target;?>">GZIP-GUNZIP    TAR FILES</a></li>
+<li><a href="manuales/file_management/sed.php" target="<?php echo $link_target;?>">Stream Editor  SED</a></li>
+<li><a href="manuales/file_management/find.php" target="<?php echo $link_target;?>">Find Utility</a></li>
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">FILE MANAGEMENT..copying, sinchronizing, moving.. </div></a> <ul>
+
+<li><a href="manuales/file_management/rsync.php" target="<?php echo $link_target;?>">RSYNC Command</a></li>
+<li><a href="manuales/file_systems_linux/comparison_fs.php" target="<?php echo $link_target;?>">FS Comparison and measures</a></li>
+<br><br>
+
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">FILE SYSTEM  Care and feeding</div></a> <ul>
+
+
+<font color="red">FHS</font><br>
+<li><a href="manuales/file_systems_linux/fhs-2.3.pdf" target="<?php echo $link_target;?>">File System Hierarchy Standard FHS</a></li>
+<li><a href="manuales/file_systems_linux/comparison_fs.php" target="<?php echo $link_target;?>">FS Comparison and measures</a></li>
+<br><br>
+
+
+<font color="red">Extendend File Systems</font><br>
+<li><a href="manuales/file_systems_linux/overview.php" target="<?php echo $link_target;?>">Introduction and Ext. File System History</a></li>
+
+<li><a href="manuales/file_systems_linux/extf_redhat_manual.php" target="<?php echo $link_target;?>">Red Hat Manual Extended FS</a></li>
+<li><a href="manuales/file_systems_linux/creating_ext.php" target="<?php echo $link_target;?>">Creating Ext. File Systems</a></li>
+<li><a href="manuales/file_systems_linux/fsck.php" target="<?php echo $link_target;?>">fsck, e2fsck repairing ext. file systems </a></li>
+<li><a href="manuales/file_systems_linux/debugfs.php" target="<?php echo $link_target;?>">debugfs Ext File System Debugger</a></li>
+<li><a href="manuales/file_systems_linux/tune2fs.php" target="<?php echo $link_target;?>">tune2fs command</a></li>
+<br><br>
+
+
+<font color="red">REISER File System</font><br>
+<li><a href="manuales/file_systems_linux/reiserfs.php" target="<?php echo $link_target;?>">Reiserfs  File System</a></li>
+<br><br>
+
+<font color="red">XFS File System Management</font><br>
+<li><a href="manuales/file_systems_linux/xfs.php" target="<?php echo $link_target;?>">XFS  File System</a></li>
+<li><a href="manuales/file_systems_linux/xfs_redhat.php" target="<?php echo $link_target;?>">XFS Red Hat Manual</a></li>
+<li><a href="manuales/file_systems_linux/quotas.php" target="<?php echo $link_target;?>">Activate & Configure Quotas</a></li>
+<br><br>
+
+
+<font color="red">BTRFS File System Management</font><br>
+<li><a href="manuales/file_systems_linux/btrfs.php" target="<?php echo $link_target;?>">btrfs  File System</a></li>
+<li><a href="manuales/file_systems_linux/btrfs_redhat.php" target="<?php echo $link_target;?>">BTRFS  Red Hat Manual</a></li>
+
+
+<font color="red">Virtual File Systems</font><br>
+<li><a href="manuales/file_systems_linux/tmpfs.php" target="<?php echo $link_target;?>">tmpfs  File System Vs. RAM Disk</a></li>
+<br>
+<li><a href="manuales/file_systems_linux/swap.php" target="<?php echo $link_target;?>">Swap Space</a></li>
+<li><a href="manuales/file_systems_linux/mount.php" target="<?php echo $link_target;?>">Mounting File Systems</a></li>
+<li><a href="manuales/file_systems_linux/labels_uuids.php" target="<?php echo $link_target;?>">Labels and UUIDs</a></li>
+<li><a href="manuales/file_systems_linux/dd.php" target="<?php echo $link_target;?>">dd command</a></li>
+
+
+
+
+         <li><a href="manuales/file_systems_linux/proc.php" target="<?php echo $link_target;?>">/proc</a></li>
+         <li><a href="manuales/file_systems_linux/types.php" target="<?php echo $link_target;?>">File Systems Types</a></li>
+
+        <li><a href="manuales/file_systems_linux/filesystem.php" target="<?php echo $link_target;?>">Filesystem Maintenance</a></li>
+</ul></li>
+
+
+ <li><a href="#"><div class="navsectiontitle">HARDWARE & SOFTWARE INFORMATION UTILITIES</div></a>
+        <ul>
+<li><a href="manuales/hardware_info/hardware.php" target="<?php echo $link_target;?>">lsusb, lspci, lscpu</a></li>
+<li><a href="manuales/hardware_info/dmidecode.php" target="<?php echo $link_target;?>">dmidecode utility</a></li>
+<li><a href="manuales/hardware_info/udev.php" target="<?php echo $link_target;?>">udev</a></li>
+<li><a href="manuales/hardware_info/modprobe.php" target="<?php echo $link_target;?>">modprobe</a></li>
+<li><a href="manuales/hardware_info/sys.php" target="<?php echo $link_target;?>">/sys filesystem</a></li>
+<li><a href="manuales/hardware_info/dbus.php" target="<?php echo $link_target;?>">Device Integration (D-Bus, HAL,udisk)</a></li>
+
+
+</ul></li>
+
+
+</li><li><a href="#"><div class="navsectiontitle">USER  MANAGEMENT</div></a>
+        <ul>
+
+<li><a href="manuales/user_management/ADI-usuarios-y-grupos-en-linux.pdf" target="<?php echo $link_target;?>">ADI-usuarios-y-grupos-en-linux.pdf</a></li>
+<br><br>
+<li><a href="manuales/user_management/users_groups_redhat.php" target="<?php echo $link_target;?>">Users and Groups Red Hat Manual Administration</a></li>
+<br>
+<br>
+<li><a href="manuales/user_management/scripts_user_creation.php" target="<?php echo $link_target;?>">Scripts User Creation Linux</a></li>
+<li><a href="manuales/user_management/scripts_dir_creation.php" target="<?php echo $link_target;?>">Scripts Directory Creation Linux</a></li>
+<br>
+
+<li><a href="manuales/user_management/adding_users.php" target="<?php echo $link_target;?>">Adding Users Accounts</a></li>
+<li><a href="manuales/user_management/etc_passwd.php" target="<?php echo $link_target;?>">Understanding /etc/passwd</a></li>
+<li><a href="manuales/user_management/etc_group.php" target="<?php echo $link_target;?>">Understanding /etc/group</a></li>
+<li><a href="manuales/user_management/usermod.php" target="<?php echo $link_target;?>">usermod</a></li>
+<li><a href="manuales/user_management/passwd_command.php" target="<?php echo $link_target;?>">passwd command</a></li>
+<li><a href="manuales/user_management/chage.php" target="<?php echo $link_target;?>">chage command</a></li>
+
+
+<li><a href="manuales/user_management/password-recovery.php" target="<?php echo $link_target;?>">Password Recovery   /etc/passwd</a></li>
+
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">FTP</div></a>
+<ul>
+<li><a href="manuales/ftp/ftp.php" target="<?php echo $link_target;?>">FTP en linea de Comandos</a></li>
+<li><a href="manuales/ftp/script_expect.php" target="<?php echo $link_target;?>">Script para subir archivos con Expect</a></li>
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">JAVA</div></a>
+<ul>
+<li><a href="manuales/java/java.php" target="<?php echo $link_target;?>">Instalacion de Java</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">KERNEL LINUX</div></a>
+<ul>
+<li><a href="manuales/kernel/linux_kernel_introduction_ibm.pdf" target="<?php echo $link_target;?>">Anatomy of the Linux kernel IBM Developer Work</a></li>
+<li><a href="manuales/hardware_info/modprobe.php" target="<?php echo $link_target;?>">modprobe</a></li>
+<li><a href="manuales/kernel/kernel_modules.php" target="<?php echo $link_target;?>">kernel modules Red Hat Manual</a></li>
+<li><a href="manuales/kernel/kernel_compilation.php" target="<?php echo $link_target;?>">How to compile the Kernel</a></li>
+<li><a href="manuales/lpic_101-102/Lpci_101_mcmcse.pdf" target="<?php echo $link_target;?>">PDF LPIC 101-102 mcmcse</a></li>
+<li><a href="manuales/lpic_101-102/lpic_101_gitub.pdf" target="<?php echo $link_target;?>">PDF LPIC 101-102 GITUB</a></li>
+<li><a href="manuales/lpic_101-102/commands.php" target="<?php echo $link_target;?>">Commands lpic 101 102</a></li>
+</ul></li>
+
+
+
+<li><a href="#"><div class="navsectiontitle">LPIC</div></a>
+<ul>
+<li><a href="manuales/lpic_101-102/lpic_101.v4.pdf" target="<?php echo $link_target;?>">PDF LPIC 101 Version 4</a></li>
+<li><a href="manuales/lpic_101-102/LPIC-1.pdf" target="<?php echo $link_target;?>">PDF LPIC 101-102</a></li>
+<li><a href="manuales/lpic_101-102/Lpci_101_mcmcse.pdf" target="<?php echo $link_target;?>">PDF LPIC 101-102 mcmcse</a></li>
+<li><a href="manuales/lpic_101-102/lpic_101_gitub.pdf" target="<?php echo $link_target;?>">PDF LPIC 101-102 GITUB</a></li>
+<li><a href="manuales/lpic_101-102/commands.php" target="<?php echo $link_target;?>">Commands lpic 101 102</a></li>
+
+
+<li><div class="navsectiontitle">LPIC-1 Linux Certification Study Guide</div></a>
+
+<li><a href="manuales/lpic_101-102/practical_guide_ibm/introduction.pdf" target="<?php echo $link_target;?>">Introduction</a></li>
+<li><a href="manuales/lpic_101-102/practical_guide_ibm/Chapter-1-Topic-101-System-Architecture.pdf" target="<?php echo $link_target;?>">System Architecture</a></li>
+</ul></li>
+<LI><A HREF="#"><DIV CLASS="NAVSECTIONTITLE">NETWORK MANAGEMENT & CONFIGURATION</DIV></A>
+<ul>
+<li><a href="manuales/network_configuration/bonding_interfaces.php" target="<?php echo $link_target;?>">Bonding Interfaces Configuration</a></li>
+<li><a href="manuales/network_configuration/hostapd_ubuntu.php" target="<?php echo $link_target;?>">Hostapd  En Ubuntu</a></li>
+<li><a href="manuales/network_configuration/centos7_network_setup.php" target="<?php echo $link_target;?>">Interface_Configuration_CentOS7</a></li>
+<li><a href="manuales/network_configuration/tips_utilities.php" target="<?php echo $link_target;?>">Tips & Utilities</a></li>
+<li><a href="manuales/network_configuration/connect_wifi_terminal.php" target="<?php echo $link_target;?>">Connect to wifi through Terminal</a></li>
+
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">LVM</div></a>
+<ul>
+<li><a href="manuales/lvm2/commands_lvm.php" target="<?php echo $link_target;?>">Commands for use in LVM2 Administration</a></li>
+<br>
+<li><a href="manuales/lvm2/lvm_tecmint_tutorial.php" target="<?php echo $link_target;?>">LVM 2 Tutorial Tecmint</a></li>
+<li><a href="manuales/lvm2/lvm_tecmint_tutorial_2.php" target="<?php echo $link_target;?>">How to Extend/Reduce LVM’s (Logical Volume Management) – Part II</a></li>
+<li><a href="manuales/lvm2/lvm_tecmint_tutorial_3.php" target="<?php echo $link_target;?>">How to Take ‘Snapshot of Logical Volume and Restore’  Part III</a></li>
+<li><a href="manuales/lvm2/lvm_tecmint_tutorial_4.php" target="<?php echo $link_target;?>">Setup Thin Provisioning Volumes in LVM  Part IV</a></li>
+<li><a href="manuales/lvm2/lvm_tecmint_tutorial_5.php" target="<?php echo $link_target;?>">Manage Multiple Logical Volume Management Disks using Striping I/O</a></li>
+<li><a href="manuales/lvm2/lvm_tecmint_tutorial_6.php" target="<?php echo $link_target;?>">Migrating LVM Partitions to New Logical Volume (Drive) – Part VI</a></li>
+<br>
+<li><a href="manuales/lvm2/red_hat_pvs.php" target="<?php echo $link_target;?>">Red Hat LVM Physical Volume Administration</a></li>
+<li><a href="manuales/lvm2/red_hat_vgs.php" target="<?php echo $link_target;?>">Red Hat LVM Volume Group  Administration</a></li>
+<li><a href="manuales/lvm2/red_hat_lvs.php" target="<?php echo $link_target;?>">Red Hat LVM Logical Volume  Administration</a></li>
+</ul></li>
+
+
+
+<li><a href="#"><div class="navsectiontitle">MYSQL</div></a>
+<ul>
+<li><a href="especialidades/angiologia/buscador/ingreso.php" target="<?php echo $link_target;?>">Angiología</a></li>
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">NAGIOS 4</div></a>
+<ul>
+<li><a href="manuales/nagios4/nagios4.php" target="<?php echo $link_target;?>">Installation Procedure in Ubuntu</a></li>
+<li><a href="manuales/nagios4/trouble.php" target="<?php echo $link_target;?>">Trouble-shooting</a></li>
+<li><a href="manuales/nagios4/check_health_mysql.php" target="<?php echo $link_target;?>">Mysql checking</a></li>
+
+
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">UNIX</div></a>
+<ul>
+<li><a href="manuales/unix/control-m.php" target="<?php echo $link_target;?>">Control M</a></li>
+<li><a href="manuales/unix/hmc.php" target="<?php echo $link_target;?>">HMC</a></li>
+<li><a href="manuales/unix/informix.php" target="<?php echo $link_target;?>">Informix</a></li>
+<li><a href="manuales/unix/Client_install_guide.pdf" target="<?php echo $link_target;?>">Informix Client SDK - Informix Connect PDF</a></li>
+<li><a href="manuales/unix/llaves.php" target="<?php echo $link_target;?>">Llaves ssh validacion</a></li>
+<li><a href="manuales/unix/informix.php" target="<?php echo $link_target;?>">Validacion Base de Datos</a></li>
+
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">PACKAGE MANAGEMENT</div></a>
+<ul>
+<li><a href="manuales/package_management/rpm.php" target="<?php echo $link_target;?>">RPMs</a></li>
+<li><a href="manuales/package_management/deb.php" target="<?php echo $link_target;?>">DEBs</a></li>
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">PROCESS MANAGEMENT</div></a>
+<ul>
+
+<li><a href="manuales/process_management/fundamentals.php" target="<?php echo $link_target;?>">Process Introduccion</a></li>
+<li><a href="manuales/process_management/process_states.php" target="<?php echo $link_target;?>">Process States</a></li>
+<li><a href="manuales/process_management/ps_command.php" target="<?php echo $link_target;?>">ps command</a></li>
+<li><a href="manuales/process_management/process_control.php" target="<?php echo $link_target;?>">kill & killall commands</a></li>
+<li><a href="manuales/process_management/pgrep_pkill.php" target="<?php echo $link_target;?>">pgrep & pkill commands</a></li>
+<li><a href="manuales/process_management/priorities.php" target="<?php echo $link_target;?>">Process Priorities</a></li>
+
+<br> 
+<li><a href="manuales/process_management/top_htop.php" target="<?php echo $link_target;?>">TOP HTOP</a></li>
+<li><a href="manuales/process_management/runlevels.php" target="<?php echo $link_target;?>">Run Levels</a></li>
+</ul></li>
+
+
+
+<li><a href="#"><div class="navsectiontitle">PERFORMANCE MEASUREMENTS</div></a>
+<ul>
+
+<li><a href="manuales/measurement/introduction.php" target="<?php echo $link_target;?>">Linux Performance Monitoring and Tuning Introduction</a></li>
+<li><a href="manuales/measurement/vmstat.php" target="<?php echo $link_target;?>">vmstat</a></li>
+<li><a href="manuales/measurement/iftop_iptraf.php" target="<?php echo $link_target;?>">iftop and iptraf commands to analyse network traffic</a></li>
+<li><a href="manuales/measurement/sar.php"  target="<?php echo $link_target;?>">sar command</a></li>
+<li><a href="manuales/process_management/process_control.php" target="<?php echo $link_target;?>">kill & killall commands</a></li>
+<li><a href="manuales/process_management/pgrep_pkill.php" target="<?php echo $link_target;?>">pgrep & pkill commands</a></li>
+<li><a href="manuales/process_management/priorities.php" target="<?php echo $link_target;?>">Process Priorities</a></li>
+
+<br>
+<li><a href="manuales/process_management/top_htop.php" target="<?php echo $link_target;?>">TOP HTOP</a></li>
+<li><a href="manuales/process_management/runlevels.php" target="<?php echo $link_target;?>">Run Levels</a></li>
+</ul></li>
+
+
+
+<li><a href="#"><div class="navsectiontitle">RAID Administration</div></a><ul>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte1.php" target="<?php echo $link_target;?>">Tecmint Tutorial Introduction</a></li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte2.php" target="<?php echo $link_target;?>">Tecmint Tutorial Creating Software RAID0 (Stripe) part 2</a></li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte3.php" target="<?php echo $link_target;?>">Setting up RAID 1 (Mirroring) using ‘Two Disks’ Part 3</a></li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte4.php" target="<?php echo $link_target;?>">Creating RAID 5 (Striping with Distributed Parity) Part 4</a></li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte5.php" target="<?php echo $link_target;?>">RAID Level 6 (Striping with Double Distributed Parity)  part 5</a></li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte6.php" target="<?php echo $link_target;?>">Setting Up RAID 10 or 1+0 (Nested) in Linux – Part 6</a></li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte7.php" target="<?php echo $link_target;?>">Growing an Existing RAID  and Removing Failed Disks  Part 7</a></li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte8.php" target="<?php echo $link_target;?>">How to Recover Data and Rebuild Failed Software RAID’s – Part 8</li>
+<li><a href="manuales/raid/raid_tecmint_tutorial_parte9.php" target="<?php echo $link_target;?>">How to Manage Software RAID’s  with ‘Mdadm’ Tool – Part 9</li>
+
+
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">RSYSLOG SERVER</div></a><ul>
+<li><a href="manuales/rsyslog/redhat_manual.php" target="<?php echo $link_target;?>">Rsyslog Server Red Hat Manual</a></li>
+</ul></li>
+
+
+
+
+
+<li><a href="#"><div class="navsectiontitle">SNMP Installation</div></a>
+<ul>
+<li><a href="manuales/snmp/snmp.php" target="<?php echo $link_target;?>">SNMP INSTALLATION</a></li>
+</ul></li>
+
+
+
+
+
+
+
+
+<li><a href="#"><div class="navsectiontitle">VM PROCEDURES</div></a>
+<ul>
+<li><a href="manuales/wm/general_procedures.php" target="<?php echo $link_target;?>">General Procedures</a></li>
+<br>
+<br>
+<li><a href="manuales/oracle/oracle.php" target="<?php echo $link_target;?>">Oracle Management</a></li>
+<br>
+<br>
+<li><a href="manuales/unix_wm/unix_wm.php" target="<?php echo $link_target;?>">Unix Management</a></li>
+
+
+
+
+</ul></li>
+
+<li><a href="#"><div class="navsectiontitle">SERVIDOR SSH</div></a>
+<ul>
+<li><a href="manuales/ssh/password.php" target="<?php echo $link_target;?>">Acceso sin Pedir Password</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">SERVIDOR VNC</div></a>
+<ul>
+<li><a href="manuales/vnc/vnc.php" target="<?php echo $link_target;?>">Configuracion sin interfaz grafica</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">SECURITY</div></a>
+<ul>
+
+<li><a href="manuales/security/acls_linux.php" target="<?php echo $link_target;?>">ACLs Linux</a></li>
+<li><a href="manuales/security/iptables.php" target="<?php echo $link_target;?>">iptables</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">SCRIPTS</div></a>
+<ul>
+
+<li><a href="manuales/scripts/scripts.php" target="<?php echo $link_target;?>">Scripts Bash</a></li>
+<li><a href="manuales/security/iptables.php" target="<?php echo $link_target;?>"></a></li>
+</ul></li>
+
+
+
+
+
+<li><a href="#"><div class="navsectiontitle">MULTISEAT-LINUX</div></a>
+<ul>
+<li><a href="manuales/sismu/loader.php" target="<?php echo $link_target;?>">How to Change Boot Options with the GRUB Bootloader</a></li>
+<li><a href="manuales/sismu/Manual_Multiplatform-7.2.4-x86_64-2015.php" target="<?php echo $link_target;?>">Manual Multiplatform 2015 7.2 x86_64 </a></li>
+<li><a href="manuales/sismu/multiseat_ubuntu10.04.pdf" target="<?php echo $link_target;?>">Manual MultiSeat Ubuntu 10.04 </a></li>
+<li><a href="manuales/sismu/dl-driver.php" target="<?php echo $link_target;?>">Userful DL-Driver Software for Linux </a></li>
+</ul></li>
+
+
+
+
+<li><a href="#"><div class="navsectiontitle">ENTERTAINMENT</div></a>
+<ul>
+<li><a href="entertainment/letters/paul_mac/paul.php" target="<?php echo $link_target;?>">Paul Mac</a></li>
+<li><a href="entertainment/letters/olivia/olivia.php" target="<?php echo $link_target;?>">Olivia Newton John</a></li>
+</ul></li>
+
+
+<li><a href="#"><div class="navsectiontitle">X WINDOW SYSTEM</div></a> <ul>
+
+
+<font color="red">Xorg Installation</font><br>
+<li><a href="manuales/X/xorg_intall_centos7.php" target="<?php echo $link_target;?>">Xorg installation in Centos 7</a></li>
+<li><a href="manuales/file_systems_linux/comparison_fs.php" target="<?php echo $link_target;?>">FS Comparison and measures</a></li>
+<br><br>
+
+
+<font color="red">Extendend File Systems</font><br>
+<li><a href="manuales/file_systems_linux/overview.php" target="<?php echo $link_target;?>">Introduction and Ext. File System History</a></li>
+
+<li><a href="manuales/file_systems_linux/extf_redhat_manual.php" target="<?php echo $link_target;?>">Red Hat Manual Extended FS</a></li>
+<li><a href="manuales/file_systems_linux/creating_ext.php" target="<?php echo $link_target;?>">Creating Ext. File Systems</a></li>
+<li><a href="manuales/file_systems_linux/fsck.php" target="<?php echo $link_target;?>">fsck, e2fsck repairing ext. file systems </a></li>
+<li><a href="manuales/file_systems_linux/debugfs.php" target="<?php echo $link_target;?>">debugfs Ext File System Debugger</a></li>
+<li><a href="manuales/file_systems_linux/tune2fs.php" target="<?php echo $link_target;?>">tune2fs command</a></li>
+<br><br>
+</ul></li>
+
+
+</body>
+</html>
+

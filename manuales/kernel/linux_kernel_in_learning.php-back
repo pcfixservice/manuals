@@ -1,0 +1,226 @@
+<meta http-equiv="Content-Type" content="t/html; charset=UTF-8" />
+
+		 <html>
+
+	<head>
+	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+	<TITLE></TITLE>
+	<link href="stylesheets/common.css" type="text/css" rel="stylesheet">
+	</head>
+
+	<p id="hdr_home"><h1><FONT COLOR=blue>Kernel</FONT> <span>Linux</span></h1></a></p>
+	</div>
+
+		
+<style type="text/css" media="screen">
+#wrapper{
+lign: left;
+  font-family: 'Bowlby One SC', cursive;
+  margin: adjust;
+  background: white;
+  font-size: 1vw;
+}
+
+
+<img src="" width="600" height="300" /></a>
+</style>
+
+<font color="red"></font>
+
+<pre>  
+<font color="red"></font>
+<font color="blue"></font>
+<u></u>
+<font size="6"></font>
+<ul id="wrapper"> 
+
+
+<li>
+
+<font color="blue">The kernel is a program</font>
+Often with a name like vmlinuz-<Kernel Version>
+loaded a run by a bootloader, like GRUB
+Has command-line parameters
+
+<font color="blue">The kernel is an API</font>
+System calls
+Virtual File system entries
+	.proc
+	.sys
+	.debugfs
+Device files (system calls)
+
+<font color="blue">The kernel is a Gatekeeper (Guardian)</font
+Enforces privileges (capabilities)
+Executes supervisor instructions
+Implements security policies
+Controls access to hardware and other resources
+
+<font color="blue">The kernel is modular</font>
+Kernel image is relatively small
+Kernel image is sufficient to boot to user space
+Optional functionality is added after booting
+It allows for alternatives; for example, loading only drivers required for present hardware
+
+<font color="blue">System calls</font>
+* System calls are functions implemented by the kernel and meant to be called from user space.
+* There are about 300
+* See include/uapi/asm-generic/unistd.h
+* They are documented in man section 2
+* They are called through the standard libray (e.g., libc).  System calls are generally not invoked directly, but rather via wrapper functions in glibc 
+       (or perhaps some other library).  For details of direct invocation of a system call, see intro(2).  Often, but not always, the name of the wrapper 
+       function is the same as the name of the system call that it invokes. For example, glibc contains a function chdir() which invokes the underlying 
+       "chdir" system call.
+* Standard library uses architecture-dependent means to invoke the system call mechanism
+* Suitably sized parameters are usually put in registers
+* The kernel is invoked, determines which system call, and calls it
+
+<font color="blue">Read messages from the kernel</font>
+
+* printk() is the kernel's function for code to print messages. It is like C's printf().
+* It is sent to RAM buffer and the system console.
+* Important enough ones are shown on the console.
+* Logging daemon may send to file or elsewhere.
+* dmesg shows RAM buffer messages from kernel
+
+<font color="blue">Surveying the Linux Kernel, /proc, /sys, and Device Files</font>
+* The proc and sysfs filesystems are virtual filesystems
+* Their contents are not stored on disk
+* Each file and directory entry has an associated function in the kernel that produces the contents on demand
+        /PROC
+* The /proc filesystem is mounted on /proc at boot
+* proc gets its name form "process"
+* proc contains lots of process info and lots more
+* Kernel tunable variables are an important part of proc
+* Each process has a directory named with it PID, it has info on memory, program, files and lots more
+* There are hundreds of files and directories per process
+* Threads have entries under the directory "task"
+	/SYS
+* The sysfs filesystem is mounted on /sys at boot
+* sysfs is for "kernel object" info
+* In particular, it is hardware info (e.g.,device info)
+	Device Files
+* Charactec and block drivers use device files
+
+
+<font color="blue">Understandig the bootloader GRUB2</font>
+
+* Grub comes after POST, and the BIOS.
+* Grub is installed in a special place on disk.
+* Grub loads the kernel, initial root filesystem, sets up the kernel command line, and then transfers control to the kernel
+* Grub can be interrupted, an you can interact with it
+* Grub is built with support for filesystems. Therefore, Grub can find files. like kernel files, by name.
+* Grub can do file name completion
+* Grub has lots of utilities (do man -k grub)
+
+<font color="green">Transcripts
+More fun with Booting, understanding the Bootloader GRUB. What does GRUB do? What's GRUB's role? Well, GRUB is executed after 
+the power on self test and the BIOS. In fact, the BIOS loads the beginning part of GRUB. The beginning part of GRUB needs to 
+be in a special place on disk typically. Then GRUB loads the kernel and, frequently, for most desktops and servers, there is 
+an initial root filesystem image also on disk that GRUB loads. Then GRUB is going to transfer control to the kernel, and while 
+doing that, to get the kernel started up, GRUB's going to pass command line parameters. GRUB is pretty cool in that you can 
+interrupt GRUB and get a prompt and edit how it's going to work. So you can, on the fly, at boot time, set some different kernel
+ command line options. If you want different, then we're in the configuration file. GRUB goes to the disk, which means the filesystem
+, and reads in the kernel and the init filesystem images. That means GRUB needs to understand the filesystem type. So when GRUB is built,
+ it's built with support for different filesystems. In fact, GRUB may understand the filesystem on disk even though the kernel doesn't 
+without a loadable kernel module. GRUB's also got some nice features like file name completion. Maybe you don't remember the exact name 
+of that kernel file that you want to try. You know it starts with vmlinuz, but you're not sure what comes after that. Well, with the tab 
+key, GRUB can fill that in for you just like BASH. GRUB is a pretty big deal. There are quite a few utilities and config files and so 
+forth with GRUB. With the man command, man -k grub, you can see all the man pages that have the keyword, grub, to learn more.</font>
+
+
+<font color="blue">Grub configuration</font>
+
+* Grub 1 had a config file, grub.conf, that one edited to add, remove, or modify kernel boot choices.
+* Grub 2 is significantly more sophisticated.
+* /etc/grub.d
+* /etc/default/grub
+* Edit or add a config file in /etc/grub.d. Normally, edit 40_custom.
+* Run grub2-mkconfig to generate a new config file.
+* Normally pauses before launching Linux.
+* Interrupt Grub by hitting a key (e.g., down narrow)
+* Temporarily edit Grub configuration.
+* Continue with boot with your changes 1b1 or Ctrl-x as indicated
+
+<font color="green">Transcripts
+- [Voiceover] Let's talk about GRUB configuration and it's different for GRUB 1 or GRUB 2. With GRUB 1, it was, perhaps, a little bit more
+ straight forward. There was a single config file, grub.conf, with a link to it in etc, and you could edit that to change boot options, to 
+add additional kernel entries, or remove some. With GRUB 2, there are more files, and there's a directory, /etc/grub.d, that you, typically,
+could edit something in. The file /etc/default/grub is the stuff at the start of the file for configuration for grub, where you can say the
+default kernel to boot, or how long, in seconds, to wait before a kernel is booted. If you want to make a new GRUB entry, then   what  you 
+typically do is edit or create a new file underneath /etc/grub.d. The number in front of the file name affects the order that the files are 
+processed, so it means the bigger the number, the later in the list of choices that it will be shown in the GRUB menu. Normally  you  edit 
+40_custom if you want to add in a new entry. And then you're going to run grub2-mkconfig to process all that stuff and make a new config file 
+for GRUB. One of the great things about GRUB is it's interactive. You can have it wait a few seconds at boot time for you to hit  a  key. I 
+typically hit the down arrow key. If you hit the enter key, then you risk choosing something to boot. So when you interrupted GRUB, there's 
+some stuff you could do. You could edit, temporarily, the GRUB configuration. I like doing that to add in a special boot option or two for the 
+kernel. Or if there's something wrong with booting, maybe I edited the GRUB config file and I messed it up, and now it won't boot. Well, you 
+can interrupt GRUB, and you can temporarily fix it, so you can get booted up, and then you can go edit the file. After editing, with GRUB 1, 
+you would hit the B key to boot. With GRUB 2, you do a Ctrl-x. At the bottom of the little GRUB menu will be directions   for  that,  some 
+documentations that tell you to do a B or a Ctrl-x for example.</font>
+
+
+<font color="blue">kernel Command-Line Parameters</font>
+
+* The kernel processes command-line arguments.
+* Unrecognized ones are ignored
+* User space may look at the kernel command-line args, too.
+* You can use dmesg or /proc/cmdline to see
+* In thekernel source tree, it is Documentation/kernel-parameters.txt
+* About 500 are documented there.
+* Many are registered with _setup() in source.
+
+<font color="green">Transcripts
+- [Voiceover] Let's talk more about booting. In particular, let's talk more about kernel command-line parameters. So GRUB passes the parameters 
+to the Linux Kernel. And the kernel processes those command-line arguments. And fortunately, the kernel just ignores any that are unrecognized 
+so you can put some extra stuff up there for say scripts to look at later and sometimes that's kinda handy. So some user space stuff can look at 
+those options. If you wanna see, you can use dmesg to look at the kernel command line, or the kernel actually reports it in proc/cmdline. If you 
+look in the kernel source tree, in the documentation directory, my favorite directory in the kernel source, there is a little  text  file  that 
+documents a great number of the kernel parameters. And you'll see that there's like 500 of em there. All kinds of obscure things. Some of  them 
+are architecture dependent. Many of them are for particular drivers, but it's fairly common that if you have a situation with your kernel where 
+it's acting unlike the way you want it to act, that maybe you can help by putting a command line parameter there that can say turn on some extra 
+debugging support or put it in a different mode. All throughout the kernel, are calls to register the functions to deal    with  the command line 
+parameters. Many of those are registered with the underscore underscore setup macro so if you'll look up that in the source, you can see where a 
+particular parameter is handled. So we can look at the documentation for the kernel parameters. We change directory into the documentat directory. 
+And then we look at kernel-parameters.txt. Whoa! 3,459 lines long. Tons of information, tons of kernel parameters. Let's just look at one example.
+Rdinit, one of my favorites. We see that there's documentation on different options. Here we see some documentation on rdinit, and it's  for  the 
+kernel and you give it a path for a program to run instead of init, in the inintramfs image. So that's an example of a kernel command  parameter 
+that you can set and it's really for kind of core kernel functionality. There's a number of parameters that really affect drivers.  And  there's 
+parameters that affect stuff that's very rare and maybe even outdated these days. But it is common that you could find and   documentation  find 
+online that there's a kernel parameter that might be valuable and you can look in this file to get documentation.</font>
+
+
+<font color="blue">The initial Root Filesystem</font>
+
+* Linux systems start up by mounting a filesystem from ram. The filesystem that contains "/" is called the root file system
+* This initial ram disk (initrd) or ram filesystem (initramfs) is used to provide drivers and support for mounting the system's real root file system
+* The initrd has an init that the kernel runs first
+* When the init from the initrd terminates, the Linux kernel starts again; this time from the real filesystem, which is commonly on disk
+* Historically that program was called "init." Now, init may be a link to systemd
+* This process is responsible for starting up system services such as daemons like a web server
+* For older Linux systems, there were runleve scripts to start up services. These were under the /etc/systemd/system
+* These services are user-space services and not features of the kernel 
+
+<font color="green">Transcripts
+- [Voiceover] So, more about booting. Let's talk about the first process, that process that's number one and it's starting up services. So, key part 
+of Linux is the filesystem. Every Linux has a filesystem. In fact, it might have more than one. It's common to have a filesystem as a RAM image that 
+Linux starts with. Now, we call the file system that includes the directory slash the root filesystem. If you have multiple disks, for example, then 
+maybe home is on a different disk, and that would be not part of the root filesystem, but the Linux Kernel needs the root filesystem. And this initial 
+version of it that's in RAM can be in a couple different formats. For a long time, this was an initial RAM disk image which was a file formatted with a 
+filesystem. More recently, Linux uses a RAM filesystem type, which is really its own type of file system that's in RAM It's not a formatted file. It's 
+something that can grow and shrink. And inside that image is the process that kernel will run first. That's usually the program called init. It runs init, 
+and that is typically responsible for loading some kernel modules that are required for the kernel to be able to use the filesystem that's found elsewhere 
+like on the hard disk. So, when the init in the initial RAM-based filesystem terminates, that's after the real filestystem's been mounted, the Linux kernel 
+gonna start init again. And this time, the init's gonna come from the real filesystem. And that init is the one that will persist as long as your system is 
+up. Now, we've called that program init for a long time, but in recent Linux systems, that init is done by a program called systemd, and in fact, the entry 
+in the filesystem called init is probably a soft link to systemd. But this first process, whether it's the real init or it's systemd, it's responsible for 
+starting up the other services, the daemons we think of on our system, like JO web server. In older Linux systems, the system services were controlled by 
+what were called runlevel scripts, and you booted up into a certain runlevel, and that determined which services to start, and that stuff was underneath 
+/etc/rc.d. With systemd, there are service files, and they're under /etc/systemd/system. Now, this is all user-space stuff, but it comes about because the 
+kernel itself crafts the very first process, bid number one to run system drinit.</font>
+
+
+
+- [Voiceover] So let's drill down more into what this initramfs image looks like that's used as part of the booting up of a Linux system. So it's a file in
+a /boot directory. There's gonna be one for each kernel. In recent years, these are initramfs images. An initramfs image, is a gzipped cpio archive. cpio's
+kind of like tar, and what's gonna happen is the kernel's going to unzip it, and extract it into RAM and then mount it. For previous kernels, when this is an initrd, then a kernel would uncompress it and mount it from RAM based on it's type of file system which was commonly ext2. If you wanna look at your initramfs image to find out what goes on in the beginning, sometimes it's handy to customize this. What you do is you get that initramfs image, you need to rename it something with a .gz suffix, then you can gunzip it, and then you use the cpio command to extract it. Now inside this are gonna be some device files, so you need to be root to extract it. And it has absolute path names in it. So this is very, very dangerous. I could tell you from unfortunate real life experience. So you wanna extract it with cpio using the very important option --no-absolute-filenames, and everything will be relative. So you can make a empty directory and extract it there. If you don't use that --no-absolute-filenames, it's gonna start at slash and overwrite stuff in your real system and there are some commands and so forth in the cpio archive that have the same name as, but are different from what your regular system ones are. And it will be a mess. Different Linux distributions vary a lot in what they put in their initial RAM file system images. This is how they really distinguish themselves. Now typically there is gonna be a program in there with a name like init, or maybe something else special. But from there, it can vary widely. On some distributions, the init program is script, on some it's a regular binary. And the format for the directories and so forth can vary widely. So you can find out a lot about how your distribution works by looking at that image. If you boot the kernel with that rdinit=/bin/sh option, when it comes time to run the init program instead it will run bin/sh. And the kernel run set as root, and runs it on the system console. So if you're on the console, you get a shell prompt, and none of the things that the init was gonna do will be done because it doesn't the init, it just runs a shell. So you have a shell prompt and you can look at what's in your image, and perhaps do something special, or experiment or debug. Now instead of rdinit, if you say init=/bin/bash and of course you can give any program that you think makes sense, you do the init= that's the init that's gonna come from the hard disk. So the initramfs stuff will all be done. And then it will run init from the hard disk, if you change it to be bin/bash it'd be bin/bash from the hard disk. And you can then see what's going on and debug that. Again that's run as root on the console. Sometimes it's handy to have a custom version. Sometimes it's handy to debug what's going on. I've worked on problems where the kernel didn't boot up right, something went wrong in the initramfs, I'm putting some debug statement, or having to put a different driver inside the initramfs was valuable. So you'd unpack the images we described, make your changes, and then repack it up with cpio and rezip it up, and put it back in the boot directory with the right name and now you have a custom initramfs image. Alright so we're gonna talk about looking at an initramfs image. Let's start by making an empty directory and tmp, and then we're gonna go to the boot directory and look see and we see there's a few initramfs images. There's a rescue image, there's one with kdump in the name, those are special cases, and then we got the ordinary one. So let's copy that one to our directory, renaming it something easier to work with, with a .gz. What's shorter than i, so we're gonna call it i.gz, Oh, looks like I needed to do a sudo for that. And let's look. So there's the i.gz, if we check it oops. I needed to do a sudo for that too, I copied it as root right? So let's just go ahead and go into a shell, save doing some sudos. So it says it's gzipped, it's not because of the suffix, it's because it really looked at it. Let's gunzip it, we check the resulting file i, and at the cpio archive. And now we're gonna extract it and we're gonna be really careful. So let's see, we're gonna go cpio - i - -no-absolute-filenames from the file i. And it says it extracted it, and we list, no, we got all kinds of stuff here now. This is what was in the cpio archive. This is going to be expanded in RAM, and mounted as the first file system. And there's a program called init. What does it say? It's systemd, so on this system, even the initramfs uses systemd. So that's how it would get started, and we could go through the empty directory and so forth and find out more.

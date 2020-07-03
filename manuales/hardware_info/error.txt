@@ -1,0 +1,15 @@
+error: XDG_RUNTIME_DIR not set in the environment.
+
+(totem:4359): Gtk-WARNING **: cannot open display: 
+error: XDG_RUNTIME_DIR not set in the environment.
+
+(totem:4393): Gtk-WARNING **: cannot open display: 
+error: XDG_RUNTIME_DIR not set in the environment.
+
+(totem:4406): Gtk-WARNING **: cannot open display: 
+error: XDG_RUNTIME_DIR not set in the environment.
+
+(totem:4565): Gtk-WARNING **: cannot open display: 
+error: XDG_RUNTIME_DIR not set in the environment.
+
+(totem:4600): Gtk-WARNING **: cannot open display: 

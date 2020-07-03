@@ -1,0 +1,120 @@
+[1573440745] Nagios 4.4.5 starting... (PID=17)
+[1573440745] Local time is Mon Nov 11 02:52:25 UTC 2019
+[1573440745] LOG VERSION: 2.0
+[1573440745] qh: Socket '/opt/nagios/var/rw/nagios.qh' successfully initialized
+[1573440745] qh: core query handler registered
+[1573440745] qh: echo service query handler registered
+[1573440745] qh: help for the query handler registered
+[1573440745] wproc: Successfully registered manager as @wproc with query handler
+[1573440745] wproc: Registry request: name=Core Worker 38;pid=38
+[1573440745] wproc: Registry request: name=Core Worker 39;pid=39
+[1573440745] wproc: Registry request: name=Core Worker 40;pid=40
+[1573440745] wproc: Registry request: name=Core Worker 37;pid=37
+[1573440746] Successfully launched command file worker with pid 41
+[1573440873] SERVICE ALERT: localhost;HTTP;WARNING;SOFT;1;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.003 second response time
+[1573440933] SERVICE ALERT: localhost;HTTP;WARNING;SOFT;2;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.004 second response time
+[1573440993] SERVICE ALERT: localhost;HTTP;WARNING;SOFT;3;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.002 second response time
+[1573441002] SERVICE ALERT: localhost;Swap Usage;CRITICAL;SOFT;1;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441053] SERVICE ALERT: localhost;HTTP;WARNING;HARD;4;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.002 second response time
+[1573441062] SERVICE ALERT: localhost;Swap Usage;CRITICAL;SOFT;2;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441122] SERVICE ALERT: localhost;Swap Usage;CRITICAL;SOFT;3;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441182] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441182] SERVICE ALERT: localhost;Swap Usage;CRITICAL;HARD;4;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441305] Warning: File '/opt/nagios/var/perfdata.log' could not be opened - service performance data will not be written to file!
+[1573441305] Error: Unable to create temp file '/opt/nagios/var/nagios.tmpR1ClAB' for writing status data: Permission denied
+[1573441315] Warning: File '/opt/nagios/var/perfdata.log' could not be opened - service performance data will not be written to file!
+[1573441315] Error: Unable to create temp file '/opt/nagios/var/nagios.tmp3jGXbx' for writing status data: Permission denied
+[1573441324] Caught SIGTERM, shutting down...
+[1573441324] Successfully shutdown... (PID=17)
+[1573441328] Nagios 4.4.5 starting... (PID=13)
+[1573441328] Local time is Mon Nov 11 03:02:08 UTC 2019
+[1573441328] LOG VERSION: 2.0
+[1573441328] qh: Socket '/opt/nagios/var/rw/nagios.qh' successfully initialized
+[1573441328] qh: core query handler registered
+[1573441328] qh: echo service query handler registered
+[1573441328] qh: help for the query handler registered
+[1573441328] wproc: Successfully registered manager as @wproc with query handler
+[1573441328] wproc: Registry request: name=Core Worker 31;pid=31
+[1573441328] wproc: Registry request: name=Core Worker 30;pid=30
+[1573441328] wproc: Registry request: name=Core Worker 29;pid=29
+[1573441328] wproc: Registry request: name=Core Worker 28;pid=28
+[1573441329] Successfully launched command file worker with pid 37
+[1573441456] SERVICE ALERT: localhost;HTTP;WARNING;SOFT;1;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.002 second response time
+[1573441516] SERVICE ALERT: localhost;HTTP;WARNING;SOFT;2;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.005 second response time
+[1573441576] SERVICE ALERT: localhost;HTTP;WARNING;SOFT;3;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.001 second response time
+[1573441585] SERVICE ALERT: localhost;Swap Usage;CRITICAL;SOFT;1;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441636] SERVICE ALERT: localhost;HTTP;WARNING;HARD;4;HTTP WARNING: HTTP/1.1 401 Unauthorized - 695 bytes in 0.002 second response time
+[1573441645] SERVICE ALERT: localhost;Swap Usage;CRITICAL;SOFT;2;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441705] SERVICE ALERT: localhost;Swap Usage;CRITICAL;SOFT;3;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441708] Caught SIGTERM, shutting down...
+[1573441709] Successfully shutdown... (PID=13)
+[1573441713] Nagios 4.4.5 starting... (PID=13)
+[1573441713] Local time is Mon Nov 11 03:08:33 UTC 2019
+[1573441713] LOG VERSION: 2.0
+[1573441713] qh: Socket '/opt/nagios/var/rw/nagios.qh' successfully initialized
+[1573441713] qh: core query handler registered
+[1573441713] qh: echo service query handler registered
+[1573441713] qh: help for the query handler registered
+[1573441713] wproc: Successfully registered manager as @wproc with query handler
+[1573441713] wproc: Registry request: name=Core Worker 27;pid=27
+[1573441713] wproc: Registry request: name=Core Worker 26;pid=26
+[1573441713] wproc: Registry request: name=Core Worker 29;pid=29
+[1573441713] wproc: Registry request: name=Core Worker 28;pid=28
+[1573441713] Successfully launched command file worker with pid 31
+[1573441728] Caught SIGTERM, shutting down...
+[1573441728] Successfully shutdown... (PID=13)
+[1573441769] Nagios 4.4.5 starting... (PID=17)
+[1573441769] Local time is Mon Nov 11 03:09:29 UTC 2019
+[1573441769] LOG VERSION: 2.0
+[1573441769] qh: Socket '/opt/nagios/var/rw/nagios.qh' successfully initialized
+[1573441769] qh: core query handler registered
+[1573441769] qh: echo service query handler registered
+[1573441769] qh: help for the query handler registered
+[1573441769] wproc: Successfully registered manager as @wproc with query handler
+[1573441769] wproc: Registry request: name=Core Worker 33;pid=33
+[1573441769] wproc: Registry request: name=Core Worker 36;pid=36
+[1573441769] wproc: Registry request: name=Core Worker 35;pid=35
+[1573441769] wproc: Registry request: name=Core Worker 34;pid=34
+[1573441769] Successfully launched command file worker with pid 37
+[1573441829] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573441829] SERVICE ALERT: localhost;Swap Usage;CRITICAL;HARD;4;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573445369] Auto-save of retention data completed successfully.
+[1573445429] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573448969] Auto-save of retention data completed successfully.
+[1573449029] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573452569] Auto-save of retention data completed successfully.
+[1573452629] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573456169] Auto-save of retention data completed successfully.
+[1573456229] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573459769] Auto-save of retention data completed successfully.
+[1573459829] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573463369] Auto-save of retention data completed successfully.
+[1573463429] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573466969] Auto-save of retention data completed successfully.
+[1573467029] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573470569] Auto-save of retention data completed successfully.
+[1573470629] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573474169] Auto-save of retention data completed successfully.
+[1573474229] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573477769] Auto-save of retention data completed successfully.
+[1573477829] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573481369] Auto-save of retention data completed successfully.
+[1573481429] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573484969] Auto-save of retention data completed successfully.
+[1573485029] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573488569] Auto-save of retention data completed successfully.
+[1573488629] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573492169] Auto-save of retention data completed successfully.
+[1573492229] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573495769] Auto-save of retention data completed successfully.
+[1573495829] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573499369] Auto-save of retention data completed successfully.
+[1573499429] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573502969] Auto-save of retention data completed successfully.
+[1573503029] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573506569] Auto-save of retention data completed successfully.
+[1573506629] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573510169] Auto-save of retention data completed successfully.
+[1573510229] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.
+[1573513769] Auto-save of retention data completed successfully.
+[1573513829] SERVICE NOTIFICATION: nagiosadmin;localhost;Swap Usage;CRITICAL;notify-service-by-email;SWAP CRITICAL - 0% free (0 MB out of 0 MB) - Swap is either disabled, not present, or of zero size.

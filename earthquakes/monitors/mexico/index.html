@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Servicio Sismológico Nacional | UNAM, México</title>
+		<meta name="description" content="Página oficial del Servicio Sismólogico Nacional. Información sobre sismicidad en México.">
+		<meta name="author" content="Servicio Sismológico Nacional">
+		<meta name="copyright" content="Servicio Sismológico Nacional">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="recursos/css/plantilla.css">
+		<link rel="stylesheet" type="text/css" href="recursos/css/inicio.dev.css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+		<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="">
+		<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet'>
+
+		<meta property="fb:app_id" content="1004045683056793">
+        <meta property="og:url" content="http://www.ssn.unam.mx/"/>
+        <meta property="og:locale" content="es_LA"/>
+		<meta property="og:image" content="http://www.ssn.unam.mx/recursos/imagenes/og/ssnmx_inicio_og_a0.png"/>
+		<meta property="og:image:width" content="600"/>
+		<meta property="og:image:height" content="315"/>
+		<meta property="og:title" content="Servicio Sismológico Nacional"/>
+		<meta property="og:description" content="Página oficial del Servicio Sismológico Nacional. UNAM, México."/>
+	</head>
+
+	<body>
+		<nav class="navbar text-uppercase">
+			<div class="header container">
+				<div class="row">
+					<a href="http://www.unam.mx" title="Ir a la página de inicio de la Universidad Nacional Autónoma de México" target="_blank">
+						<img src="recursos/imagenes/plantilla/unam.png" class="header-image-unam button-effect" alt="UNAM">
+					</a>
+					<a href="http://www.geofisica.unam.mx" title="Ir a la página de inicio del Instituto de Geofísica, UNAM" target="_blank">
+						<img src="recursos/imagenes/plantilla/geofisica.png" class="header-image-geofisica button-effect" alt="GEOFÍSICA">
+					</a>
+				</div>
+				<div class="row text-center testnavi">
+					<a href="./" title="Ir a la página de inicio del Servicio Sismológico Nacional">
+						<img src="recursos/imagenes/plantilla/ssn.png" class="header-image-ssn button-effect" alt="SERVICIO SISMOLÓGICO NACIONAL">
+						<h1 class="hidden menu-title-xs">SERVICIO SISMOLÓGICO NACIONAL</h1>
+					</a>
+				</div>
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation" aria-expanded="false">
+        				<span class="sr-only">Menú</span>
+        				<span class="icon-bar top-bar"></span>
+        				<span class="icon-bar middle-bar"></span>
+        				<span class="icon-bar bottom-bar"></span>
+      				</button>
+				</div>
+			</div>
+			<div class="container hidden">
+				<a href="#" class="search-xs visible-xs-block"><span class="fa fa-search"></span></a>
+			</div>
+			<div class="navbar-only container-fluid">
+				<div class="collapse navbar-collapse" id="navigation">
+					<ul class="nav navbar-nav">
+						<li class="navbar-logo-ssn">
+							<a href="./" title="Servicio Sismológico Nacional | Inicio" id="nav_img_ssn" class="hidden hidden-xs">
+								<img src="recursos/imagenes/plantilla/ssn.png" class="navbar-image-ssn button-effect" alt="SERVICIO SISMOLÓGICO NACIONAL">
+							</a>
+						</li>
+       					<li class="active"><a href="./">Inicio</a></li>
+       					<div class="estilete"></div>
+       					<li class="dropdown">
+       						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Acerca de</a>
+       						<ul class="dropdown-menu">
+								<li><a href="acerca-de/mision/">Misión, visión y objetivos</a></li>
+								<li><a href="acerca-de/historia/">Historia</a></li>
+								<li><a href="acerca-de/personal/">Personal</a></li>
+								<li><a href="acerca-de/ubicacion/">Ubicación</a></li>
+								<li class="divider"></li>
+								<li><a href="acerca-de/estaciones/">Red de estaciones</a></li>
+								<li><a href="acerca-de/redes-locales-y-regionales/">Redes locales y regionales</a></li>
+								<li><a href="acerca-de/ctbto/">Relación con el CTBTO</a></li>
+								<li class="divider"></li>
+								<li><a href="acerca-de/redes-sociales/" title="El SSN en las redes sociales">Redes sociales</a></li>
+							</ul>
+       					</li>
+       					<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sismicidad</a>
+							<ul class="dropdown-menu">
+								<li><a href="sismicidad/ultimos/">Últimos sismos</a></li>
+								<li><a href="sismicidad/resumen-mensual/">Resumen mensual</a></li>
+								<li><a href="http://www2.ssn.unam.mx:8080/sismos-fuertes/">Sismos fuertes</a></li>
+								<li><a href="http://www2.ssn.unam.mx:8080/estadisticas/">Estadísticas</a></li>
+								<li><a href="sismicidad/reportes-especiales/">Reportes especiales</a></li>
+								<li class="divider"></li>
+								<li><a href="sismicidad/mapas-de-sismicidad-anual/">Mapas de sismicidad anual</a></li>
+								<li><a href="http://www2.ssn.unam.mx:8080/mapas-de-intensidades/">Mapas de intensidades</a></li>
+							</ul>
+						</li>
+						<li><a href="sismogramas/">Sismogramas</a></li>
+						<li><a href="http://www2.ssn.unam.mx:8080/catalogo/">Catálogo de sismos</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Divulgación</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a href="divulgacion/visitas/">Visitas guiadas</a></li>
+								<li><a href="divulgacion/preguntas/">Preguntas frecuentes</a></li>
+								<li><a href="divulgacion/carteles/">Carteles</a></li>
+								<li class="hidden"><a href="divulgacion/temas-de-divulgacion-sismologica/">Temas de divulgación sismológica</a></li>
+								<li class="hidden"><a href="divulgacion/multimedia/">Multimedia</a></li>
+							</ul>
+						</li>
+						
+						<li class="sismotel social-item phone hidden-sm" title="Sismotel"><a href="sismotel/"><span class="social-logo fa fa-phone"></span></a></li>
+						<li class="social-item twt hidden-sm" title="@SismologicoMX"><a href="https://twitter.com/SismologicoMX" target="_blank"><span class="social-logo fa fa-twitter"></span></a></li>
+						<li class="social-item fbk hidden-sm" title="/SismologicoMX"><a href="https://www.facebook.com/SismologicoMX" target="_blank"><span class="social-logo fa fa-facebook-official"></span></a></li>
+						<li class="social-item rss hidden-sm" title="RSS"><a href="rss/ultimos-sismos.xml" target="_blank"><span class="social-logo fa fa-rss"></span></a></li>
+						
+						<li class="hidden"><a href="#"><span class="search-icon-text visible-lg-inline-block visible-md-inline-block"> Buscar</span><span class="fa fa-search"></span></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<main role="main" class="inicio">
+			<div class="container info-principal">
+				<ul class="nav nav-pills text-uppercase">
+					<li class="active ssn-info"><a data-toggle="tab" href="#last" id="lastEvent">Último sismo</a></li>
+					<li class="ssn-info"><a data-toggle="tab" href="#latest" id="latestEvents" onclick="clicSismosRecientes()">Sismos recientes</a></li>
+				</ul>
+					<div class="tab-content col-md-6">
+						<div id="last" class="tab-pane fade in active text-uppercase">
+						
+
+			<p class='last-event-note'>Tiempo del centro de México</p>
+			<p class='last-event-field date'><span>Fecha: </span> 2018-08-28</p>
+			<p class='last-event-field time'><span>Hora: </span> 21:56:51</p>
+			<p class='last-event-field mag' style='color:orange'><span>Magnitud: </span> 4.1</p>
+			<p class='last-event-field epi'><span>Epicentro</span></p>
+			<p class='last-event-field epi epi-sub lat'><span>Latitud: </span> 15.91°</p>
+			<p class='last-event-field epi epi-sub lon'><span>Longitud: </span> -98.21°</p>
+			<p class='last-event-field epi epi-sub loc'><span>Localización: </span> 50 km al SUROESTE de  PINOTEPA NACIONAL, OAXACA</p>
+			<p class='last-event-field prof'><span>Profundidad: </span> 4 km </p>
+		
+	</div>
+	<div id="latest" class="tab-pane fade text-uppercase">
+
+	<div class="row recientes-nota-div" style="margin-bottom:0.5em; margin-right: 1em;">
+		<div class="recientes-nota"><p class="text-lowercase" style="font-size: 0.9em;"><span class="text-uppercase">Ú</span>ltimos 20 sismos &nbsp;&nbsp; <a href="sismicidad/ultimos"><span class="text-uppercase" style="font-size: 1em;">Ver más</span></a></p></div>
+	</div>
+
+		<div class="sismos-recientes">
+
+				<table class="latest-events-table">
+					<tr class="latest-events-subheader text-center">
+						<th class="text-center">Magnitud</th>
+						<th class="latest-events-subheader-data">
+							<div>Localización</div>
+							<div>
+								<span class="date-subheader-table">Fecha</span>
+								<span class="time-subheader-table">Hora</span>
+								<span class="coord-subheader-table">Latitud, longitud </span>
+								<span class="prof-subheader-table"> Profundidad </span>
+							</div>
+						</th>
+					</tr>
+
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_1'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_1' style='color:orange'>4.1</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_1'>50 km al SUROESTE de  PINOTEPA NACIONAL, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_1'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_1'> 21:56:51</p>
+							<p class='lat-table' id='lat_reciente_fuerte_1'> 15.91</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_1'> -98.21</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_1'> 4 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_1'>orange</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_2'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_2' style='color:orange'>4.1</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_2'>50 km al SUROESTE de  TONALA, CHIS.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_2'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_2'> 20:26:46</p>
+							<p class='lat-table' id='lat_reciente_fuerte_2'> 15.68</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_2'> -93.96</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_2'> 70 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_2'>orange</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_3'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_3' style='color:orange'>4.0</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_3'>23 km al SUR de  CINTALAPA, CHIS.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_3'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_3'> 18:05:59</p>
+							<p class='lat-table' id='lat_reciente_fuerte_3'> 16.49</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_3'> -93.76</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_3'> 149 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_3'>orange</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_4'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_4' style='color:orange'>4.4</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_4'>40 km al NORESTE de  MATIAS ROMERO, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_4'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_4'> 12:01:28</p>
+							<p class='lat-table' id='lat_reciente_fuerte_4'> 17.07</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_4'> -94.72</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_4'> 114 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_4'>orange</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_5'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_5' style='color:green'>3.6</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_5'>20 km al SUROESTE de  SALINA CRUZ, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_5'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_5'> 08:44:00</p>
+							<p class='lat-table' id='lat_reciente_fuerte_5'> 16.02</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_5'> -95.29</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_5'> 52 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_5'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_6'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_6' style='color:green'>3.9</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_6'>21 km al SUR de  SALINA CRUZ, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_6'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_6'> 08:07:07</p>
+							<p class='lat-table' id='lat_reciente_fuerte_6'> 16.00</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_6'> -95.22</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_6'> 34 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_6'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_7'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_7' style='color:green'>3.5</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_7'>16 km al ESTE de  S BLAS ATEMPA, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_7'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_7'> 07:50:18</p>
+							<p class='lat-table' id='lat_reciente_fuerte_7'> 16.30</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_7'> -95.08</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_7'> 64 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_7'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_8'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_8' style='color:orange'>4.3</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_8'>103 km al SUROESTE de  CD HIDALGO, CHIS.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_8'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_8'> 07:16:06</p>
+							<p class='lat-table' id='lat_reciente_fuerte_8'> 14.30</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_8'> -93.03</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_8'> 15 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_8'>orange</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_9'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_9' style='color:green'>3.9</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_9'>125 km al SUROESTE de  TONALA, CHIS.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_9'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_9'> 07:07:22</p>
+							<p class='lat-table' id='lat_reciente_fuerte_9'> 15.06</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_9'> -94.24</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_9'> 27 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_9'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_10'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_10' style='color:green'>3.5</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_10'>29 km al SUR de  SOLEDAD DE DOBLADO, VER.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_10'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_10'> 07:05:49</p>
+							<p class='lat-table' id='lat_reciente_fuerte_10'> 18.78</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_10'> -96.39</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_10'> 109 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_10'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_11'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_11' style='color:green'>3.4</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_11'>12 km al NORESTE de  S BLAS ATEMPA, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_11'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_11'> 07:05:14</p>
+							<p class='lat-table' id='lat_reciente_fuerte_11'> 16.37</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_11'> -95.13</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_11'> 52 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_11'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_12'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_12' style='color:orange'>4.2</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_12'>16 km al NORESTE de  SALINA CRUZ, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_12'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_12'> 06:54:12</p>
+							<p class='lat-table' id='lat_reciente_fuerte_12'> 16.28</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_12'> -95.08</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_12'> 65 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_12'>orange</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_13'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_13' style='color:green'>3.1</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_13'>9 km al SUROESTE de  SAN MARCOS, GRO.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_13'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_13'> 06:44:11</p>
+							<p class='lat-table' id='lat_reciente_fuerte_13'> 16.75</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_13'> -99.46</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_13'> 6 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_13'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_14'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_14' style='color:green'>3.5</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_14'>33 km al NORESTE de  RIO GRANDE, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_14'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_14'> 05:42:32</p>
+							<p class='lat-table' id='lat_reciente_fuerte_14'> 16.27</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_14'> -97.29</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_14'> 53 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_14'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_15'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_15' style='color:green'>3.8</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_15'>81 km al SUR de  COALCOMAN, MICH.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_15'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_15'> 05:39:31</p>
+							<p class='lat-table' id='lat_reciente_fuerte_15'> 18.06</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_15'> -103.30</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_15'> 6 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_15'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_16'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_16' style='color:green'>3.8</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_16'>51 km al SUROESTE de  SALINA CRUZ, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_16'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_16'> 04:54:16</p>
+							<p class='lat-table' id='lat_reciente_fuerte_16'> 15.78</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_16'> -95.42</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_16'> 27 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_16'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_17'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_17' style='color:green'>3.7</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_17'>71 km al SUR de  S PEDRO POCHUTLA, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_17'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_17'> 03:56:21</p>
+							<p class='lat-table' id='lat_reciente_fuerte_17'> 15.10</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_17'> -96.50</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_17'> 16 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_17'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_18'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_18' style='color:green'>3.9</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_18'>46 km al SUROESTE de  TONALA, CHIS.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_18'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_18'> 03:35:47</p>
+							<p class='lat-table' id='lat_reciente_fuerte_18'> 15.69</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_18'> -93.90</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_18'> 80 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_18'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_19'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_19' style='color:green'>3.2</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_19'>21 km al OESTE de  RIO GRANDE, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_19'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_19'> 03:26:48</p>
+							<p class='lat-table' id='lat_reciente_fuerte_19'> 16.03</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_19'> -97.63</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_19'> 5 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_19'>green</span>
+						</div>
+					</td>
+				</tr>	
+		
+			<tr class='recent-event-row-strong' id='recent_event_row_strong_20'>
+				<td class='magnitud-sismos-recientes text-center' id='mag_reciente_fuerte_20' style='color:orange'>4.3</td>
+					<td class='data-table'>
+						<div class='loc-table' id='epi_reciente_fuerte_20'>25 km al OESTE de  CD IXTEPEC, OAX.</div>
+						<div class='dtlld-table'>
+						<p class='date-table' id='date_reciente_fuerte_20'> 2018-08-28</p>
+							<p class='time-table' id='time_reciente_fuerte_20'> 03:12:57</p>
+							<p class='lat-table' id='lat_reciente_fuerte_20'> 16.57</p><span>°, </span>
+							<p class='lon-table' id='lon_reciente_fuerte_20'> -95.34</p><span class='lon-span'>°</span>
+							<p class='prof-table' id='prof_reciente_fuerte_20'> 76 </p><span class='prof-span'> KM </span>
+							<span class='hidden' id='color_reciente_fuerte_20'>orange</span>
+						</div>
+					</td>
+				</tr>	
+		      							</table>
+
+      						</div>
+						</div>
+      			
+      					<div class="report"><a onclick="rediruanlsismo()" href="http://eventos.uanl.mx/sismologia" class="text-center center-block" target="_blank">¿Sentiste un sismo? <br class="report-break"> Repórtalo aquí</a></div>
+
+					</div>
+					<div class="col-md-6 map">
+						<div class="embed-responsive embed-responsive-16by9" id="map"></div>
+					</div>
+			</div>
+		</main>
+
+		<div class="marquee-wrapper">
+  			<div class="marquee text-center center-block">
+  				<!--<p><a href="#" onclick="showModal()">¡Cuidado con la información falsa<br class="marquee-break">  en redes sociales!<br class="marquee-break"> Los sismos no se pueden predecir. <span class="fa fa-info-circle marquee-span-info-0"></span></a></p>-->
+  				<!--<p><a href="#" onclick="showModal()">Ve la emisión más reciente de <br class="marquee-break"> "Platicando con un sismólogo", <br class="marquee-break-ipad"> en nuestra <br class="marquee-break"> página de Facebook (SismologicoMX)<span class="fa fa-info-circle marquee-span-info-0"></span></a></p>-->
+  				<!--<p><a href="#" onclick="showModal()">Este viernes 26 de enero a las 5 pm, <br class="marquee-break"> sigue la transmisión en vivo "Platicando <br class="marquee-break"> con un sismólogo", en nuestra página de <br class="marquee-break"> Facebook (SismologicoMX)<span class="fa fa-info-circle marquee-span-info-0"></span></a></p>-->
+  				<!--<p style="margin-left: 0.5rem;"><br><a href="sismicidad/mapas-de-sismicidad-anual/" class="btn btn-default" style="border-color: #e9bd2f; font-size: 1.5rem; padding: 0.6rem; padding-right: 3rem;">Mapa de sismicidad anual 2017 &nbsp;<span class="fa fa-external-link marquee-span-info-0"></span></a></p>-->
+  				<p><a href="info/ssn-no-opera-alerta-sismica/">El Servicio Sismológico Nacional <br class="marquee-break"><span class="marquee-span">no</span> opera ni es responsable de ninguna <br class="marquee-break"> alerta sísmica. <span class="fa fa-info-circle marquee-span-info-0"></span></a></p>
+  			</div>
+		</div>
+
+		<div class="reportes-especiales">
+			<p class="section-title text-center text-uppercase">Reportes Especiales</p>
+			<div class="carousel-wrapper center-block">
+				<div id="carousel-special-reports" class="carousel slide col-xs-4 col-xs-offset-4" data-ride="carousel" data-interval="20000" data-pause="hover">
+					<div class="carousel-inner">
+						<!--<div class="item active text-center comunicado">
+                              <a class="carousel-item" href="comunicados/2017/SSNMX_comunicado_20170927.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_comunicado_20170927.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>COMUNICADO 2017-09-27</a>
+                        </div>
+                    	-->
+                    	<div class="item text-center active">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180728_secuenciaGolfoCalifornia_M46.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180728_secuenciaGolfoCalifornia_M46.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Secuencia sísmica del 27 y 28 de julio de 2018, golfo de California</a>
+						</div>
+                    	<div class="item text-center">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180617_CuencaDeMex_M27.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180617_CuencaDeMex_M27.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismos del 17 de junio de 2018, Cuenca de México (M2.5 y M2.7)</a>
+						</div>
+                    	<div class="item text-center">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180512_secuenciaSinaloa_M40.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180512_secuenciaSinaloa_M40.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Secuencia sísmica del 11 y 12 de mayo de 2018, Sinaloa</a>
+						</div>
+                    	<div class="item text-center">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180308_secuenciaMorelos_M38.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180308_secuenciaMorelos_M38.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Secuencia sísmica de Morelos (septiembre 2017 - marzo 2018)</a>
+						</div>
+                    	<div class="item text-center">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180216_Oaxaca_M72.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180216_Oaxaca_M72.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo del 16 de febrero de 2018, Oaxaca (M 7.2)</a>
+						</div>
+						<div class="item text-center">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180209_Jalisco_M59.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180209_Jalisco_M59.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo del 9 de febrero de 2018, Jalisco (M 5.9)</a>
+						</div>
+                    	<div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180130_PapasquiaroDurango_M47.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180130_PapasquiaroDurango_M47.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Secuencia sísmica del 29 y 30 de enero de 2018, Papasquiaro, Durango</a>
+                        </div>
+                    	<div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180119_GolfoDeCalifornia_M63.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20180119_GolfoDeCalifornia_M63.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo del 19 de enero de 2018, golfo de California (M 6.3)</a>
+                        </div>
+						<div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170919_Puebla-Morelos_M71.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170919_Puebla-Morelos_M71.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo del 19 de septiembre de 2017, Puebla - Morelos (M 7.1)</a>
+                        </div>
+                        <!--
+						<div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170909_CuencaDeMex_M26.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170909_CuencaDeMex_M26.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo del 9 de septiembre de 2017, Cuenca de México (M 2.6)</a>
+                        </div>
+                    	-->
+						<!--<div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170907_Tehuantepec_M82.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170907_Tehuantepec_M82.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo de Tehuantepec (2017-09-07 23:49 M 8.2)</a>
+                        </div>
+                    	-->
+						<!--<div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170822_secuenciaMichoacan_M46.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170822_secuenciaMichoacan_M46.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Secuencia sísmica del 18 y 22 de agosto de 2017, Michoacán</a>
+                        </div>
+                    	-->
+               			<!--
+               			<div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170724_secuenciaGolfoCalifornia_M45.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170724_secuenciaGolfoCalifornia_M45.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Secuencia sísmica del 23 y 24 de julio de 2017, Golfo de California</a>
+                        </div>
+                    	-->
+                        <!--
+                        <div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170713_CuencaDeMex_M23.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170713_CuencaDeMex_M23.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo del 13 de julio de 2017, Cuenca de México (M 2.3)</a>
+                        </div>
+                        <div class="item text-center">
+                              <a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170614_Chiapas_M70.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170614_Chiapas_M70.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismo del 14 de junio de 2017, Chiapas (M 7.0)</a>
+                        </div>
+						<div class="item text-center">	
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170301_CiudadDeMex_M27.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170301_CiudadDeMex_M27.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Sismos ocurridos entre el 28 de febrero y el 1 de marzo de 2017, Ciudad de México</a>
+						</div>
+						<div class="item text-center">	
+							<a class="carousel-item" href="sismicidad/reportes-especiales/2017/SSNMX_rep_esp_20170215_secuenciaGolfoMexico_M48.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNMX_rep_esp_20170215_secuenciaGolfoMexico_M48.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Secuencia sísmica del 15 de febrero de 2017, Golfo de México</a>
+						</div>
+						-->
+						<div class="item text-center">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/otros/SSNRE-Subduccion-y-potencial-de-sismo-mayor.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNRE-Subduccion-y-potencial-de-sismo-mayor.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Zona de subducción mexicana y su potencial para un sismo mayor</a>
+						</div>
+						<div class="item text-center">
+							<a class="carousel-item" href="sismicidad/reportes-especiales/otros/SSNRE-Magnitud.pdf" target="_blank" title="Ver PDF" onclick='verReporte("SSNRE-Magnitud.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Cálculo de magnitud</a>
+						</div>
+					</div>
+					<a class="left carousel-control" href="#carousel-special-reports" data-slide="prev">
+						<span class="fa fa-chevron-left"></span>
+					</a>
+					<a class="right carousel-control" href="#carousel-special-reports" data-slide="next">
+						<span class="fa fa-chevron-right"></span>
+					</a>
+					<div class="indicadores">
+						<ol class="carousel-indicators">
+							<li data-target="#carousel-special-reports" data-slide-to="0" class="active"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="1"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="2"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="3"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="4"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="5"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="6"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="7"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="8"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="9"></li>
+							<li data-target="#carousel-special-reports" data-slide-to="10"></li>
+							<!--<li data-target="#carousel-special-reports" data-slide-to="11"></li>-->
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="more-info container text-center text-uppercase">
+			<p class="section-title">Más información</p>
+				
+			<div class="row">
+
+				<div class="col-xs-6 col-sm-3">
+					<figure>
+						<a href="recursos/imagenes/informacion/ssnmx_info_los_sismos_no_se_pueden_predecir.jpg" target="_blank">
+							<img class="more-info-effect" src="recursos/imagenes/inicio/prediccion.jpg" alt="Los sismos no se pueden predecir"/>
+							<figcaption>
+								<h6 class="more-info-figcaption">Los sismos no se pueden predecir</h6>
+							</figcaption>
+						</a>			
+					</figure>
+				</div>
+
+				<div class="col-xs-6 col-sm-3">
+					<figure>
+						<a href="recursos/imagenes/infografias/ssn_proceso_publicacion.png" target="_blank">
+							<img class="more-info-effect" src="recursos/imagenes/inicio/proceso.jpg" alt="Proceso de publicación de reportes sísmicos del SSN"/>
+							<figcaption>
+								<h6 class="more-info-figcaption">Proceso de reportes del SSN</h6>
+							</figcaption>
+						</a>		
+					</figure>
+				</div>	
+
+				<div class="col-xs-6 col-sm-3">
+					<figure>
+						<a href="sismicidad/mapas-de-sismicidad-anual/" target="_blank">
+							<img class="more-info-effect" src="recursos/imagenes/inicio/sismicidad.jpg" alt="Sismicidad 2016"/>
+							<figcaption>
+								<h6 class="more-info-figcaption">Sismicidad 2017</h6>
+							</figcaption>
+						</a>		
+					</figure>
+				</div>	
+
+				<div class="col-xs-6 col-sm-3">
+					<figure>
+						<a href="http://www.ssn.unam.mx/avisos/alerta-sismica/" target="_blank">
+							<img class="more-info-effect" src="recursos/imagenes/inicio/ssn_mini.jpg" alt="Alerta"/>
+							<figcaption>
+								<h6 class="more-info-figcaption" style="margin:0;">El SSN no opera alerta sísmica</h6>
+							</figcaption>
+						</a>		
+					</figure>
+				</div>		
+			</div>
+		</div>
+		<br class="hidden-sm hidden-xs"><br>
+
+		<div class='modal fade' id='modalAdvice' tabindex='-1' role='dialog' aria-labelledby='modalLabel'>
+			<div class='modal-dialog modal-lg' role='document'><div class='modal-content'><div class='modal-header'>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 1.6em;"><span aria-hidden="true">&times;</span></button>
+				<h4 class='modal-title text-uppercase text-center' id='modalLabel'>Cuidado con los rumores y noticias falsas...</h4>
+			</div>
+			<div class='modal-body text-center ccontainer-fluid'>
+				<!--
+				<div class="row">
+					<p>Sismo ocurrido el 16 de febrero de 2018 a las 17:39 horas (tiempo del Centro de México):</p>
+					<p><strong>Magnitud: 7.2</strong></p>
+					<p>Referencia de localización del epicentro: 11 km al sur de Pinotepa Nacional, Oaxaca</p>
+					<p>Latitud: 16.25°. Longitud: -98.03°</p>
+					<p>Profundidad: 12 km</p>
+					<p class="replicas"><strong>Réplicas: 4198 hasta las 21:00 horas del 2018-02-23, la más grande de M6.0 ocurrida a las 00:56 horas del 2018-02-19.</strong></p>
+					<br>	
+					<p class="center-block text-center">
+						<a href="sismicidad/reportes-especiales/2018/SSNMX_rep_esp_20180216_Oaxaca_M72.pdf" class="btn btn-primary text-center btnReport" target="_blank" onclick='verReporte("SSNMX_rep_esp_20180216_Oaxaca_M72.pdf")'><i class="fa fa-file-pdf-o rep-ico" aria-hidden="true"></i>Reporte especial</a>
+						<a href="http://www.unamglobal.unam.mx/?p=33612" class="btn btn-default text-center btnReport" target="_blank"><i class="fa fa-video-camera rep-ico" aria-hidden="true"></i>Conferencia</a>
+					</p>
+					<br>
+				</div>
+				-->
+				<p><img src="recursos/imagenes/informacion/ssnmx_info_los_sismos_no_se_pueden_predecir.jpg" class="img-responsive center-block" alt="SSN"></p>
+				<!--<p><img src="recursos/imagenes/mapas/SSNMX_mapa_estatico_acercamiento_20180216173938M72.jpg" class="img-responsive center-block" alt="SSN"></p>-->
+				<br>
+			</div>
+			<div class='modal-footer'>
+				<button type='button' class='btn btn-default modal-button' data-dismiss='modal'>Cerrar</button>
+			</div>
+		</div>
+		</div>
+		</div>
+
+		<a href="#0" class="cd-top" title="Volver al principio de la página"></a>
+
+		<footer class="text-center">
+			<div class="footer-social text-center">
+				<a href="sismotel/" class="footer-social-item phone"><span class="fa fa-phone"></span><span class="footer-social-title"> Sismotel</span></a>
+				<a href="https://twitter.com/@SismologicoMX" class="footer-social-item twt" target="_blank"><span class="fa fa-twitter"></span><span class="footer-social-title"> @SismologicoMX</span></a>
+				<a href="https://www.facebook.com/SismologicoMX" class="footer-social-item fbk" target="_blank"><span class="fa fa-facebook-official"></span><span class="footer-social-title"> /SismologicoMX</span></a>
+				<a href="rss/ultimos-sismos.xml" class="footer-social-item rss" target="_blank"><span class="fa fa-rss"></span><span class="footer-social-title"> RSS</span></a>
+			</div>
+			<div class="container foot text-center text-uppercase">
+				<div class="col-sm-2 col-xs-4"><a href="creditos/">Créditos</a></div>
+				<div class="col-sm-2 col-xs-4"><a href="mapa-de-sitio/">Mapa de sitio</a></div>
+				<div class="col-sm-2 col-xs-4"><a href="acerca-de/ubicacion/">Ubicación</a></div>
+				<div class="col-sm-2 col-xs-4"><a href="contacto/">Contacto</a></div>
+				<div class="col-sm-2 col-xs-4"><a href="sitios-de-interes/">Otros sitios de interés</a></div>
+				<div class="col-sm-2 col-xs-4"><a href="english/">English version</a></div>
+			</div>
+			<div style="margin-top:2rem;">
+				<img src="recursos/imagenes/plantilla/mexico.gif" class="center-block" alt="México" title="México" style="padding-top:0.6rem; margin-right:4rem; display:inline-block;">
+				<img src="recursos/imagenes/plantilla/unam_nacion_mod.gif" class="center-block" alt="UNAM" title="UNAM, la Universidad de la Nación" style="display:inline-block;">
+			</div>
+
+			<br>
+			<div class="container text-justify">
+				<p class="col-xs-12">Hecho en México, Universidad Nacional Autónoma de México (UNAM), todos los derechos reservados 2018. Esta página puede ser reproducida con fines no lucrativos, siempre y cuando no se mutile, se cite la fuente completa y su dirección electrónica. De otra forma, requiere permiso previo por escrito de la institución. <strong style="color: orange;">Cualquier solicitud de datos o información sobre sismicidad en México, no contenida en cualquiera de las secciones de este portal electrónico, deberá realizarse mediante un oficio dirigido al Dr. Hugo Delgado Granados, Director del Instituto de Geofísica, UNAM.</strong> Servicio Sismológico Nacional, Instituto de Geofísica, UNAM. Circuito de la Investigación Científica s/n, Ciudad Universitaria, Delegación Coyoacán, C.P. 04510, Ciudad de México.</p>
+				<p class="col-xs-12 text-center" style="color: #a0a0a0">Sitio web administrado por: Servicio Sismológico Nacional, webmaster@sismologico.unam.mx</p>
+			</div>
+		</footer>
+
+		<div class='modal fade' id='modalLive' tabindex='-1' role='dialog' aria-labelledby='modalLabel'>
+			<div class='modal-dialog' role='document'>
+				<div class='modal-content'>
+					<div class='modal-header'>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 1.6em;"><span aria-hidden="true">&times;</span></button>
+						<h4 class='modal-title text-uppercase text-center' id='modalLabel'>Cuidado con la información falsa en redes sociales...</h4>
+						<!--<h4 class='modal-title text-uppercase text-center' id='modalLabel'>¿Te perdiste la transmisión?</h4>-->
+						<!--<h4 class='modal-title text-uppercase text-center' id='modalLabel'>Este viernes 26 de enero a las 5 pm...</h4>-->
+					</div>
+					<div class='modal-body text-justify' id="modal_body_live">
+					</div>
+					<div class='modal-footer'>
+						<button type='button' class='btn btn-default modal-button' data-dismiss='modal'>Cerrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<style type="text/css">
+			.estilete { margin-left:28px; }
+			.recientes-nota { text-align: right;}
+			.modal-button, .modal-button:focus {background-color: #f9bf3B; color: white; border: 2px solid #f9bf3f;}
+            .modal-button:hover {background-color: transparent; border: 2px solid #f9bf3f; color: #f9bf3f;}
+            .modal-title {color: orange; font-size: 1.1em;}
+			@media (max-width: 991px) {
+				.recientes-nota { text-align: center; }
+				.recientes-nota-div {margin-left: 1em; !important;}
+			}
+
+			.rep-ico { font-size: 1.6rem; margin-right: 0.8rem;}
+			.marquee-break-ipad {
+				display: none;
+			}
+			@media (min-width: 768px) {
+				.marquee-break-ipad {
+					display: inline-block;
+				}
+			}
+			@media (min-width: 900px) {
+				.marquee-break-ipad {
+					display: none !important;
+				}
+			}
+
+			@media (max-width: 534px) {
+				.btnReport {
+					margin-bottom: 1rem;
+				}
+			}
+			.comunicado a { color: orange !important; font-weight: 700;}
+			.comunicado a:hover { color: #e9bd2f !important;}
+
+			.link-at{color:#34495e!important;}
+			.link-at:hover{color:#7f8c8d!important; text-decoration:none!important;}
+
+			.map-div {
+				background: white;
+				opacity: 0.9;
+				border-radius: 1px;
+				left:-0.6rem;
+				box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.18);
+				padding: 0.3rem;
+			}
+
+			.logo {
+				bottom: -1rem;
+			}
+
+			.logo img {
+				max-width: 106px !important;
+			}
+
+			.title {
+				top: 0.6rem;
+				width: 112px !important;
+				color: #003a73;
+				font-size: 1rem;
+			}
+
+			.title p {
+				padding-top: 0.15rem;
+				margin-bottom: 0;
+				font-weight: 700;
+			}
+
+			.latest-events-table td {
+				cursor: pointer;
+			}
+		</style>
+
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script>window.jQuery || document.write('<script src="/recursos/js/jquery-1.11.3.min.js"><\/script>')</script>
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script>window.jQuery.fn.collapse || document.write('<script src="recursos/js/bootstrap.min.js"><\/script>')</script>
+		<script>
+			(function($) {
+				$(function() {
+					if ($('.row').css('margin-right') != '-15px') {
+		                $('head').prepend('<link rel="stylesheet" href="recursos/css/bootstrap.min.css">');
+		            }
+					if ($('.fa').css('display') != 'inline-block') {
+						$('head').prepend('<link rel="stylesheet" href="recursos/fonts/font-awesome-4.5.0/css/font-awesome.min.css">');
+					}
+				});
+			})(window.jQuery);
+		</script>
+
+		
+		<!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGxugfhWvzxRF_k5u_KXlOkeYWfBd-XWA"></script>-->
+		<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+		<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+
+		<script src="recursos/js/usabilidad.js"></script>
+
+		<script>var docCookies={getItem:function(sKey){if(!sKey){return null;}return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*"+encodeURIComponent(sKey).replace(/[\-\.\+\*]/g,"\\$&")+"\\s*\\=\\s*([^;]*).*$)|^.*$"),"$1"))||null;},setItem:function(sKey,sValue,vEnd,sPath,sDomain,bSecure){if(!sKey||/^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)){return false;}var sExpires="";if(vEnd){switch(vEnd.constructor){case Number:sExpires=vEnd===Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT":"; max-age="+vEnd;break;case String:sExpires="; expires="+vEnd;break;case Date:sExpires="; expires="+vEnd.toUTCString();break;}}document.cookie=encodeURIComponent(sKey)+"="+encodeURIComponent(sValue)+sExpires+(sDomain ? "; domain="+sDomain : "")+(sPath ? "; path="+sPath : "")+(bSecure ? "; secure" : "");return true;},removeItem:function(sKey,sPath,sDomain){if(!this.hasItem(sKey)){return false;}document.cookie=encodeURIComponent(sKey)+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT"+(sDomain ? "; domain="+sDomain : "")+(sPath ? "; path="+sPath : "");return true;},hasItem:function(sKey){if(!sKey){return false;}return(new RegExp("(?:^|;\\s*)"+encodeURIComponent(sKey).replace(/[\-\.\+\*]/g,"\\$&")+"\\s*\\=")).test(document.cookie);},keys:function(){var aKeys=document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g,"").split(/\s*(?:\=[^;]*)?;\s*/);for(var nLen=aKeys.length,nIdx=0; nIdx<nLen; nIdx++){aKeys[nIdx]=decodeURIComponent(aKeys[nIdx]);}return aKeys;}};</script>
+		
+		<script>
+			$(document).ready(function(){
+				var adviceModalViewed = docCookies.getItem('advice-modal');
+				if ( adviceModalViewed === null || adviceModalViewed != '1' ) {
+					$('#modalAdvice').modal();
+					docCookies.setItem('advice-modal', 1, Infinity);
+				}
+			});
+
+			function showModal(){
+				/*$("#modal_body_live").html('<img src="recursos/imagenes/informacion/ssnmx_fbk_live_santoyo_web.jpg" class="img-responsive center-block" alt="SismologicoMX Facebook Live"><br><p class="text-center">Puedes ver en cualquier momento todas las emisiones en nuestra página de Facebook:<br><br><a href="https://www.facebook.com/SismologicoMX/videos/" target="_blank" alt="Ir a la página de Facebook del SSN"><button type="button" class="btn btn-default btn-sm text-uppercase"><span class="fa fa-facebook-square" style="font-size: 2rem;"></span><br>SismologicoMX</button></a></p>');*/
+				$("#modal_body_live").html('<img src="http://www.ssn.unam.mx/recursos/imagenes/informacion/ssnmx_info_los_sismos_no_se_pueden_predecir.jpg" class="img-responsive center-block" alt="Los sismos no se pueden predecir"><br><p class="text-center"></p>');
+				$('#modalLive').modal();
+			}
+
+			function rediruanlsismo() {
+				alert('AVISO: A continuación serás redirigido a un página externa al Servicio Sismológico Nacional para acceder a la encuesta \"¿Sintió un sismo?\" de la Facultad de Ciencias de la Tierra de Universidad Autónoma de Nuevo León (UANL)');
+			}
+
+			function clicSismosRecientes(){
+				ga('send', 'event', 'Interacciones', 'Clic', 'Sismos recientes', {nonInteraction: true});
+			}
+			/*
+			function sendMapTypeChanged(newMapType){
+				ga('send', 'event', 'Mapa', 'Cambio de tipo', newMapType, {nonInteraction: true});
+			}
+			function mapaEstatico(mapaEstaticoTipo){
+				ga('send', 'event', 'Mapa Estatico', 'Carga', mapaEstaticoTipo, {nonInteraction: true});
+			}
+			*/
+			function verReporte(nombreReporte){
+				ga('send', 'event', 'Descargas', 'Reportes especiales', nombreReporte, {nonInteraction: true});
+			}
+		</script>
+
+				<script>
+			$(document).ready(function() {
+				$('.leaflet-control-zoom-in').attr('title','Acercar');
+				$('.leaflet-control-zoom-out').attr('title','Alejar');
+				$('.leaflet-control-fullscreen-button').attr('title','Ver mapa en pantalla completa');
+			});
+
+			var lastData = [];
+
+			var latestData = [];
+			var latestEpicenters;
+
+			var lastDataJson = [],
+		    	latestDataJson = [],
+		    	lastMarker,
+		    	latestMarkers = [], 	
+		    	jqxhr = $.getJSON("j/1597226407", function(data){
+		    		if ( data[0][5] == 'en proceso de cálculo') {
+		    			var colorJson =  'gray';
+		    		} else {
+		    			var colorJson =  data[0][5] < 4 ? "green" : (data[0][5] < 6 ? "orange" : "red");
+		    		}
+	    			
+	    			lastDataJson.push(data[0][0], data[0][1], data[0][5], data[0][2], data[0][3], data[0][6], data[0][4], colorJson, data[0][7]);
+	    			
+
+					$.each( data, function(key, val){
+						/*val.replace("  ","",val); */ /*fix in PHP*/
+						var valArray = [];
+						$.each(val, function(key, val2){
+							valArray.push(val2);
+						});
+						latestDataJson.push(valArray);
+					});
+				});
+
+			
+			jqxhr.done(function() {
+				lastData = lastDataJson.slice();
+				latestData = latestDataJson.slice();
+
+				var	lastIcon = L.divIcon({className: 'label-marker-'+lastData[7]}),
+				lastMag = 'Magnitud ' + lastData[2];
+
+				/*var lastIcon = "http://maps.google.com/mapfiles/ms/icons/"+markerColor+"-dot.png";*/
+			    /*var lastIcon = "http://www2.ssn.unam.mx:8080/recursos/imagenes/marcadores/test_marker_"+markerColor+".png"; //para magnitud mayor de 6.0 falta más detalle //magnitud 0 y en proceso de cálculo*/
+			    /*var lastIcon = L.icon({iconUrl: lastIcon});*/
+
+			    if ( lastData[2] >= 7 && lastData[2] < 8 ) {
+			    	lastIcon = L.divIcon({className: 'label-marker-red7'});
+			    }
+
+			   	if ( lastData[2] >= 8 && lastData[2] <= 10 ) {
+			    	lastIcon = L.divIcon({className: 'label-marker-red8'});
+			    }
+
+			    var eventStatus = ''; /*diff name*/
+			    if ( lastData[8] == 'P' ) {
+			    	eventStatus = '<strong style="color:#e9bd2f">INFORMACIÓN PRELIMINAR</strong><br>';
+			    	if ( lastData[2] == 'en proceso de cálculo' ) {
+			    		lastIcon = L.divIcon({className: 'label-marker-pre'});
+			    		lastMag = '<span class="text-uppercase">Calculando magnitud</span><br>';
+			    	}
+			    }
+
+		    	var reference_location = lastData[5];
+	    		var reference_splitone = reference_location.split(' de ');
+	    		var reference_splittwo = reference_splitone[1].split(',');
+	    		var reference_splitthree = reference_splitone[0].split(' ');
+	    		var reference_distance = reference_splitthree[0] + ' ' + reference_splitthree[1];
+	    		var reference_cardinal_direction = reference_splitthree[3];
+	    		var reference_locality = reference_splittwo[0];
+	    		var reference_state = reference_splittwo[1].trim();
+
+			    var lastInfo = '<div>'+eventStatus+'<strong><span style=\"color:'+lastData[7]+'; font-size:1.5rem;\">'+lastMag+'</span></strong>'+'<br><strong>'+reference_distance+ ' al <span class="text-lowercase">' + reference_cardinal_direction + '</span> de ' + reference_locality + ', ' + reference_state + '</strong><br>'+lastData[0]+'&nbsp&nbsp'+lastData[1]+' (Tiempo del Centro)<br>Latitud: '+lastData[3]+'°&nbsp&nbspLongitud: '+lastData[4]+'°<br>Profundidad: '+lastData[6]+' km</div>';
+				
+			    lastMarker = L.marker([lastData[3], lastData[4]],{ icon: lastIcon }).addTo(map).bindPopup(lastInfo).bindTooltip('Último sismo').openTooltip();
+			
+			    lastMarker.on('click', function() {
+			    	lastMarker.closeTooltip();
+					if ( map.getZoom() <= 4 ) {
+						map.setView(this.getLatLng(), 8);
+					}
+					/*ga('send', 'event', 'Mapa OSM', 'Marcador seleccionado (último)', {nonInteraction: true});*/
+				});
+
+
+
+			    for (var i = 0; i < latestData.length; i++) {
+
+			    	if ( latestData[i][5] == 'en proceso de cálculo') {
+		    			var color =  'gray';
+		    		} else {
+		    			var color =  latestData[i][5] < 4 ? "green" : (latestData[i][5] < 6 ? "orange" : "red");
+		    		}
+
+		    		var zIndex = latestData[i][5] * 1000; /*+epoch*/ 
+
+			    	var latestNumber = i; /*+1 */ /*fix for include pres on table */
+					var latestIcon = L.divIcon({className: 'label-marker-'+color+' '+latestNumber});
+
+					if ( latestData[i][5] >= 7 && latestData[i][5] < 8 ) {
+		    			latestIcon = L.divIcon({className: 'label-marker-red7 '+latestNumber});
+		    		}
+
+		   			if ( latestData[i][5] >= 8 && latestData[i][5] < 10 ) {
+		    			latestIcon = L.divIcon({className: 'label-marker-red8 '+latestNumber});
+		    		}
+
+		    		var reference_location = latestData[i][6];
+		    		var reference_splitone = reference_location.split(' de ');
+		    		var reference_splittwo = reference_splitone[1].split(',');
+		    		var reference_splitthree = reference_splitone[0].split(' ');
+		    		var reference_distance = reference_splitthree[0] + ' ' + reference_splitthree[1];
+		    		var reference_cardinal_direction = reference_splitthree[3];
+		    		var reference_locality = reference_splittwo[0];
+		    		var reference_state = reference_splittwo[1].trim();
+
+		    		var latestInfo = '<div><strong><span style=\"color:'+color+'; font-size:1.5rem;\">Magnitud '+latestData[i][5]+'</span></strong><br><strong>'+reference_distance+ ' al <span class="text-lowercase">' + reference_cardinal_direction + '</span> de ' + reference_locality + ', ' + reference_state + '</strong><br>'+latestData[i][0]+'&nbsp&nbsp'+latestData[i][1]+' (Tiempo del Centro)<br>Latitud: '+latestData[i][2]+'°&nbsp&nbspLongitud: '+latestData[i][3]+'°<br>Profundidad: '+latestData[i][4]+' km</div>';
+
+					var latestMarker = L.marker([latestData[i][2], latestData[i][3]],{ icon: latestIcon }).setZIndexOffset(zIndex).bindPopup(latestInfo).bindTooltip(latestInfo).on('click', function() {
+
+						if ( L.DomUtil.hasClass(this._icon, 'label-marker-selected') ) {
+							L.DomUtil.removeClass(this._icon, 'label-marker-selected');
+
+								$('.magnitud-sismos-recientes').removeClass('recent-event-row-selected-mag');
+			    				$('.recent-event-row-strong').removeClass('recent-event-row-selected-red');
+								$('.recent-event-row-strong').removeClass('recent-event-row-selected-green');
+			    				$('.recent-event-row-strong').removeClass('recent-event-row-selected-orange');
+
+			    			
+			    			if (window.innerWidth>=992) {
+								document.getElementsByClassName('latest-events-subheader')[0].scrollIntoView();
+								$('html,body').animate({scrollTop: $('html,body').offset().top},0);
+							}
+							
+							map.removeLayer(latestEpicenters);
+
+							if ( map.isFullscreen() ) {
+								map.setView(map.getCenter(), map.getZoom());
+							} else {
+								map.setView(defaultMapCenter, calculateZoom());
+							}
+
+							resetZIndex();
+							
+							latestEpicenters = L.layerGroup(latestMarkers).addTo(map);
+							/*ga('send', 'event', 'Mapa OSM', 'Vista de marcadores reestablecida', {nonInteraction: true}); //find a better name*/
+						} else {
+
+							/*this.closeTooltip();*/
+
+							map.removeLayer(latestEpicenters);
+							resetZIndex();
+
+							latestEpicenters = L.layerGroup(latestMarkers).addTo(map);
+
+							latestEpicenters.eachLayer(function (layer) {
+								L.DomUtil.removeClass(layer._icon, 'label-marker-selected');
+							});
+
+	
+							$('.magnitud-sismos-recientes').removeClass('recent-event-row-selected-mag');
+			    			$('.recent-event-row-strong').removeClass('recent-event-row-selected-red');
+							$('.recent-event-row-strong').removeClass('recent-event-row-selected-green');
+			    			$('.recent-event-row-strong').removeClass('recent-event-row-selected-orange');
+
+							this.setZIndexOffset(this._zIndex * 1000);
+							this.openPopup();
+
+							L.DomUtil.addClass(this._icon, 'label-marker-selected');
+
+							if ( map.getZoom() <= 4 ) {
+								map.setView(this.getLatLng(), 8);
+							}
+							var eventId = L.DomUtil.getClass(this._icon).split(' ');
+			    			eventId = eventId[2]; /* ... */
+			    			var magStyle = $('#mag_reciente_fuerte_'+eventId).attr('style');
+			    			magStyle = magStyle.split(":",2);
+			    			var magColor = magStyle[1];
+			    			var magColor2 = $('#color_reciente_fuerte_'+eventId).text();
+
+			    			$('#mag_reciente_fuerte_'+eventId).addClass('recent-event-row-selected-mag');
+
+			    			if (magColor == 'red' || magColor2 == 'red') {
+			    				$('#recent_event_row_strong_'+eventId).toggleClass('recent-event-row-selected-red');
+			    			}
+		                   	else if (magColor == 'green' || magColor2 =='green') {
+		                        $('#recent_event_row_strong_'+eventId).toggleClass('recent-event-row-selected-green');
+		                    }
+		                    else {
+			    				$('#recent_event_row_strong_'+eventId).toggleClass('recent-event-row-selected-orange');
+			    			}
+
+			    			if (window.innerWidth>=992) {
+								var element = document.getElementById('recent_event_row_strong_'+eventId);
+								element.scrollIntoView();
+								$('html,body').animate({scrollTop: $('html,body').offset().top},0);
+							}
+
+							/* ga('send', 'event', 'Mapa OSM', 'Marcador seleccionado (recientes)', {nonInteraction: true}); */
+						}
+
+					});
+					latestNumber++;
+					latestMarkers.push(latestMarker);
+				};
+
+
+
+			});
+
+		
+			var osmLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png'),
+				defaultMapCenter = [23.5,-102.5],
+				map = L.map('map', { 
+					layers: [osmLayer],
+					fullscreenControl: true,
+					attributionControl: false
+				}).on('load', function(){
+					/* ga('send', 'event', 'Mapa OSM', 'Carga', {nonInteraction: true}); */
+				}),
+    			mapAttribution = L.control.attribution();
+    			
+			map.setView(defaultMapCenter, calculateZoom());
+
+    		var logoSsn = L.control({position: 'bottomleft'});
+			logoSsn.onAdd = function(map){
+				var div = L.DomUtil.create('div', 'map-div logo');
+				div.innerHTML = "<img src='http://www.ssn.unam.mx/recursos/imagenes/plantilla/ssn.png'>";
+				return div;
+			}
+
+			var mapTitle = L.control({position: 'bottomleft'});
+			mapTitle.onAdd = function(map){
+				var div = L.DomUtil.create('div', 'map-div title');
+				div.innerHTML = map.hasLayer(lastMarker) ? "<p class='text-center text-uppercase'>Último sismo</p>" : "<p class='text-center text-uppercase'>sismos recientes</p>";
+				return div;
+			}
+    		
+    		setMapAttribution();
+
+    		map.on('move', function() {
+    			/* ga('send', 'event', 'Mapa OSM', 'Movimiento', {nonInteraction: true}); */
+    		});
+
+    		map.on('zoom', function() {
+    			/* ga('send', 'event', 'Mapa OSM', 'Zoom', {nonInteraction: true}); */
+    		});
+
+    		map.on('resize', function() {
+    			/* ga('send', 'event', 'Mapa OSM', 'Redimensionamiento', {nonInteraction: true}); */
+    		});
+
+    		map.on('fullscreenchange', function() {
+    			/* setMapAttribution(); */
+    			if ( map.isFullscreen() ) {
+
+    				if (map.getZoom() > calculateZoom() ) {
+    					map.setView(map.getCenter(), map.getZoom());
+    				} else {
+    					map.setView(map.getCenter(), calculateZoom());
+    				}
+    				
+    				mapTitle.addTo(map);
+    				logoSsn.addTo(map);
+    				/* ga('send', 'event', 'Mapa OSM', 'Pantalla Completa', {nonInteraction: true}); */
+    			} else {
+    				logoSsn.remove();
+    				mapTitle.remove();
+    			}
+    		});
+
+    		L.DomEvent.on(map,'resize', function(){
+				map.setView(map.getCenter(), calculateZoom()); /* or getZoom? */
+				setMapAttribution();
+			});
+
+			
+
+
+
+
+		    
+
+
+			$('#latestEvents').click(function(){
+				lastMarker.remove();
+				map.setView(defaultMapCenter, calculateZoom());
+		    	latestEpicenters = L.layerGroup(latestMarkers).addTo(map);
+		    });
+
+		    $('#lastEvent').click(function(){
+    			map.removeLayer(latestEpicenters);
+    			map.setView(defaultMapCenter, calculateZoom());
+				lastMarker.addTo(map).openTooltip();
+		    });
+
+
+		    function setMapAttribution() {
+    			var ssnAt = '',
+    				lftAt = 'Leaflet',
+    				osmAtpre = $('#map').outerWidth() > 420 ? 'Colaboradores de' : '',
+    				osmAt = '';
+
+    			if ( map.isFullscreen() ) {
+    				getAts(400, 400, 300); /* 300,300,300 sin logo */
+    				var brAt = '<br>';
+    				var fullscreenControlTitle = 'Salir del mapa en pantalla completa';
+    			} else {
+    				getAts(550, 500, 320);
+    				var brAt = '&nbsp;&nbsp;';
+    				var fullscreenControlTitle = 'Ver mapa en pantalla completa';
+    			}
+    			
+    			$('.leaflet-control-fullscreen-button').attr('title',fullscreenControlTitle);
+    			mapAttribution.remove();
+    			mapAttribution.setPrefix('<a href="http://www.ssn.unam.mx/" title="Ir a la página de inicio del SSN" class="link-at">'+ssnAt+'</a> | <a href="http://unam.mx/" title="Ir a la página de inicio de la UNAM" target="_blank" class="link-at">UNAM</a>, México.'+brAt+'<a href="http://leafletjs.com/" title="Biblioteca JavaScript para mapas interactivos" class="link-at">'+lftAt+'</a> &copy; '+osmAtpre+' <a href="http://osm.org/copyright" title="Información sobre derechos de autor y licencia de OpenStreetMap" target="_blank" class="link-at">'+osmAt+'</a>');
+    			mapAttribution.addTo(map);
+    			function getAts(w1, w2, w3) {
+					ssnAt = $('#map').outerWidth() > w2 ? 'Servicio Sismológico Nacional' : 'SSN';
+					osmAt = $('#map').outerWidth() > w3 ? 'OpenStreetMap' : 'OSM';
+    			}
+    		}
+
+    		/*
+    		function calculateZoom() {
+    			var mapWidth = $('#map').outerWidth();
+    			var zoom = mapWidth >= 420 ? (mapWidth >= 760 ? (mapWidth >= 1500 ? 6 : 5) : 4) : 3;
+	   			return zoom;
+	   		}
+	   		*/
+
+	   		function calculateZoom() {
+    			var mapWidth = $('#map').outerWidth();
+    			var zoom = mapWidth >= 440 ? (mapWidth >= 860 ? (mapWidth >= 1510 ? 6 : 5) : 4) : 3;
+	   			return zoom;
+	   		}
+
+	   		function resetZIndex() {
+	   			for (var i = 0; i < latestData.length; i++) {
+					latestMarkers[i].setZIndexOffset(Number(latestData[i][5]).toFixed(1) * 1000);
+				}
+	   		}
+		</script>
+
+
+		<script>
+		/*** Scroll to map ... ***/
+		/* 
+			$(".recent-event-row-strong").click(function() {
+				if (window.innerWidth<=992) {
+    				$('html,body').animate({
+        				scrollTop: $("#mapDiv").offset().top-20},
+        			1200);
+    			}
+			});
+		*/
+		/*** ... Scroll to map ***/
+
+    		var currentId,
+				onlyNumberId;
+
+
+			/*** Recent event selected ... ***/
+
+				$(".recent-event-row-strong").click(function() {
+	    			currentId = $(this).attr('id');
+	    			onlyNumberId = currentId.substring(24);
+	    			magStyle = $('#mag_reciente_fuerte_'+onlyNumberId).attr('style');
+	    			magStyle = magStyle.split(":",2);
+	    			magColor = magStyle[1];
+
+	    			magColor2 = $('#color_reciente_fuerte_'+onlyNumberId).text();
+
+
+	    			if ( $(this).hasClass('recent-event-row-selected-orange') || $(this).hasClass('recent-event-row-selected-green') || $(this).hasClass('recent-event-row-selected-red') ) {
+	    					$('.magnitud-sismos-recientes').removeClass('recent-event-row-selected-mag');
+		    				$('.recent-event-row-strong').removeClass('recent-event-row-selected-red');
+							$('.recent-event-row-strong').removeClass('recent-event-row-selected-green');
+		    				$('.recent-event-row-strong').removeClass('recent-event-row-selected-orange');
+
+		    			map.removeLayer(latestEpicenters);
+		    			resetZIndex();
+
+						if ( map.isFullscreen() ) {
+							map.setView(map.getCenter(), map.getZoom());
+						} else {
+							map.setView(defaultMapCenter, calculateZoom());
+						}
+						
+						latestEpicenters = L.layerGroup(latestMarkers).addTo(map);
+						/* ga('send', 'event', 'Mapa OSM', 'Vista de marcadores reestablecida (desde tabla)', {nonInteraction: true}); */ /* find a better name */
+
+	    			} else {
+	    				map.removeLayer(latestEpicenters);
+	    				resetZIndex();
+	    				latestEpicenters = L.layerGroup(latestMarkers).addTo(map);
+						
+						latestEpicenters.eachLayer(function (layer) {
+							/* L.DomUtil.addClass(layer._icon, 'label-marker-background'); */
+							L.DomUtil.removeClass(layer._icon, 'label-marker-selected');
+							if (L.DomUtil.hasClass(layer._icon, onlyNumberId)){
+								layer.setZIndexOffset(layer._zIndex * 1000);
+								layer.openPopup();
+								/* L.DomUtil.removeClass(layer._icon, 'label-marker-background'); */
+								L.DomUtil.addClass(layer._icon, 'label-marker-selected');
+								map.setView(layer.getLatLng(), 8);
+							}
+						});
+
+
+		    			changeRecentHeavyEventSelectedStyle();
+						closeToMapTest();
+
+	    			}
+				});
+			/*** ... Recent event selected ***/
+
+				function closeToMapTest() {
+					if (window.innerWidth < 480) {
+						var element = document.getElementById(currentId);
+						element.scrollIntoView();
+						$('html,body').animate({scrollTop: $('html,body').offset().top+128},0);
+					}
+				}
+
+				function changeRecentHeavyEventSelectedStyle() {
+					$('.magnitud-sismos-recientes').removeClass('recent-event-row-selected-mag');
+	    			$('#mag_reciente_fuerte_'+onlyNumberId).addClass('recent-event-row-selected-mag');
+	    			$('.recent-event-row-strong').removeClass('recent-event-row-selected-red');
+					$('.recent-event-row-strong').removeClass('recent-event-row-selected-green');
+	    			$('.recent-event-row-strong').removeClass('recent-event-row-selected-orange');
+
+	    			
+	    			if (magColor == 'red' || magColor2 == 'red') {
+	    				$('#'+currentId).toggleClass('recent-event-row-selected-red');
+	    			}
+                   	else if (magColor == 'green' || magColor2 =='green') {
+                        $('#'+currentId).toggleClass('recent-event-row-selected-green');
+                    }
+                    /* else (magColor == 'orange') { */
+                    else {
+	    				$('#'+currentId).toggleClass('recent-event-row-selected-orange');
+	    			}
+				}
+		</script>
+
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  				})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  			ga('create', 'UA-80111310-1', 'auto');
+  			ga('send', 'pageview');
+		</script>
+	</body>
+</html>

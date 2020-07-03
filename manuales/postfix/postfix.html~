@@ -1,0 +1,711 @@
+<html>
+
+<meta http-equiv="Content-Language" content="en-us" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta name="robots" content="ALL" />
+<head>
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+<TITLE>Nagios Core</TITLE>
+<link href="stylesheets/common.css" type="text/css" rel="stylesheet">
+
+
+
+
+
+
+</head>
+
+
+<br>
+<p id="hdr_home"><h1><FONT COLOR=blue>AdvTI-Solutions</FONT> <span>Postfix</span></h1></a></p>
+<br>
+</div>
+		<p><a href="http://blogdeaitor.files.wordpress.com/2011/05/mail.jpeg"><img class="alignleft size-thumbnail wp-image-507" title="mail" src="http://blogdeaitor.files.wordpress.com/2011/05/mail.jpeg?w=147&#038;h=150" alt=""   /></a>En la entrada de hoy aprenderemos a instalar y configurar <a title="Postfix" href="http://es.wikipedia.org/wiki/Postfix" target="_blank">Postfix</a>, un servidor de correo electrónico muy extendido en Linux y a utilizar <a title="Squirrel Mail" href="http://squirrelmail.org/" target="_blank">Squirrel</a>, un cliente web en php que nos permitirá visualizar los correos electrónicos enviados y recibidos en nuestro sistema.</p>
+<p><span id="more-503"></span></p>
+<p>Este manual instala Postfix y Squirrel en Ubuntu 11.04 aunque los pasos a seguir en otras versiones pueden ser los mismos aquí mostrados.</p>
+<h2>Instalar apache</h2>
+<p>Squirrel es un cliente webmail y, como tal, debemos utilizarlo con un servidor web. Para ello, instalaremos apache en nuestro sistema. Este paso sera necesario únicamente si nuestra intención es instalar Squirrel, si solo queremos configurar un servidor de correo electrónico podemos saltar este paso.</p>
+<p>Instalaremos apache con el siguiente comando:</p>
+<pre>aitor@mailServ:~$ sudo apt-get install apache2</pre>
+<p>Podemos comprobar que se ha instalado correctamente introduciendo en el explorador <a href="http://127.0.0.1" rel="nofollow">http://127.0.0.1</a> o <a href="http://localhost" rel="nofollow">http://localhost</a>.</p>
+<h2>Configuración DNS</h2>
+<p>A continuación vamos a configurar nuestro DNS para que resuelva <a href="http://www.mailserv.com " rel="nofollow">http://www.mailserv.com </a> (o el nombre con el que queráis llamar vuestro sistema) como el equipo local. Para ello configuraremos nuestro servidor DNS (bind9, win2008, etc) con un nuevo registro del tipo A (Host) o, de ya existir, con un CNAME (Alias) especificando este nombre. En el caso de no tener ningún servidor DNS configurado en nuestra red o de querer utilizar el servidor de correo solo localmente, podemos hacer estas modificaciones en el archivo hosts situado en /etc/hosts.</p>
+<p>Para comprobar el funcionamiento podemos realizar un ping a <a href="http://www.mailserv.com" rel="nofollow">http://www.mailserv.com</a></p>
+<pre>aitor@mailServ:~$ ping www.mailserv.com
+ PING www.mailserv.com (10.0.2.15) 56(84) bytes of data.
+ 64 bytes from www.mailserv.com (10.0.2.15): icmp_req=1 ttl=64 time=0.039 ms
+ 64 bytes from www.mailserv.com (10.0.2.15): icmp_req=2 ttl=64 time=0.055 ms
+ ^C
+ --- mail.mailserv.com ping statistics ---
+ 2 packets transmitted, 2 received, 0% packet loss, time 999ms
+ rtt min/avg/max/mdev = 0.039/0.047/0.055/0.008 ms</pre>
+<p>Podemos ver que resuelve correctamente la dirección i que el servidor responde. El siguiente paso será comprobar que podemos acceder a <a href="http://www.mailserv.com" rel="nofollow">http://www.mailserv.com</a> desde nuestro navegador web. No deberiamos tener ningun problema con eso y el resultado tendria que ser un &#8220;<em>It works!</em>&#8221; como los anteriores.</p>
+<h2>Instalación de Postfix</h2>
+<p>Para instalar Postfix, introduciremos el siguiente comando:</p>
+<pre>aitor@mailServ:~$ sudo apt-get install postfix
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias       
+Leyendo la información de estado... Hecho
+Paquetes sugeridos:
+  procmail postfix-mysql postfix-pgsql postfix-ldap postfix-pcre sasl2-bin
+  dovecot-common resolvconf postfix-cdb
+Se instalarán los siguientes paquetes NUEVOS:
+  postfix
+0 actualizados, 1 se instalarán, 0 para eliminar y 110 no actualizados.
+...</pre>
+<h3>Configuración durante la instalación</h3>
+<p>Durante la instalación de Postfix, nos aparecen algunas pantallas de configuración. La primera pantalla nos facilita cierta información sobre la segunda y estaría bien leerla con paciencia y escoger la opción que mas se acerque a lo que estamos buscando. En este caso vamos a seleccionar &#8220;<em>Sitio de Internet</em>&#8220;.</p>
+<p>En la siguiente pantalla, tenemos que seleccionar el nombre de sistema de correo. En ella debemos seleccionar nuestro <a title="FQDN" href="http://es.wikipedia.org/wiki/FQDN" target="_blank">FQDN</a> (<em>Fully Qualified Domain Name</em>), es decir, si nuestra dirección de correo es blogdeaitor@mailserv.com, nuestro FQDN sera mailserv.com (popularmente conocido como nombre de dominio).</p>
+<p>Una vez instalado Postfix, podemos acceder al fichero de configuración principal /etc/potfix/main.cf donde añadiremos al final las dos lineas que podemos ver a configuración:</p>
+<pre>inet_protocols = ipv4
+home_mailbox = Maildir/</pre>
+<p>Especificando el protocolo de red utilizado (IPv4) y el directorio donde deben guardarse los correos electrónicos. La parte final del fichero quedara pues de la siguiente manera:</p>
+<pre>...
+myhostname = mailServ
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination = mailServ.com, mailServ, localhost.localdomain, localhost
+relayhost =
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = ipv4
+home_mailbox = Maildir/</pre>
+<h3>Reiniciado de Postfix</h3>
+<p>A continuación reiniciaremos Postfix:</p>
+<pre>aitor@mailServ:~$ sudo /etc/init.d/postfix restart
+ * Stopping Postfix Mail Transport Agent postfix                         [ OK ]
+ * Starting Postfix Mail Transport Agent postfix                         [ OK ]</pre>
+<h3>Instalción de courier pop y courier imap.</h3>
+<p>A continuación vamos a instalar los paquetes courier-pop y courier-imap para dar soporte pop y imap al servidor postfix. Para hacerlo ejecutaremos:</p>
+<pre>aitor@mailServ:~$ sudo apt-get install courier-pop
+ Leyendo lista de paquetes... Hecho
+ Creando árbol de dependencias
+ Leyendo la información de estado... Hecho
+ Se instalarán los siguientes paquetes extras:
+ courier-authdaemon courier-authlib courier-authlib-userdb courier-base
+ expect tcl8.5
+ Paquetes sugeridos:
+ courier-doc courier-pop-ssl expectk tclreadline
+ Se instalarán los siguientes paquetes NUEVOS:
+ courier-authdaemon courier-authlib courier-authlib-userdb courier-base
+ courier-pop expect tcl8.5
+ 0 actualizados, 7 se instalarán, 0 para eliminar y 110 no actualizados.
+...</pre>
+<p>Durante la instalación seleccionaremos que NO queremos crear los directorios para la administración basado en web.</p>
+<p>Instalamos a continuación courier-imap:</p>
+<pre>aitor@mailServ:~$ sudo apt-get install courier-imap
+ Leyendo lista de paquetes... Hecho
+ Creando árbol de dependencias
+ Leyendo la información de estado... Hecho
+ Paquetes sugeridos:
+ courier-doc courier-imap-ssl
+ Se instalarán los siguientes paquetes NUEVOS:
+ courier-imap
+ 0 actualizados, 1 se instalarán, 0 para eliminar y 110 no actualizados.
+...</pre>
+<h2>Instalación MAILX</h2>
+<p>La aplicación <a title="Mailx" href="http://es.wikipedia.org/wiki/Mailx" target="_blank">mailx</a> permite mandar correos electrónicos mediante la linea de comandos. Para instalarla ejecutaremos:</p>
+<pre>aitor@mailServ:~$ sudo apt-get install mailx
+ Leyendo lista de paquetes... Hecho
+ Creando árbol de dependencias
+ Leyendo la información de estado... Hecho
+<strong> El paquete mailx es un paquete virtual provisto por:</strong>
+ mailutils 1:2.1+dfsg1-7build1
+ heirloom-mailx 12.4-2
+ bsd-mailx 8.1.2-0.20100314cvs-1</pre>
+<p>Esto nos informa que necesita seleccionar explícitamente uno de los paquetes anteriores para obtener mailx. Para ello, hemos decidido instalar mailutils.</p>
+<pre>aitor@mailServ:~$ sudo apt-get install mailutils
+ Leyendo lista de paquetes... Hecho
+ Creando árbol de dependencias
+ Leyendo la información de estado... Hecho
+ Se instalarán los siguientes paquetes extras:
+ libgsasl7 libmailutils2 libmysqlclient16 libntlm0 mysql-common
+ Paquetes sugeridos:
+ mailutils-mh
+ Se instalarán los siguientes paquetes NUEVOS:
+ libgsasl7 libmailutils2 libmysqlclient16 libntlm0 mailutils mysql-common
+ 0 actualizados, 6 se instalarán, 0 para eliminar y 110 no actualizados.
+...</pre>
+<h2>SQUIRREL</h2>
+<p>Una vez terminado, instalaremos Squirrel, una aplicación de webmail en php que nos permite utilizar nuestro explorador web para enviar, recibir y consultar nuestro buzón de correo. Para instalarla ejecutaremos:</p>
+<pre>aitor@mailServ:~$ sudo apt-get install squirrelmail
+ Leyendo lista de paquetes... Hecho
+ Creando árbol de dependencias
+ Leyendo la información de estado... Hecho
+ Se instalarán los siguientes paquetes extras:
+ apache2-mpm-prefork libapache2-mod-php5 php5-cli php5-common
+ squirrelmail-locales squirrelmail-viewashtml
+ Paquetes sugeridos:
+ php-pear php5-suhosin squirrelmail-decode php5-recode imapproxy php5-ldap
+ Paquetes recomendados:
+ php5-mhash
+ Los siguientes paquetes se ELIMINARÁN:
+ apache2-mpm-worker
+ Se instalarán los siguientes paquetes NUEVOS:
+ apache2-mpm-prefork libapache2-mod-php5 php5-cli php5-common squirrelmail
+ squirrelmail-locales squirrelmail-viewashtml
+ 0 actualizados, 7 se instalarán, 1 para eliminar y 110 no actualizados.
+...</pre>
+<p>Una vez instalado lo configuraremos con el comando squirrelmail-configure como se muestra a continuación:</p>
+<pre>aitor@mailServ:~$ squirrelmail-configure
+SquirrelMail Configuration : Read: config.php (1.4.0)
+ ---------------------------------------------------------
+ Main Menu --
+ 1.  Organization Preferences
+ 2.  Server Settings
+ 3.  Folder Defaults
+ 4.  General Options
+ 5.  Themes
+ 6.  Address Books
+ 7.  Message of the Day (MOTD)
+ 8.  Plugins
+ 9.  Database
+ 10. Languages
+D.  Set pre-defined settings for specific IMAP servers
+C   Turn color on
+ S   Save data
+ Q   Quit
+<strong>Command &gt;&gt; D</strong></pre>
+<p>Seleccionamos la opción D para escoger el tipo de correo IMAP utilizado. En este caso utilizaremos courier instalado anteriormente.</p>
+<pre>---------------------------------------------------------
+ While we have been building SquirrelMail, we have discovered some
+ preferences that work better with some servers that don't work so
+ well with others.  If you select your IMAP server, this option will
+ set some pre-defined settings for that server.
+Please note that you will still need to go through and make sure
+ everything is correct.  This does not change everything.  There are
+ only a few settings that this will change.
+Please select your IMAP server:
+ bincimap    = Binc IMAP server
+ courier     = Courier IMAP server
+ cyrus       = Cyrus IMAP server
+ dovecot     = Dovecot Secure IMAP server
+ exchange    = Microsoft Exchange IMAP server
+ hmailserver = hMailServer
+ macosx      = Mac OS X Mailserver
+ mercury32   = Mercury/32
+ uw          = University of Washington's IMAP server
+ gmail       = IMAP access to Google mail (Gmail) accounts
+quit        = Do not change anything
+ <strong>Command &gt;&gt; courier</strong></pre>
+<p>Con lo que obtendremos:</p>
+<pre>Command &gt;&gt; courier
+imap_server_type = courier
+ default_folder_prefix = INBOX.
+ trash_folder = Trash
+ sent_folder = Sent
+ draft_folder = Drafts
+ show_prefix_option = false
+ default_sub_of_inbox = false
+ show_contain_subfolders_option = false
+ optional_delimiter = .
+ delete_folder = true
+Press any key to continue...</pre>
+<p>Finalmente configuraremos el servidor. Para ello seleccionaremos la opción 2 y a continuación la opción 1 para configurar el FQDN de nuestro servidor.</p>
+<pre>SquirrelMail Configuration : Read: config.php (1.4.0)
+ ---------------------------------------------------------
+ Server Settings
+General
+ -------
+ 1.  Domain                 : trim(implode('', file('/etc/'.(file_exists('/etc/mailname')?'mail':'host').'name')))
+ 2.  Invert Time            : false
+ 3.  Sendmail or SMTP       : SMTP
+A.  Update IMAP Settings   : localhost:143 (courier)
+ B.  Update SMTP Settings   : localhost:25
+R   Return to Main Menu
+ C   Turn color on
+ S   Save data
+ Q   Quit
+<strong>Command &gt;&gt; 1</strong></pre>
+<p>Con lo que obtendremos este resultado final:</p>
+<pre>SquirrelMail Configuration : Read: config.php (1.4.0)
+ ---------------------------------------------------------
+ Server Settings
+General
+ -------
+<strong> 1.  Domain                 : servmail.com</strong>
+ 2.  Invert Time            : false
+ 3.  Sendmail or SMTP       : SMTP
+A.  Update IMAP Settings   : localhost:143 (courier)
+ B.  Update SMTP Settings   : localhost:25
+R   Return to Main Menu
+ C   Turn color on
+ S   Save data
+ Q   Quit
+<strong>Command &gt;&gt; q</strong>
+You have not saved your data.
+ <strong>Save?  [Y/n]: y</strong>
+Exiting conf.pl.
+ You might want to test your configuration by browsing to
+
+http://your-squirrelmail-location/src/configtest.php
+
+ Happy SquirrelMailing!</pre>
+<p>Una vez configurado squirrel, crearemos un enlace simbolico de squirrel al directorio DocumentRoot de apache, es decir, en este caso, /var/www. Con eso conseguiremos poder acceder a squirrel de forma sencilla.</p>
+<pre>aitor@mailServ:~$ sudo ln -s /usr/share/squirrelmail/ /var/www/webmail</pre>
+<p>Con esto, podemos acceder mediante nuestro explorador web a <a href="http://www.mailserv.com/webmail" rel="nofollow">http://www.mailserv.com/webmail</a> para acceder a la página de squirrel. Es posible que la primera vez firefox nos pida abrir un archivo PHTML, si obtenemos este resultado reiniciaremos apache.</p>
+<pre>aitor@mailServ:~$ sudo /etc/init.d/apache2 restart
+ * Restarting web server apache2                                                [ OK ]</pre>
+<p>Y accedemos nuevamente a <a href="http://www.mailserv.com/webmail" rel="nofollow">http://www.mailserv.com/webmail</a></p>
+<h2>Comprobación de funcionamiento</h2>
+<p>Para comprobar el correcto funcionamiento del sistema, vamos a crear un nuevo usuario al que mandaremos nuestro primer correo electrónico. Para ello utilizaremos el comando <strong>adduser</strong>.</p>
+<pre>aitor@mailServ:~$ sudo adduser luisa
+ Añadiendo el usuario `luisa' ...
+ Añadiendo el nuevo grupo `luisa' (1001) ...
+ Añadiendo el nuevo usuario `luisa' (1001) con grupo `luisa' ...
+ Creando el directorio personal `/home/luisa' ...
+...</pre>
+<h2>Envío de correo</h2>
+<p>Para realizar el envío de correo vamos a utilizar el comando mail que hemos instalado anteriormente con mailx tal y como podemos ver a continuación.</p>
+<pre>aitor@mailServ:~$ mail luisa@mailserv.com
+ Cc:
+ Subject: Test
+ Esto es un test de envio de correo.</pre>
+<p>Una vez escrito el cuerpo del mensaje pulsaremos CTR+d  para terminar la redacción del correo.</p>
+<p>Si ahora accedemos como el usuario &#8220;luisa&#8221; a squirrel podremos ver el correo en la bandeja de entrada</p>
+<p>Tambien es posible enviar correos a cualquier cuenta real de gmail, hotmail, etc. (siempre que estos no lo detecten como spam y lo eliminen). Sera suficiente con modificar la dirección del destinatario.</p>
+<pre>aitor@mailServ:~$ mail arigada@wordpress.com
+ Cc: aitor.rigada@wordpress.com
+ Subject: Prueba de mail real
+ Esto es una prueba de correo real.</pre>
+<p>Con esto ya hemos configurado correctamente nuestro servidor de correo Postfix i el cliente de webmail Squirrel.</p>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2 class="title">Configurar postfix a través de un relay host autenticado&nbsp;(Gmail)</h2>
+
+			<div class="entry">
+				<div class="postbody entry clearfix">
+					<div class="pd-rating" id="pd_rating_holder_77740_post_251"></div><br/><p>En principio sería posible instalar un servidor de correo en cualquier equipo conectado a Internet con una dirección IP pública, pero debido al problema del spam, mucho de los servidores de correo de Internet bloquean el correo no autenticado que venga de direcciones IP dinámicas, que son las habituales en conexiones domésticas.</p>
+<p>Una solución es instalar un servidor de correo que no envíe directamente el correo al servidor destino, sino que utilice el equipo smtp.gmail.com para que retrasmita (<em>relay</em>) sus mensajes.<br />
+<span id="more-251"></span></p>
+<h2>Características del montaje</h2>
+<ul>
+<li>Sistema: Debian GNU/Linux (lenny)</li>
+<li>postfix 2.5.5</li>
+<li>DNS correctamente configurado en dyndns.org, supongamos que fuese mimaquina.dyndns.org</li>
+<li>ddclient instalado y configurado para actualizar el registro DNS en dyndns</li>
+<li>Cuenta abierta en gmail, supongamos que fuese micuenta@gmail.com</li>
+</ul>
+<p>Si instalamos postfix en un equipo con dirección IP dinámica y envíamos un mensaje de correo a determinados dominios (por ejemplo hotmail), nos rebotarán los mensajes y nos aparecerán líneas en el fichero <em>/var/log/mail.log</em> como éstas:<br />
+<code><br />
+postfix/pickup[6804]: 09B0634680: uid=1000 from=&lt;usuario&gt;<br />
+postfix/cleanup[6810]: 09B0634680:message-id=&lt;20081231154700.09B0634680@mimaquina&gt;<br />
+postfix/qmgr[6802]: 09B0634680: from=&lt;usuario@mimaquina.dyndns.org&gt;, size=307, nrcpt=1 (queue active)<br />
+postfix/smtp[6812]: 09B0634680: to=&lt;una@hotmail.com&gt;,relay=mx2.hotmail.com[65.54.244.40]:25, delay=1.3, delays=0.03/0.04/0.92/0.3, dsn=5.0.0, status=bounced (host mx2.hotmail.com[65.54.244.40] said: 550 DY-001 Mail rejected by Windows Live Hotmail for policy reasons. We generally do not accept email from dynamic IP's as they are not typically used to deliver unauthenticated SMTP e-mail to an Internet mail server. <a href="http://www.spamhaus.org" rel="nofollow">http://www.spamhaus.org</a> maintains lists of dynamic and residential IP addresses. If you are not an email/network admin please contact your E-mail/Internet Service Provider for help. Email/network admins, please visit <a href="http://postmaster.live.com" rel="nofollow">http://postmaster.live.com</a> for email delivery information and support (in reply to MAIL FROM command))<br />
+postfix/smtp[6812]: 09B0634680: lost connection with mx2.hotmail.com[65.54.244.40] while sending RCPT TO<br />
+</code></p>
+<p>Para evitar esto podemos utilizar otro MTA para que retransmita el correo de nuestro servidor, para lo que debemos tener una cuenta de correo en dicho MTA. Explicaremos a continuación los pasos que hay que dar para hacer eso con el servidor de correo de GMail (smtp.gmail.com).</p>
+<h2>Características de la conexión</h2>
+<p>Para enviar correo utilizando el servidor SMTP de Gmail la conexión tiene que estar cifrada con TLS, para lo que debemos añadir la Autoridad Certificadora adecuada (en este caso Thawte) y autenticada, para lo que utilizaremos un  nombre de usuario (dirección de correo) y contraseña del servicio.</p>
+<h2>Configuración de <em>main.cf</em></h2>
+<p>Tenemos que editar el fichero y añadir las siguientes líneas:</p>
+<pre>relayhost = [smtp.gmail.com]:587</pre>
+<p></p>
+<p>Donde indicamos el nombre del equipo que retransmitirá nuestro mensajes (los corchetes ([ ]) son para que no haga la resolución MX) y el puerto de la conexión es el que se utiliza para la conexión entre un cliente y un servidor SMTP (587/TCP <em>message submission</em>).</p>
+<pre>smtp_use_tls = yes
+smtp_tls_CAfile = /etc/postfix/cacert.pem</pre>
+<p></p>
+<p>Para que utilice TLS al enviar correo y confíe en las autoridades certificadoras que se añadan al fichero <em>cacert.pem</em></p>
+<pre>smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl/passwd
+smtp_sasl_security_options = noanonymous</pre>
+<p></p>
+<p>donde le decimos a postfix que debe autenticarse mediante SASL y especificamos la ubicación del fichero con la información del nombre de usuario y contraseña.</p>
+<h2>Datos de autenticación</h2>
+<p>Creamos el fichero <em>/etc/postfix/sasl/passwd</em> con el siguiente contenido:</p>
+<pre>[smtp.gmail.com]:587    unacuenta@gmail.com:unacontraseña</pre>
+<p></p>
+<p>Y lo protegemos adecuadamente con:</p>
+<pre>chmod 600 /etc/postfix/sasl/passwd</pre>
+<p></p>
+<p>El fichero de configuración hay que transformarlo a un fichero indexado de tipo hash mediante la instrucción:</p>
+<pre>postmap /etc/postfix/sasl/passwd</pre>
+<p></p>
+<p>que creará el fichero <em>/etc/postfix/sasl/passwd.db</em></p>
+<h2>Utilización del certificado adecuado</h2>
+<p>Para añadir la autoridad certificadora <em>Thawte</em> al fichero de certificados que utilizará postfix, hacemos:</p>
+<pre>cat /etc/ssl/certs/Thawte_Premium_Server_CA.pem &gt;&gt; /etc/postfix/cacert.pem</pre>
+<p></p>
+<p>si no existiesen los ficheros de certificados SSL, debemos instalar el paquete <em>ca-certificates</em></p>
+<p><strong>Actualización (21/08/2009):</strong>Ayer al enviar mensajes aparecía la siguiente línea en el registro de correo:</p>
+<pre>
+certificate verification failed for smtp.gmail.com[74.125.79.111]:587: untrusted issuer /C=US/O=Equifax/OU=Equifax Secure Certificate Authority
+</pre>
+<p></p>
+<p>Por lo que parece que el servidor smtp.gmail.com ha cambiado de entidad certificadora :-?, utilizando ahora Equifax en lugar de Thawte, para solucionar esto añadimos Equifax al fichero de certificados que está utilizando postfix:</p>
+<pre>
+cat /etc/ssl/certs/Equifax_Secure_CA.pem &gt;&gt; /etc/postfix/cacert.pem
+</pre>
+<p></p>
+<p>y reiniciamos el demonio de postfix (bastará hacer reload).</p>
+<h2>Configuración de la cuenta de gmail</h2>
+<p><strong>Actualización (20/08/2009):</strong> Sección añadida para que los corrreos lleguen a destino con el campo &#8220;From:&#8221; correcto, gracias a nihilanthlnxa y sylon por sus comentarios.</p>
+<p>El campo &#8220;From:&#8221; de un mensaje de correo indica la dirección de correo electrónico del remitente, pero no es obligatorio que sea la dirección de correo del usuario en el servidor de correo que envía el mensaje, sino que es el cliente de correo el que se encarga de rellenar este campo y puede poner el valor que desee. Cuando se utilizan varias cuentas de correo esto permite enviar mensajes con distintos remitentes desde el mismo servidor de correo, pero tiene la contrapartida de que se puede utilizar (y así lo hacen los mensajes de spam) para poner una dirección de correo ilegítima. Gmail sólo permite poner en el campo &#8220;From:&#8221; direcciones de correo verificadas o pone por defecto la que se corresponde con la cuenta de gmail.</p>
+<h3>Añadir un remitente nuevo en nuestra cuenta de gmail</h3>
+<p>Abrimos en el navegador la página de Gmail, vamos a <em>Configuración &gt; Cuentas e importación &gt; Enviar mensaje como</em> y añadimos como nuevo remitente la dirección de correo de nuestro servidor de correo (<em>usuario@mimaquina.dyndns.org</em>). Para verificar que somos usuarios legítimos de la misma gmail nos enviará un mensaje con un código de verificación, que nos llegará a nuestra cuenta local. Una vez verificada la cuenta, gmail permitirá que se envíen mensajes con ese remitente y no lo modificará. </p>
+<h2>Prueba de funcionamiento</h2>
+<p>Para comprobar que todo está funcionando correctamente, enviamos un mensaje a una cuenta cualquiera de correo y miramos de nuevo los registros:</p>
+<pre>
+postfix/pickup[6703]: 6AFF534680: uid=1000 from=&lt;usuario&gt;
+postfix/cleanup[6786]: 6AFF534680: message-id=&lt;20081231154524.6AFF534680@mimaquina&gt;
+postfix/qmgr[5935]: 6AFF534680: from=&lt;usuario@mimaquina.dyndns.org&gt;, size=310, nrcpt=1 (queue active)
+postfix/smtp[6788]: 6AFF534680:to=&lt;unacuenta@hotmail.com&gt;,relay=smtp.gmail.com[66.249.93.111]:587, delay=2.8, delays=0.04/0.02/1.2/1.6, 
+dsn=2.0.0, status=sent (250 2.0.0 OK 1230738538 34sm19633915ugh.10)
+postfix/qmgr[5935]: 6AFF534680: removed
+</pre>
+<p></p>
+
+
+
+
+
+
+
+	Los servicios de red son los programas con los que los usuarios interactúan en su trabajo diario. Son la punta del iceberg del sistema de información y este capítulo se centra en ellos; las partes ocultas en las que se basan son la infraestructura que ya hemos descripto anteriormente.
+	</div></div><div class="section"><div class="titlepage"><div><div><h2 class="title"><a xmlns="" id="sect.smtp-mail-server"></a>11.1. Servidor de correo</h2></div></div></div><div class="para">
+			Los administradores de Falcot Corp eligieron Postfix como servidor de correo electrónico debido a su fiabilidad y su facilidad de configuración. De hecho, su diseño fuerza a que cada tarea sea implementada en un proceso con el mínimo conjunto de permisos, lo que es una gran medida paliativa contra problemas de seguridad.
+		</div><a id="idm140547837862992" class="indexterm"></a><a id="idm140547821913888" class="indexterm"></a><a id="idm140547838644304" class="indexterm"></a><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>ALTERNATIVA</em></span> El servidor Exim4</strong></p></div></div></div><a id="idm140547840775584" class="indexterm"></a><div class="para">
+			Debian utiliza Exim4 como servidor de correo predeterminado (razón por la que la instalación inicial incluye Exim4). Un paquete diferente provee su configuración, <span class="pkg pkg">exim4-config</span>, la cual es personalizada automáticamente basándose en las respuestas a un conjunto de preguntas Debconf muy similares a las que pregunta el paquete <span class="pkg pkg">postfix</span>.
+		</div><div class="para">
+			La configuración puede estar en un único archivo (<code class="filename">/etc/exim4/exim4.conf.template</code>) o dividida en diferentes trozos que se almacenan en el directorio <code class="filename">/etc/exim4/conf.d/</code>. En ambos casos, <code class="command">update-exim4.conf</code> utiliza los archivos como plantillas para generar <code class="filename">/var/lib/exim4/config.autogenerated</code> . Exim4 utiliza este último archivo. Gracias a este mecanismo, se pueden introducir los valores definidos durante la configuración debconf de Exim — almacenados en <code class="filename">/etc/exim4/update-exim4.conf.conf</code> — en el archivo de configuración de Exim aún cuando el administrador y otro paquete haya modificado la configuración predeterminada de Exim.
+		</div><div class="para">
+			La sintaxis de los archivos de configuración de Exim4 tiene sus peculiaridades y curva de aprendizaje. Sin embargo, una vez que se entienden estas peculiaridades, Exim4 resulta ser un servidor de correo muy completo y potente, como se puede apreciar en las decenas de páginas de documentación. <div xmlns="" class="url">→ <a xmlns="http://www.w3.org/1999/xhtml" href="http://www.exim.org/docs.html">http://www.exim.org/docs.html</a></div>
+		</div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a xmlns="" id="idm140547839457152"></a>11.1.1. Instalación de Postfix</h3></div></div></div><div class="para">
+				El paquete <span class="pkg pkg">postfix</span> incluye el demonio SMTP principal. Otros paquetes (como <span class="pkg pkg">postfix-ldap</span> y <span class="pkg pkg">postfix-pgsql</span>) añaden funcionalidad adicional, incluyendo el acceso a bases de datos. Sólo debe instalarlos si sabe que los necesitará.
+			</div><div class="sidebar"><a xmlns="" id="sidebar.smtp"></a><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>VOLVER A LOS CIMIENTOS</em></span> SMTP</strong></p></div></div></div><a id="idm140547839409408" class="indexterm"></a><a id="idm140547839408448" class="indexterm"></a><a id="idm140547839407520" class="indexterm"></a><div class="para">
+				SMTP (protoclo sencillo de transferencia de correo: «<span class="emphasis"><em>Simple Mail Transfer Protocol</em></span>») es el protocolo que utilizan los servidores de correo para intercambiar y enrutar los correos electrónicos.
+			</div></div><div class="para">
+				Durante la instalación del paquete se realizan varias preguntas Debconf. Las respuestas permiten crear una primera versión del archivo de configuración <code class="filename">/etc/postfix/main.cf</code>.
+			</div><div class="para">
+				La primera pregunta es sobre el tipo de instalación. Sólamente dos de las respuestas propuestas son relevantes en caso de tener un servidor conectado a Internet: «Sitio de Internet» e «Internet con smarthost». La primera es apropiada para un servidor que recibe correo entrante y envía el correo saliente directamente a los destinatarios, y por lo tanto se adapta al caso del Falcot Corp. La segunda es apropiada para un servidor que recibe correo de forma normal pero que envía el correo saliente a través de otro servidor SMTP intermedio — el «smarthost» — en lugar de enviarlo directamente al servidor de los destinatarios. Esto es especialmente útil para individuos con una dirección IP dinámica puesto que muchos servidores de correo rechazan los mensajes que vienen desde este tipo de dirección. En este caso, el smarthost es normalmente el servidor SMTP del ISP que siempre suele estar configurado para aceptar los correos provenientes de sus clientes y reenviarlos correctamente. Este tipo de instalación (con un smarthost) también es útil para servidores que no estén conectados permanentemente a Internet puesto que impide tener que gestionar una cola de mensajes no entregables que tienen que volver a ser enviados más tarde.
+			</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>VOCABULARIO</em></span> ISP</strong></p></div></div></div><a id="idm140547828308000" class="indexterm"></a><div class="para">
+				ISP es la sigla de «Proveedor de servicios de Internet» («Internet Service Provider»). Se trata de una entidad, a menudo una empresa comercial, que proporciona conexiones de Internet y los servicios básicos asociados (correo electrónico, noticias, etc.).
+			</div><div class="para">
+			</div></div><div class="para">
+				La segunda pregunta es sobre el nombre completo de la máquina y se utiliza para generar las direcciones de correo a partir de los nombres de usuario locales; el nombre completo de la máquina se convierte en la parte de la dirección que sigue a la arroba («@»). En el caso de Falcot, la respuesta debería ser <code class="literal">mail.falcot.com</code>. Esta es la única pregunta que se hace de forma predeterminada, pero la configuración que genera no es lo suficientemente completa para las necesidades de Falcot, por lo que los administradores deben ejecutar <code class="command">dpkg-reconfigure</code> para poder personalizar más parámetros.
+			</div><div class="para">
+				Una de las preguntas adicionales pide los nombres de los dominios relacionados con la máquina. La lista inicial incluye su nombre completo así como también algunos sinónimos de <code class="literal">localhost</code>, pero el dominio principal <code class="literal">falcot.com</code> tiene que ser agregado de forma manual. En general se deberían añadir todos los dominios para los que esta máquina debe ejercer como servidor MX; en otras palabras, todos los dominios para los cuales el DNS anuncie que esta máquina aceptará correo. Esta información acaba siendo escrita en la variable <code class="literal">mydestination</code> del archivo de configuración principal de Postfix — <code class="filename">/etc/postfix/main.cf</code>.
+			</div><a id="idm140547819874000" class="indexterm"></a><a id="idm140547819872560" class="indexterm"></a><div class="figure"><a xmlns="" id="idm140547819871120"></a><div class="figure-contents"><div class="mediaobject"><img src="images/mail-server.png" alt="Rol del registro DNS MX al enviar un correo" /></div></div><p class="title"><strong>Figura 11.1. Rol del registro DNS <span class="emphasis"><em>MX</em></span> al enviar un correo</strong></p></div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>EXTRA</em></span> Consulta de los registros MX</strong></p></div></div></div><div class="para">
+				Cuando no existe un registro MX para un dominio en DNS, el servidor de correo intentará enviar el mensaje a la dirección del equipo directamente, utilizando para ello el registro A (o AAAA en IPv6).
+			</div></div><div class="para">
+				En algunos casos, la instalación también puede preguntar desde qué redes se permitirá enviar correo a través de la máquina. En la configuración predeterminada, Postfix únicamente acepta correos que provengan desde la propia máquina; normalmente agregará la red local. Los administradores de Falcot Corp añadieron la red <code class="literal">192.168.0.0/16</code> al valor predeterminado. Si no se realiza esta pregunta durante la instalación, la variable de configuración correspondiente es <code class="literal">mynetworks</code>, tal y como puede verse en el ejemplo siguiente.
+			</div><div class="para">
+				El correo local también puede ser entregado mediante <code class="command">procmail</code>. Esta herramienta permite a los usuarios clasificar su correo en función de reglas contenidas en su archivo <code class="filename">~/.procmailrc</code>.
+			</div><a id="idm140547819862368" class="indexterm"></a><a id="idm140547819861248" class="indexterm"></a><a id="idm140547819859808" class="indexterm"></a><div class="para">
+				Después de este paso, los administradores obtuvieron el siguiente archivo de configuración; será usado en las siguientes secciones como punto de partida para agregar alguna funcionalidad adicional.
+			</div><div class="example"><a xmlns="" id="idm140547825815760"></a><p class="title"><strong>Ejemplo 11.1. Archivo <code class="filename">/etc/postfix/main.cf</code> inicial</strong></p><div class="example-contents"><pre class="programlisting">
+# Revise /usr/share/postfix/main.cf.dist para una versión completa
+# y con comentarios
+
+# Específico a Debian: determine el nombre del archivo cuya
+# primera línea será utilizada como nombre. El valor predeterminado
+# en Debian es /etc/mailname.
+#myorigin = /etc/mailname
+
+smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
+biff = no
+
+# agragar .dominio es trabajo del MUA.
+append_dot_mydomain = no
+
+# Descomente la siguiente línea para generar advertencias sobre
+# «correo demorado»
+#delay_warning_time = 4h
+
+readme_directory = no
+
+# Parámetros TLS
+smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+# Revise /usr/share/doc/postfix/TLS_README.gz en el paquete postfix-doc
+# para más información sobre cómo habilitar SSL en el cliente smtp.
+
+myhostname = mail.falcot.com
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+myorigin = /etc/mailname
+mydestination = mail.falcot.com, falcot.com, localhost.localdomain, localhost
+relayhost = 
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.0.0/16
+mailbox_command = procmail -a "$EXTENSION"
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = all
+</pre></div></div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>SEGURIDAD</em></span> Certificados SSL de <span class="emphasis"><em>Snake oil</em></span></strong></p></div></div></div><div class="para">
+				Los certificados <span class="emphasis"><em>snake oil</em></span>, al igual que los medicamentos vendidos por charlatanes sin escrúpulos en los viejos tiempos (promocionados como <span class="emphasis"><em>aceite de serpiente</em></span>, de ahí su nombre), no tienen absolutamente ningún valor puesto que se generan de forma idéntica en todos los sistemas Debian, con la misma parte «privada». Deben utilizarse exclusivamente para pruebas y el servicio normal debe utilizar certificados reales; puede generarlos utilizado el procedimiento descripto en la <a class="xref" href="sect.virtual-private-network.html#sect.easy-rsa">Sección 10.2.1.1, “Infraestructura de llave pública: <span class="emphasis"><em>easy-rsa</em></span>”</a>.
+			</div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a xmlns="" id="idm140547825808336"></a>11.1.2. Configuración de dominios virtuales</h3></div></div></div><a id="idm140547825807568" class="indexterm"></a><a id="idm140547825806128" class="indexterm"></a><div class="para">
+				El servidor de correo puede recibir correos dirigidos a otros dominios distintos del dominio principal; estos dominios se conocen como «dominios virtuales». En la mayoría de los casos en los que es así, los correos no se dirigen en última instancia a los usuarios locales. Postfix proporciona dos características interesantes para gestionar dominios virtuales.
+			</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>ATENCIÓN</em></span> Dominios virtuales y dominios canónicos</strong></p></div></div></div><div class="para">
+				No se debe hacer referencia a ninguno de los dominios virtuales en la variable <code class="literal">mydestination</code>; esta variable únicamente contiene los nombres de los dominios «canónicos» asociados directamente con la máquina y sus usuarios locales.
+			</div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547825802032"></a>11.1.2.1. Alias de dominio virtual</h4></div></div></div><a id="idm140547825801264" class="indexterm"></a><a id="idm140547826718672" class="indexterm"></a><div class="para">
+					Un «alias de dominio virtual» («virtual alias domain») únicamente contiene alias, es decir direcciones que únicamente reenvían los correos hacia otras direcciones.
+				</div><div class="para">
+					Para habilitar un dominio de este tipo, agregue su nombre a la variable <code class="literal">virtual_alias_domains</code> y establezca un archivo de traducción de direcciones en la variable <code class="literal">virtual_alias_maps</code>.
+				</div><div class="example"><a xmlns="" id="idm140547826715216"></a><p class="title"><strong>Ejemplo 11.2. Directivas a agregar en el archivo <code class="filename">/etc/postfix/main.cf</code></strong></p><div class="example-contents"><pre class="programlisting">
+virtual_alias_domains = falcotsbrand.com
+virtual_alias_maps = hash:/etc/postfix/virtual
+</pre></div></div><div class="para">
+					El archivo <code class="filename">/etc/postfix/virtual</code> describe la traducción con una sintaxis muy sencilla: cada línea contiene dos campos separados por espacios en blanco; el primer campo es el nombre del alias y el segundo es una lista de direcciones a las que se redireccionan los correos. La sintaxis especial <code class="literal">@dominio.com</code> abarca todos los alias restantes en un dominio.
+				</div><div class="example"><a xmlns="" id="idm140547826711872"></a><p class="title"><strong>Ejemplo 11.3. Archivo <code class="filename">/etc/postfix/virtual</code> de ejemplo</strong></p><div class="example-contents"><pre class="programlisting">
+webmaster@falcotsbrand.com  jean@falcot.com
+contact@falcotsbrand.com    laure@falcot.com, sophie@falcot.com
+# El alias siguiente es genérico y abarca todas las direcciones 
+# del dominio falcotsbrand.com que no están incluidas explícitamente
+# en este archivo.
+# Estas direcciones reenvían el correo al usuario con el mismo nombre
+# pero del dominio falcot.com
+@falcotsbrand.com           @falcot.com
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547826709408"></a>11.1.2.2. Casillas de dominio virtual</h4></div></div></div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>PRECAUCIÓN</em></span> ¿Dominio virtual combinado?</strong></p></div></div></div><div class="para">
+					Postfix no permite utilizar el mismo dominio en <code class="literal">virtual_alias_domains</code> y <code class="literal">virtual_mailbox_domains</code>. Sin embargo, cada dominio de <code class="literal">virtual_mailbox_domains</code> es incluido implícitamente en <code class="literal">virtual_alias_domains</code> lo que permite mezclar alias y casillas en un dominio virtual.
+				</div></div><a id="idm140547826705120" class="indexterm"></a><a id="idm140547826704192" class="indexterm"></a><div class="para">
+					Los mensajes dirigidos a una casilla de dominio virtual son almacenados en casillas que no están asignadas a un usuario local del sistema.
+				</div><div class="para">
+					Activar una casilla de dominio virtual requiere agregar este dominio en la variable <code class="literal">virtual_mailbox_domains</code> y hacer referencia a un archivo de asociación de casillas en <code class="literal">virtual_mailbox_maps</code>. El parámetro <code class="literal">virtual_mailbox_base</code> contiene el directorio en el que se almacenarán todas las casillas.
+				</div><div class="para">
+					El parámetro <code class="literal">virtual_uid_maps</code> (o <code class="literal">virtual_gid_maps</code> respectivamente) hace referencia al archivo que contiene la asociación entre las direcciones de correo y el usuario de sistema (o grupo respectivamente) «dueño» de la casilla correspondiente. Para lograr que todas las casillas pertenezcan al mismo usuario/grupo, la sintaxis <code class="literal">static:5000</code> asigna un UID/GID fijo (aquí el valor 5000).
+				</div><div class="example"><a xmlns="" id="idm140547827567152"></a><p class="title"><strong>Ejemplo 11.4. Directivas a agregar en el archivo <code class="filename">/etc/postfix/main.cf</code></strong></p><div class="example-contents"><pre class="programlisting">
+virtual_mailbox_domains = falcot.org
+virtual_mailbox_maps = hash:/etc/postfix/vmailbox
+virtual_mailbox_base = /var/mail/vhosts
+</pre></div></div><div class="para">
+					Nuevamente, la sintaxis del archivo <code class="filename">/etc/postfix/vmailbox</code> es bastante directo: dos campos separados con espacios en blanco. El primer campo es una dirección de correo en alguno de los dominios virtuales y el segundo campo es la ubicación de la casilla asociada (relativa al directorio especificado en <span class="emphasis"><em>virtual_mailbox_base</em></span>). Si el nombre de la casilla finaliza con una barra (<code class="literal">/</code>), se almacenarán los correos en formato <span class="emphasis"><em>maildir</em></span>; de lo contrario se utilizará el formato <span class="emphasis"><em>mbox</em></span> tradicional. El formato <span class="emphasis"><em>maildir</em></span> utiliza un directorio completo para almacenar una casilla, cada mensaje individual es almacenado en un archivo separado. Por el otro lado, en el formato <span class="emphasis"><em>mbox</em></span> se almacena toda la casilla en un archivo y cada línea que comience con «<code class="literal">From </code> (<code class="literal">From</code> es seguido por un espacio) indica el comienzo de un nuevo mensaje.
+				</div><div class="example"><a xmlns="" id="idm140547827560368"></a><p class="title"><strong>Ejemplo 11.5. El archivo <code class="filename">/etc/postfix/vmailbox</code></strong></p><div class="example-contents"><pre class="programlisting">
+# Se almacena el correo de Jean como maildir, con
+# un archivo por correo en un directorio dedicado
+jean@falcot.org falcot.org/jean/
+# Se almacena el correo de Sophie en un archivo
+# «mbox» tradicional con todos los correos
+# en un solo archivo
+sophie@falcot.org falcot.org/sophie
+</pre></div></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a xmlns="" id="idm140547827558016"></a>11.1.3. Restricciones para recibir y enviar</h3></div></div></div><div class="para">
+				La cantidad creciente de correo masivo no solicitado (<span class="emphasis"><em>spam</em></span>) hace necesario ser cada vez más estricto al decidir qué correos debe aceptar un servidor. Esta sección presenta alguna de las estrategias incluidas en Postfix.
+			</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>CULTURA</em></span> El problema del spam</strong></p></div></div></div><a id="idm140547827555040" class="indexterm"></a><div class="para">
+				«Spam» es un término genérico utilizado para designar todo el correo comercial no solicitado (UCE por su siglas en inglés: «Unsolicited Commercial Emails») que inundan nuestras casillas electrónicas; los individuos sin escrúpulos que lo envían son conocidos como spammers. Poco les importan las molestias que causan ya que enviar un correo cuesta muy poco y sólo necesitan atraer con sus ofertas un porcentaje muy pequeño de quienes lo reciban para que la operación de spam genere más dinero de lo que cuesta. El proceso es mayormente automático y cualquier dirección de correo que sea publicada (por ejemplo en un foro web, en los compendios de una lista de correo, en un blog, etc.) será descubierta por los robots de los spammers y víctima de un flujo interminable de mensajes no solicitados.
+			</div><div class="para">
+				Todos los administradores de sistemas intentan enfrentarse a esta molestia con filtros de spam pero, por supuesto, los spammers continúan adaptándose para evitar estos filtros. Algunos inclusive alquilan redes de máquinas comprometidas por algún gusano de varios sindicatos criminales. ¡Estadísticas recientes estiman que hasta un 95% de todos los correos circulando en Internet son spam!
+			</div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547827551776"></a>11.1.3.1. Restricciones de acceso basadas en IP</h4></div></div></div><div class="para">
+					La directiva <code class="literal">smtpd_client_restrictions</code> controla qué máquinas pueden comunicarse con el servidor de correo.
+				</div><div class="example"><a xmlns="" id="idm140547827550112"></a><p class="title"><strong>Ejemplo 11.6. Restricciones basadas en la dirección del cliente</strong></p><div class="example-contents"><pre class="programlisting">
+smtpd_client_restrictions = permit_mynetworks,
+    warn_if_reject reject_unknown_client,
+    check_client_access hash:/etc/postfix/access_clientip,
+    reject_rbl_client sbl-xbl.spamhaus.org,
+    reject_rbl_client list.dsbl.org
+</pre></div></div><div class="para">
+					Cuando una variable contiene una lista de reglas, como en el ejemplo anterior, estas reglas son evaluadas en orden desde la primera hasta la última. Cada regla puede aceptar el mensaje, rechazarlo o dejar la decisión de qué hacer a reglas posteriores. Por lo tanto, el orden importa y cambiar el orden en el que están establecidas las reglas puede provocar un comportamiento completamente diferente.
+				</div><div class="para">
+					La directiva <code class="literal">permit_mynetworks</code>, como primera regla, acepta todos los correos que provienen de equipos en la red local (definida por la variable de configuración <span class="emphasis"><em>mynetworks</em></span>).
+				</div><div class="para">
+					La segunda directiva normalmente rechazará correos que provienen de equipos sin una configuración de DNS completamente válida. Esta configuración válida significa que la dirección IP está asociada a un nombre y que este nombre, además, resuelve a dicha dirección IP. Generalmente, esta restricción es demasiado estricta ya que muchos servidores de correo no tienen un DNS inverso para su dirección IP. Esto explica porqué los administradores de Falcot agregaron el modificador <code class="literal">warn_if_reject</code> antes de la directiva <code class="literal">reject_unkown_client</code>: este modificado convierte el rechazo en una simple advertencia guardada en los registros. Los administradores pueden revisar la cantidad de mensajes que hubiesen sido rechazados si esta regla hubiese sido aplicada y luego tomar decisiones informadas si desean activarla.
+				</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>SUGERENCIA</em></span> Tablas <span class="emphasis"><em>access</em></span></strong></p></div></div></div><div class="para">
+					El criterio de restricción incluye tablas que pueden ser modificadas por un administrador que contienen combinaciones de remitente, dirección IP y nombres de equipo permitidos o prohibidos. Puede crear estas tablas desde una copia descomprimida del archivo <code class="filename">/usr/share/doc/postfix-doc/examples/access.gz</code>. Este modelo está documentado en sus comentarios, lo que significa que cada tabla describe su propia sintaxis.
+				</div><div class="para">
+					La tabla <code class="filename">/etc/postfix/access_clientip</code> enumera direcciones IP y redes; <code class="filename">/etc/postfix/access_helo</code> enumera nombres de dominio; <code class="filename">/etc/postfix/access_sender</code> contiene direcciones de correo de remintentes. Necesita convertir todos estos archivos en «tablas hash» (un formato optimizado para acceso rápido) luego de cada cambio ejecutando <code class="command">postmap /etc/postfix/<em class="replaceable">archivo</em></code>.
+				</div></div><div class="para">
+					La tercera directiva permite al administrador definir listas negras y blancas de servidores de correo, almacenadas en el archivo <code class="filename">/etc/postfix/access_clientip</code>. Se consideran confiables aquellos servidores en la lista blanca y, por lo tanto, sus correos no pasarán por las siguientes reglas de filtro.
+				</div><div class="para">
+					Las últimas dos reglas rechazan cualquier mensaje que provenga de un servidor incluido en una de las listas negras indicadas. RBL es un acrónimo de <span class="emphasis"><em>Remote Black List</em></span> (lista negra remota); hay muchas de estas listas pero todas enumeran servidores mal configurados que los spammers utilizan para redirigir sus correos así como también equipos inesperados como máquinas infectadas con algún gusano o virus.
+				</div><a id="idm140547827535792" class="indexterm"></a><a id="idm140547827534832" class="indexterm"></a><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>SUGERENCIA</em></span> Listas blancas y RBLs</strong></p></div></div></div><div class="para">
+					Las listas negras a veces incluyen un servidor legítimo que ha sufrido un incoveniente. En estas situaciones, se rechazarán todos los correos que provengan de alguno de estos servidores a menos que el servidor esté incluido en una lista blanca definida en <code class="filename">/etc/postfix/access_clientip</code>.
+				</div><div class="para">
+					La prudencia recomienda entonces incluir en la lista blanca todos los servidores confiables desde los que frecuentemente recibirá muchos correos.
+				</div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547827530624"></a>11.1.3.2. Revisión de la validez de las órdenes <code class="literal">EHLO</code> o <code class="literal">HELO</code></h4></div></div></div><div class="para">
+					Cada intercambio SMTP comienza con la orden <code class="literal">HELO</code> (o <code class="literal">EHLO</code>) seguida del nombre del servidor que envía el correo; puede ser interesante validar este nombre.
+				</div><a id="idm140547827527680" class="indexterm"></a><a id="idm140547827526560" class="indexterm"></a><div class="example"><a xmlns="" id="idm140547827525440"></a><p class="title"><strong>Ejemplo 11.7. Restricciones en el nombre anunciado con <code class="literal">EHLO</code></strong></p><div class="example-contents"><pre class="programlisting">
+smtpd_helo_restrictions = permit_mynetworks,
+    reject_invalid_hostname,
+    check_helo_access hash:/etc/postfix/access_helo,
+    reject_non_fqdn_hostname,
+    warn_if_reject reject_unknown_hostname
+</pre></div></div><div class="para">
+					La primera directiva <code class="literal">permit_my_networks</code> permite que todas las máquinas en la red local se presenten libremente. Esto es importante ya que algunos programas de correo no respetan esta parte del protocolo SMTP de forma suficientemente correcta y pueden presentarse a sí mismos con nombres sin sentido.
+				</div><div class="para">
+					La regla <code class="literal">reject_invalid_hostname</code> rechaza los correos cuando el anuncio <code class="literal">EHLO</code> enumere un nombre sintácticamente incorrecto. La regla <code class="literal">reject_non_fqdn_hostname</code> rechaza mensajes cuando el nombre anunciado no es un nombre de dominio completamente calificado (incluye un nombre de dominio así como también el nombre del equipo). La regla <code class="literal">reject_unkown_hostname</code> rechaza los mensajes si el nombre anunciado no existe en su DNS. Los administradores hicieron que los efectos de esta regla sean sólo una advertencia con el modificador <code class="literal">warn_if_reject</code> debido a que, lamentablemente, genera demasiados rechazos. Esto es sólo un primer paso, pueden decidir eliminar el modificador en el futuro luego de analizar los resultados de esta regla.
+				</div><div class="para">
+					Utilizar <code class="literal">permit_mynetworks</code> como la primera regla tiene un efecto secundario interesante: las reglas siguientes sólo serán aplicadas a los equipos fuera de la red local. Esto permite rechazar todos los equipos que se anuncien a sí mismos como parte de <code class="literal">falcot.com</code>, por ejemplo agregando una línea <code class="literal">falcot.com REJECT ¡No es parte de nuestra red!</code> en el archivo <code class="filename">/etc/postfix/access_helo</code>.
+				</div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547827516384"></a>11.1.3.3. Aceptación o rechazo basado en el remitente anunciado</h4></div></div></div><div class="para">
+					Cada mensaje tiene un remitente anunciado con la orden <code class="literal">MAIL FROM</code> del protocolo SMTP; nuevamente, puede validar esta información de varias formas.
+				</div><a id="idm140547827514720" class="indexterm"></a><a id="idm140547827513600" class="indexterm"></a><div class="example"><a xmlns="" id="idm140547827512160"></a><p class="title"><strong>Ejemplo 11.8. Verificación de remitente</strong></p><div class="example-contents"><pre class="programlisting">
+smtpd_sender_restrictions = 
+    check_sender_access hash:/etc/postfix/access_sender,
+    reject_unknown_sender_domain, reject_unlisted_sender,
+    reject_non_fqdn_sender
+</pre></div></div><div class="para">
+					La tabla <code class="filename">/etc/postfix/access_sender</code> asocia algún tratamiento especial a algunos remitentes. Esto generalmente significa enumerar algunos remitentes en una lista negra o blanca.
+				</div><div class="para">
+					La regla <code class="literal">reject_unknown_sender_domain</code> requiere un remitente con dominio válido, ya que es necesario en una dirección válida. La regla <code class="literal">reject_unlisted_sender</code> rechaza remitentes locales si la dirección no existe; esto evita que se envíen correos desde una dirección inválida en el dominio <code class="literal">falcot.com</code> y los mensajes de <code class="literal">joe.bloggs@falcot.com</code> sólo son aceptados si existe dicha dirección.
+				</div><div class="para">
+					Finalmente, la regla <code class="literal">reject_non_fqdn_sender</code> rechaza los correos que dicen provenir de direcciones sin un nombre de dominio completamente calificado. En la práctica significa rechazar correos que provienen de <code class="literal">usuario@equipo</code>: la dirección debe anunciarse como <code class="literal">usuario@equipo.example.com</code> o <code class="literal">usuario@example.com</code>.
+				</div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547819541216"></a>11.1.3.4. Aceptación o rechazo basado en el receptor</h4></div></div></div><div class="para">
+					Cada correo tiene al menos un receptor, anunciado con la orden <code class="literal">RCPT TO</code> en el protocolo SMTP. Estas direcciones también requieren validación, aún si pueden ser menos relevantes que las verificaciones realizadas en la dirección del remitente.
+				</div><a id="idm140547819539360" class="indexterm"></a><a id="idm140547819538400" class="indexterm"></a><div class="example"><a xmlns="" id="idm140547819536960"></a><p class="title"><strong>Ejemplo 11.9. Verificación de receptor</strong></p><div class="example-contents"><pre class="programlisting">
+smtpd_recipient_restrictions = permit_mynetworks, 
+    reject_unauth_destination, reject_unlisted_recipient, 
+    reject_non_fqdn_recipient
+</pre></div></div><div class="para">
+					<code class="literal">reject_unauth_destination</code> es la regla básica que requiere que los mensajes externos estén destinados a nosotros; se rechazarán los mensajes que sean enviados a una dirección que no sea gestionada por este servidor. Sin esta regla, el servidor se convierte en una forma abierta de reenvío que permite que los spammers envíen correos no solicitados; por lo tanto esta regla es obligatoria y preferentemente debe estar ubicada cerca del principio de la lista para evitar que otras reglas autoricen el mensaje antes que se verifique su destino.
+				</div><div class="para">
+					La regla <code class="literal">reject_unlisted_recipient</code> rechaza los mensajes enviados a usuarios locales que no existen, lo que tiene sentido. Finalmente, la regla <code class="literal">reject_non_fqdn_recipient</code> rechaza direcciones que no sean completamente calificadas; esto hace imposible enviar un correo a <code class="literal">jean</code> o <code class="literal">jean@equipo</code> y necesita, en cambio, utilizar la dirección completa como <code class="literal">literal@equipo.falcot.com</code> o <code class="literal">jean@falcot.com</code>.
+				</div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547819530528"></a>11.1.3.5. Restricciones asociadas con la orden <code class="literal">DATA</code></h4></div></div></div><div class="para">
+					Se emite la orden <code class="literal">DATA</code> en SMTP antes del contenido del mensaje. No provee ninguna información en sí misma además de anunciar lo que seguirá. Todavía puede ser sujeta a verificación.
+				</div><a id="idm140547819528352" class="indexterm"></a><div class="example"><a xmlns="" id="idm140547819527232"></a><p class="title"><strong>Ejemplo 11.10. Verificación de <code class="literal">DATA</code></strong></p><div class="example-contents"><pre class="programlisting">
+smtpd_data_restrictions = reject_unauth_pipelining
+</pre></div></div><div class="para">
+					Las directivas <code class="literal">reject_unauth_pipelining</code> causa que se rechace el mensaje si el remitente envía una orden antes que se envía la respuesta a la orden anterior. Esto previene una optimización común utilizada por los robots de spammers ya que no tienen el menor interés en las respuestas y sólo están interesados en enviar tantos correos como sea posible en el menor tiempo posible.
+				</div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547819524080"></a>11.1.3.6. Implementación de restricciones</h4></div></div></div><div class="para">
+					Si bien las órdenes anteriores validan la información en las varias etapas del intercambio SMTP, Postfix sólo envía el rechazo en sí como respuesta a la orden <code class="literal">RCPT TO</code>.
+				</div><div class="para">
+					Esto significa que aún si se rechaza el mensaje debido a una orden <code class="literal">EHLO</code> no válida, Postfix conoce el remitente y el receptor cuando anuncia un rechazo. Luego puede registrar un mensaje más explícito de lo que podría si se hubiera interrumpido la transacción al comienzo. Además, una cantidad de clientes SMTP no esperan fallos en las primeras órdenes de SMTP y estos clientes no se molestarán tanto por este rechazo tardío.
+				</div><div class="para">
+					Una ventaja final de esta opción es que las reglas pueden acumular información durante las varias etapas del intercambio SMTP; esto permite definir permisos más precisos, como rechazar conexiones remotas si se anuncia como un remitente local.
+				</div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a xmlns="" id="idm140547819520032"></a>11.1.3.7. Filtros basados en el contenido del mensaje</h4></div></div></div><div class="para">
+					El sistema de validación y restricción no estaría completo sin una forma de realizar verificaciones en el contenido de los mensajes. Postfix diferencia las verificaciones en las cabeceras del correo de aquellas sobre el cuerpo del mensaje.
+				</div><div class="example"><a xmlns="" id="idm140547819518544"></a><p class="title"><strong>Ejemplo 11.11. Habilitación de filtros basados en contenido</strong></p><div class="example-contents"><pre class="programlisting">
+header_checks = regexp:/etc/postfix/header_checks
+body_checks = regexp:/etc/postfix/body_checks
+</pre></div></div><a id="idm140547819517168" class="indexterm"></a><div class="para">
+					Ambos archivos contienen una lista de expresiones regulares (normalmente conocidas como <span class="emphasis"><em>regexps</em></span> o <span class="emphasis"><em>regexes</em></span>) y las acciones asociadas que se deben disparar cuando las cabeceras (o cuerpo) del mensaje coincida con la expresión.
+				</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>VISTA RÁPIDA</em></span> Tablas de expresiones regulares («regexp»)</strong></p></div></div></div><div class="para">
+					El archivo <code class="filename">/usr/share/doc/postfix-doc/examples/header_checks.gz</code> contiene muchos comentarios explicativos y puede utilizarlo como punto de partida para crear los archivos <code class="filename">/etc/postfix/header_checks</code> y <code class="filename">/etc/postfix/body_checks</code>.
+				</div></div><div class="example"><a xmlns="" id="idm140547819511040"></a><p class="title"><strong>Ejemplo 11.12. Archivo <code class="filename">/etc/postfix/header_checks</code> de ejemplo</strong></p><div class="example-contents"><pre class="programlisting">
+/^X-Mailer: GOTO Sarbacane/ REJECT I fight spam (GOTO Sarbacane)
+/^Subject: *Your email contains VIRUSES/ DISCARD virus notification
+</pre></div></div><div class="sidebar"><a xmlns="" id="sidebar.regexp"></a><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>VOLVER A LOS CIMIENTOS</em></span> Expresiones regulares</strong></p></div></div></div><div class="para">
+					El término <span class="emphasis"><em>expresión regular</em></span> (acortado como <span class="emphasis"><em>regexp</em></span> o <span class="emphasis"><em>regex</em></span>) hace referencia a una notación genérica para expresar una descripción del contenido o estructura de una cadena de caracteres. Algunos caracteres especiales permiten definir alternativas (por ejemplo <code class="literal">foo|bar</code> coincidirá tanto «foo» como «bar»), conjuntos de caracteres permitidos (por ejemplo <code class="literal">[0-9]</code> significa cualquier dígito y <code class="literal">.</code> — un punto — significa cualquier carácter), cuantificadores (<code class="literal">s?</code> coincidirá tanto con <code class="literal">s</code> como con la cadena vacía, en otras palabras 0 o 1 ocurrencia de <code class="literal">s</code>; <code class="literal">s+</code> coincidirá con uno o más caracteres <code class="literal">s</code> consecutivos, etc.). Los paréntesis permiten agrupar resultados de búsqueda.
+				</div><div class="para">
+					La sintaxis exacta de estas expresiones es diferente en cada herramienta que las utilizan, pero las características básicas son similares. <div xmlns="" class="url">→ <a xmlns="http://www.w3.org/1999/xhtml" href="http://es.wikipedia.org/wiki/Expresión_regular">http://es.wikipedia.org/wiki/Expresión_regular</a></div>
+				</div></div><div class="para">
+					El primero revisa la cabecera que menciona el software de correo; si es <code class="literal">GOTO Sarbacane</code> (un software en correo masivo), el mensaje es rechazado. La segunda expresión revisa el asunto del mensaje; si menciona una notificación de virus podemos decidir no rechazar el mensaje sino, en cambio, descartarlo inmediatamente.
+				</div><div class="para">
+					Utilizar estos filtros es un arma de doble filo ya que es sencillo crear reglas demasiado genéricas y, en consecuencia, perder correos legítimos. En estos casos, no sólo se perderán los mensajes sino que sus remitentes recibirán mensajes de error no deseados (y molestos).
+				</div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a xmlns="" id="idm140547819498240"></a>11.1.4. Configuración de «listas grises» (<span class="foreignphrase"><em class="foreignphrase">greylisting</em></span>)</h3></div></div></div><a id="idm140547819496992" class="indexterm"></a><div class="para">
+				Las «listas grises» («greylisting») son una técnica de filtrado en la inicialmente se rechaza un mensaje con un código de error temporal y sólo es aceptado en un intento futuro luego de cierta demora. Este filtro es particularmente eficiente contra el spam enviado por máquinas infectadas con gusanos y virus ya que éstos rara vez actúan como agentes SMTP completos (revisando el código de error y reintentando luego mensajes fallados), especialmente debido a que muchas de las direcciones recolectadas son inválidas y reintentarlas sólo sería una pérdida de tiempo.
+			</div><div class="para">
+				Postfix no provee listas grises de forma nativa, pero posee una funcionalidad en la que la decisión de aceptar o rechazar un mensaje dado puede ser delegada a un programa externo. El paquete <span class="pkg pkg">postgrey</span> contiene dicho programa, diseñado para interactuar con su servicio de delegación de políticas de acceso.
+			</div><div class="para">
+				Una vez que instaló <span class="pkg pkg">postgrey</span>, éste se ejecutará como un demonio que escucha en el puerto 10023. Luego puede configurar postfix para utilizarlo si agrega el parámetro <code class="literal">check_policy_service</code> como una restricción adicional:
+			</div><pre class="programlisting">
+smtpd_recipient_restrictions = permit_mynetworks,
+    [...]
+    check_policy_service inet:127.0.0.1:10023
+</pre><div class="para">
+				Cada vez que Postfix alcance esta regla, se conectará con el demonio <code class="command">postgrey</code> y le enviará la información del mensaje en cuestión. Por su parte, Postgrey considerará la terna compuesta por la dirección IP, el remitente y el receptor y revisará en su base de datos si ésta fue intentada recientemente. En caso que así sea, Postgrey responderá que el mensaje debe ser aceptado; de lo contrario, la respuesta indicará que el mensaje deberá ser rechazado temporalmente y agregará la terna a su base de datos.
+			</div><div class="para">
+				La principal desventaja de las listas grises es que demorará mensajes legítimos, lo que no siempre es aceptable. También aumenta la carga en los servidores que envían muchos correos legítimos.
+			</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>EN LA PRÁCTICA</em></span> Desventajas de las listas grises</strong></p></div></div></div><div class="para">
+				En teoría, las listas grises sólo deberían demorar el primer correo de un remitente a un receptor particular, y la demora típica es del orden de minutos. La realidad, sin embargo, puede ser ligeramente diferente. Algunos ISPs grandes utilizan conjuntos de servidores SMTP y, cuando el mensaje es rechazado inicialmente, el servidor que lo reintente puede no ser el mismo que el que envió el mensaje inicial. Cuando ocurre esto, el segundo servidor también recibirá un error temporal debido a la lista gris y así sucesivamente; puede tomar varias horas hasta que la transmisión sea intentada por un servidor que ya estuvo involucrado ya que los servidores SMTP generalmente aumentan la demora entre intentos cuando éstos fallan.
+			</div><div class="para">
+				Como consecuencia, la dirección IP puede cambiar en el tiempo aún para un remitente particular. Pero hay más: la dirección del remitente también puede cambiar. Por ejemplo, muchos servidores de listas de correo codifican información extra en la dirección del remitente para poder gestionar mensajes de error (conocidos como «<span class="emphasis"><em>bounces</em></span>»). Luego, puede que cada nuevo mensaje enviado a una lista de correo necesite pasar por las listas grises, lo que significa que debe ser almacenado (temporalmente) en el servidor del remitente. Para listas de correo muy grandes (con decenas de miles de suscriptos), esto puede convertirse en un problema rápidamente.
+			</div><div class="para">
+				Para mitigar estas desventajas, Postgrey gestiona listas blancas de tales sitios y los mensajes que provengan de ellas son aceptados inmediatamente sin pasar a través de las listas grises. Puede adaptar esta lista fácilmente a sus necesidades locales ya que se encuentra almacenada en el archivo <code class="filename">/etc/postgrey/whitelist_clients</code>.
+			</div></div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>YENDO MÁS ALLÁ</em></span> Listas grises selectivas con <span class="pkg pkg">milter-greylist</span></strong></p></div></div></div><div class="para">
+				También puede evitar los inconvenientes de las listas grises sólo utilizándolas en el subconjunto de clientes que ya son considerados como fuentes probables de spam (porque se encuentran en una lista negra de DNS). Esto no es posible con <span class="pkg pkg">postgrey</span>, pero puede utilizar <span class="pkg pkg">milter-greylist</span> de esa forma.
+			</div><div class="para">
+				En este escenario, debido a que una lista negra de DNS nunca genera un rechazo definitivo, es razonable utilizar listas negras de DNS agresivas, incluyendo aquellas que incluyen todas las direcciones IP dinámicas de clientes de ISPs (como <code class="literal">pbl.spamhaus.org</code> o <code class="literal">dul.dnsbl.sorbs.net</code>).
+			</div><div class="para">
+				Como milter-greylist utiliza la interfaz de milter de Sendmail, la configuración del lado de postfix se limita a «<code class="literal">smtpd_milters = unix:/var/milter-greylist/milter-greylist.sock</code>». La página de manual <span class="citerefentry"><span class="refentrytitle">greylist.conf</span>(5)</span> documenta <code class="filename">/etc/milter-greylist/greylist.conf</code> y las muchas formas de configurar milter-greylist.
+			</div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a xmlns="" id="idm140547819475808"></a>11.1.5. Personalización de filtros basados en el receptor</h3></div></div></div><div class="para">
+				Las últimas dos secciones revisaron muchas de las restricciones posibles. Todas son útiles para limitar la cantidad de spam recibido, pero también tienen su desventajas. Por lo tanto, es más y más común, personalizar el conjunto de filtros según el receptor. En Falcot Corp, las listas grises son interesantes para la mayoría de los usuarios pero entorpece el trabajo de algunos usuarios que necesitan una latencia baja en sus correos (como el servicio de soporte técnico). De forma similar, el servicio comercial a veces tiene problemas para recibir correos de algunos proveedores asiáticos que pueden encontrarse en listas negras; este servicio solicitó una dirección sin filtros para poder intercambiar correspondencia.
+			</div><div class="para">
+				Postfix provee tal personalización de filtros con el concepto de «clases de restricción». Declarará las clases en el parámetro <code class="literal">smtpd_restriction_classes</code> de la misma forma que <code class="literal">smtpd_recipient_restrictions</code>. La directiva <code class="literal">check_recipient_access</code> define luego una tabla que asocia un receptor dado con el conjunto de restricciones apropiadas.
+			</div><div class="example"><a xmlns="" id="idm140547819471888"></a><p class="title"><strong>Ejemplo 11.13. Definición de clases de restricción en <code class="filename">main.cf</code></strong></p><div class="example-contents"><pre class="programlisting">smtpd_restriction_classes = greylisting, aggressive, permissive
+
+greylisting = check_policy_service inet:127.0.0.1:10023
+aggressive = reject_rbl_client sbl-xbl.spamhaus.org,
+        check_policy_service inet:127.0.0.1:10023
+permissive = permit
+
+smtpd_recipient_restrictions = permit_mynetworks,
+        reject_unauth_destination,
+        check_recipient_access hash:/etc/postfix/recipient_access
+</pre></div></div><div class="example"><a xmlns="" id="idm140547819469776"></a><p class="title"><strong>Ejemplo 11.14. El archivo <code class="filename">/etc/postfix/recipient_access</code></strong></p><div class="example-contents"><pre class="programlisting">
+# Direcciones sin filtro
+postmaster@falcot.com  permissive
+support@falcot.com     permissive
+sales-asia@falcot.com  permissive
+
+# Filtros agresivos para algunos usuarios privilegiados
+joe@falcot.com         aggressive
+
+# Regla especial para el administrador de la lista de correos
+sympa@falcot.com       reject_unverified_sender
+
+# Listas grises de forma predeterminada
+falcot.com             greylisting
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a xmlns="" id="sect.postfix-antivirus"></a>11.1.6. Integración con un antivirus</h3></div></div></div><a id="idm140547819466480" class="indexterm"></a><div class="para">
+				La cantidad de virus circulando como adjuntos de correos hace importante configurar un antivirus en el punto de entrada de la red corporativa, ya que a pesar de una campaña de concientización, algunos usuarios aún abriran los adjuntos de mensajes obviamente sospechosos.
+			</div><div class="para">
+				Los administradores de Falcot seleccionaro <code class="command">clamav</code> como su antivirus libre. El paquete principal es <span class="pkg pkg">clamav</span>, pero tambien instalaron algunos paquetes adicionales como <span class="pkg pkg">arj</span>, <span class="pkg pkg">unzoo</span>, <span class="pkg pkg">unrar</span> y <span class="pkg pkg">lha</span> ya que son necesarios para que el antivirus analice archivos adjuntos en alguno de estos formatos.
+			</div><a id="idm140547819460576" class="indexterm"></a><a id="idm140547819459456" class="indexterm"></a><div class="para">
+				La tarea de interactuar entre el antivirus y el servidor de correo le corresponde a <code class="command">clamav-milter</code>. Un «<span class="emphasis"><em>milter</em></span>» (apócope de «filtro de correo»: «<span class="emphasis"><em>mail filter</em></span>») es un programa de filtrado diseñado especialmente para interactuar con servidores de correo. Un milter utiliza una interfaz de programación de aplicaciones (API: «Application Programming Interface») que provee un rendimiento mucho mejor que los filtros ajenos a los servidores de correo. <span class="emphasis"><em>Sendmail</em></span> introdujo inicialmente a los milters, pero <span class="emphasis"><em>Postfix</em></span> los implementó poco después.
+			</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>VISTA RÁPIDA</em></span> Un milter para Spamassassin</strong></p></div></div></div><a id="idm140547819454208" class="indexterm"></a><div class="para">
+				El paquete <span class="pkg pkg">spamass-milter</span> provee un milter basado en <span class="emphasis"><em>SpamAssassin</em></span>, el famoso detector de correo no deseado. Puede utilizarlo para marcar mensajes como probable spam (agregando una cabecera adicional) y/o rechazar el mensaje completamente si su «puntaje de spam» supera cierto límite.
+			</div></div><div class="para">
+				Una vez que instaló el paquete <span class="pkg pkg">clamav-milter</span>, debería reconfigurar el milter para que ejecute en un puerto TCP en lugar del zócalo con nombre predeterminado. Puede lograr esto ejecutando <code class="command">dpkg-reconfigure clamav-milter</code>. Cuando se le pregunte por la «Interfaz de comunicación con Sendmail», responda «<code class="literal">inet:10002@127.0.0.1</code>».
+			</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>NOTA</em></span> Puerto TCP real contra zócalo con nombre</strong></p></div></div></div><div class="para">
+				La razón por la que utilizamos un puerto TCP real en lugar del zócalo con nombres es que los demonios postfix generalmente ejecutan en un chroot y no tienen acceso al directorio que contiene el zócalo con nombre. En caso que decida utilizar el zócalo con nombre, utilice una ubicación dentro del chroot (<code class="filename">/var/spool/postfix/</code>).
+			</div></div><div class="para">
+				La configuración estándar de ClamAV se ajusta a la mayoría de las situaciones, pero puede personalizar algunos parámetros importantes con <code class="command">dpkg-reconfigure clamav-base</code>.
+			</div><div class="para">
+				El último paso involucra decirle a Postfix que utilice el filtro recientemente configurado. Esto es tan simple como agregar la siguiente directiva a <code class="filename">/etc/postfix/main.cf</code>:
+			</div><pre class="programlisting">
+# Revisión de virus con clamav-milter
+smtpd_milters = inet:[127.0.0.1]:10002
+</pre><div class="para">
+				Si el antivirus causa problema, puede comentar esta línea; deberá ejecutar <code class="command">/etc/init.d/postfix reload</code> para que se tenga en cuenta el cambio.
+			</div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>EN LA PRÁCTICA</em></span> Prueba del antivirus</strong></p></div></div></div><div class="para">
+				Una vez que configuró el antivirus, debe probar que funciona correctamente. La forma más simple de hacerlo es enviar un correo de prueba con un adjunto que contenga el archivo <code class="filename">eicar.com</code> (o <code class="filename">eicar.com.zip</code>) que puede descargar: <div xmlns="" class="url">→ <a xmlns="http://www.w3.org/1999/xhtml" href="http://www.eicar.org/anti_virus_test_file.htm">http://www.eicar.org/anti_virus_test_file.htm</a></div>
+			</div><div class="para">
+				Este archivo no es un virus real sino un archivo de prueba que todo software antivirus en el mercado diagnostica como un virus para poder probar instalaciones.
+			</div></div><div class="para">
+				Todos los mensajes gestionados por Postfix ahora pasarán a través del filtro antivirus.
+			</div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a xmlns="" id="idm140547819438000"></a>11.1.7. SMTP autenticado</h3></div></div></div><div class="para">
+				Poder enviar correos necesita que pueda acceder al servidor SMTP; también requiere que dicho servidor SMTP permita enviar correos. Para usuarios móviles, que pueden necesitar cambiar la configuración de su cliente SMTP regularmente ya que el servidor SMTP de Falcot rechaza los mensajes que provienen de direcciones IPs que no parecen pertenecer a la compañía. Existen dos soluciones: o bien los usuarios móviles instalan un servidor SMTP en sus equipos o utilizan el servidor de la compañía con alguna forma de autenticarse como empleados. No se recomienda la primera solución ya que el equipo no estará conectado permanentemente y no podrá volver a intentar enviar mensajes en caso de problemas; nos enfocaremos en la última solución.
+			</div><div class="para">
+				La autenticación SMTN en Postfix depende de SASL (<span class="emphasis"><em>capa de seguridad y autenticación simple</em></span>: «Simple Authentication and Security Layer»). Necesitará instalar los paquetes <span class="pkg pkg">libsasl2-modules</span> y <span class="pkg pkg">sasl2-bin</span>, y luego registrar una contraseña en la base de datos SALS para cada usuario que necesite autenticarse en el servidor SMTP. Puede hacerlo con el programa <code class="command">saslpasswd2</code> que toma varios parámetros. La opción <code class="literal">-u</code> define el dominio de autenticación, que debe coincidir con el parámetro <code class="literal">smtpd_sasl_local_domain</code> en la configuración de Postfix. La opción <code class="literal">-c</code> permite crear un usuario y la opción <code class="literal">-f</code> permite especificar el archivo a utilizar si necesita almacenar la base de datos SALS en una ubicación diferente a la predeterminada (<code class="filename">/etc/sasldb2</code>).
+			</div><pre class="screen scale">
+<code class="computeroutput"># </code><strong class="userinput"><code>saslpasswd2 -u `postconf -h myservidor` -f /var/spool/postfix/etc/sasldb2 -c jean</code></strong>
+<code class="computeroutput">[... ingrese la contraseña de jean dos veces ...]</code></pre><div class="para">
+				Note que se creó la base de datos SASL en el directorio de Postfix. Para poder asegurar consistencia, también convertimos <code class="filename">/etc/sasldb2</code> en un enlace simbólico que apunta a la base de datos utilizada por Postfix con <code class="command">ln -sf /var/spool/postfix/etc/sasldb2 /etc/sasldb2</code>.
+			</div><div class="para">
+				Ahora necesitamos configurar Postfix para que utilice SASL. Primero necesita agregar al usuario <code class="literal">postfix</code> al grupo <code class="literal">sasl</code> para que pueda acceder a la base de datos SASL. También necesitará agregar algunos parámetros nuevos para activar SASL y necesita configurar el parámetro <code class="literal">smtpd_recipient_restrictions</code> para permitir que los clientes autenticados por SASL puedan enviar correos libremente.
+			</div><div class="example"><a xmlns="" id="idm140547819425568"></a><p class="title"><strong>Ejemplo 11.15. Activación de SASL en <code class="filename">/etc/postfix/main.cf</code></strong></p><div class="example-contents"><pre class="programlisting">
+# Activar autenticación SASL
+smtpd_sasl_auth_enable = yes
+# Definir el dominio de autenticación SASL
+smtpd_sasl_local_domain = $myhostname
+[...]
+# Agregar permit_sasl_authenticated antes de reject_unauth_destination
+# permite reenviar correos enviados por usuarios autenticados por SASL
+smtpd_recipient_restrictions = permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination,
+[...]
+</pre></div></div><div class="sidebar"><div class="titlepage"><div><div><p class="title"><strong><span class="emphasis"><em>EXTRA</em></span> Cliente SMTP autenticado</strong></p></div></div></div><div class="para">
+				La mayoría de los clientes de correo pueden autenticarse con un servidor SMTP antes de enviar mensajes, y utilizar esta funcionalidad es tan simple como configurar los parámetros apropiados. Si el cliente utilizado no provee esta funcionalidad, puede utilizar un servidor Postfix local y configurarlo para reenviar el correo a través de un servidor SMTP remoto. En este caso, el Postfix local será el cliente que se autentica con SASL. Estos son los parámetros necesarios:
+			</div><pre class="programlisting">
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+relay_host = [mail.falcot.com]
+</pre><div class="para">
+				El archivo <code class="filename">/etc/postfix/sasl_passwd</code> necesita contener el nombre de usuarios y la contraseña a utilizar para autenticarse en el servidor <code class="literal">mail.falcot.com</code>. Por ejemplo:
+			</div><pre class="programlisting">
+[mail.falcot.com]   joe:LyinIsji
+</pre><div class="para">
+				Como en todos los archivos de asociación de Postfix, debe convertir este archivo en <code class="filename">/etc/postfix/sasl_passwd.db</code> con el programa <code class="command">postmap</code>.
